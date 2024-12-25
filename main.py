@@ -57,57 +57,50 @@ async def Geminif(msg):
     return Response
 
 async def Requestf(url, msg):
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": API[0]
+    urls = {
+    "https://api.x.ai/v1/chat/completions": ["Bearer "+msg.kenX, "grok-beta"],
+    "https://api.groq.com/openai/v1/chat/completions": ["Bearer "msg.kenGroq,"llama-3.3-70b-specdec"], 
+    "https://api.mistral.ai/v1/chat/completions":["Bearer "msg.kenMistral, "mistral-large-latest"],
     }
-    data = {
-        # "model": ,
-        "model": API[1],
-        "messages": [{"role": "user","content": "Who are you?"}]
-    try:
-        # Make the POST request with a timeout (e.g., 30 seconds)
+    
+    for url, API in urls.items():
+    
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": API[0]
+        }
+        
+        data = {
+            # "model": ,
+            "model": API[1],
+            "messages": [{"role": "user","content": msg.messageRequest}]
+        }
+    
         response = requests.post(url, headers=headers, json=data, timeout=500)
-
-        # Check if the request was successful
+    
         if response.status_code == 200:
-            # print("Response received:", response.json()['choices'][0]['message']['content'])
-            print(response.json()['data'][0]['url'])
-        else:
-            print("Request failed with status code:", response.status_code)
-    except requests.exceptions.Timeout:
-        print("The request timed out")
-    except requests.exceptions.RequestException as e:
-        print("An error occurred:", e)
-
-
-      
-    return Response
-
-
+            return response.json()['choices'][0]['message']['content'])
 
 @app.post("/message")
 async def receive_message(msg: Message):
-    ResponseOpenAI = OpenAIf(msg)
-    ResponseGemini = Geminif(msg)
-
-
-
-  
+    ResponseOpenAI = ''
+    ResponseGemini = ''
+    ResponseRequest = ''
     
-    # Log the message and model received
-    print(f"Received message: {msg.message}")
-    print(f"Received model: {msg.model}")
+    try:
+        ResponseOpenAI = OpenAIf(msg)
+    except:
+        pass
+    try:
+        ResponseGemini = Geminif(msg)
+    except:
+        pass
+    try:
+        ResponseRequest = Requestf(msg)
+    except:
+        pass
 
-    # For the sake of this example, the response will return the message and model
-    print(f"Sent response: {Response}")
-
-    return Response
-
-
-
-
-
+    return ResponseOpenAI+ResponseGemini+ResponseRequest
 
 @app.get("/")
 async def root():
