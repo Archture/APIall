@@ -112,13 +112,13 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
     Helper function for performing a POST asynchronously.
     """
     try:
-    # We can pass a timeout via the ClientSession or the .post() method.
-    async with session.post(url, headers=headers, json=data, timeout=500) as r:
-    r_json = await r.json()
-    return r_json['choices'][0]['message']['content']
+        # We can pass a timeout via the ClientSession or the .post() method.
+        async with session.post(url, headers=headers, json=data, timeout=500) as r:
+        r_json = await r.json()
+        return r_json['choices'][0]['message']['content']
     except Exception:
-    # Catch and return an empty string if any error, or re-raise if you prefer
-    return ""
+        # Catch and return an empty string if any error, or re-raise if you prefer
+        return ""
 
 @app.post("/message")
 async def receive_message(msg: Message):
@@ -146,4 +146,4 @@ async def receive_message(msg: Message):
     
 @app.get("/")
 async def root():
-return {"message": "API is running"}
+    return {"message": "API is running"}
