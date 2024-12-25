@@ -77,7 +77,7 @@ async def Requestf(msg):
         "https://api.groq.com/openai/v1/chat/completions": ["Bearer "+msg.kenGroq, msg.modelGrok],
         "https://api.mistral.ai/v1/chat/completions": ["Bearer "+msg.kenMistral, msg.modelMistral],
     }
-
+    Response = ''
     for url, API in urls.items():
         headers = {
             "Content-Type": "application/json",
@@ -91,8 +91,8 @@ async def Requestf(msg):
 
         response = requests.post(url, headers=headers, json=data, timeout=500)
 
-        if response.status_code == 200:
-            return response.json()['choices'][0]['message']['content']
+        Response += response.json()['choices'][0]['message']['content']
+        return Response
 
 @app.post("/message")
 async def receive_message(msg: Message):
