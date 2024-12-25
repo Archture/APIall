@@ -22,25 +22,25 @@ allow_headers=["*"], # Allows all headers
 
 
 class Message(BaseModel):
-messageOpenAi: str
-messageGemini: str
-messageX: str
-messageGrok: str
-messageMistral: str
-
-modelOpenAi: str  # New 'model' field to be sent in the JSON body
-modelGemini: str  # New 'model' field to be sent in the JSON body
-modelX: str       # New 'model' field to be sent in the JSON body
-modelGrok: str    # New 'model' field to be sent in the JSON body
-modelMistral: str # New 'model' field to be sent in the JSON body
-
-kenOpenAi: str
-kenGemini: str
-kenX: str
-kenGroq: str
-kenMistral: str
-
-sys: str = "You are a helpful assistant."
+    messageOpenAi: str
+    messageGemini: str
+    messageX: str
+    messageGrok: str
+    messageMistral: str
+    
+    modelOpenAi: str  # New 'model' field to be sent in the JSON body
+    modelGemini: str  # New 'model' field to be sent in the JSON body
+    modelX: str       # New 'model' field to be sent in the JSON body
+    modelGrok: str    # New 'model' field to be sent in the JSON body
+    modelMistral: str # New 'model' field to be sent in the JSON body
+    
+    kenOpenAi: str
+    kenGemini: str
+    kenX: str
+    kenGroq: str
+    kenMistral: str
+    
+    sys: str = "You are a helpful assistant."
 
 async def OpenAIf(msg: Message):
     """
