@@ -79,19 +79,22 @@ async def Requestf(msg):
     }
     Response = ''
     for url, API in urls.items():
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": API[0]
-        }
-
-        data = {
-            "model": API[1],
-            "messages": [{"role": "user","content": API[2]}]
-        }
-
-        response = requests.post(url, headers=headers, json=data, timeout=500)
-
-        Response += response.json()['choices'][0]['message']['content']
+        try:
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": API[0]
+            }
+    
+            data = {
+                "model": API[1],
+                "messages": [{"role": "user","content": API[2]}]
+            }
+    
+            response = requests.post(url, headers=headers, json=data, timeout=500)
+    
+            Response += response.json()['choices'][0]['message']['content']
+        except:
+            pass
     return Response
 
 @app.post("/message")
