@@ -92,7 +92,7 @@ async def Requestf(msg):
         response = requests.post(url, headers=headers, json=data, timeout=500)
 
         Response += response.json()['choices'][0]['message']['content']
-        return Response
+    return Response
 
 @app.post("/message")
 async def receive_message(msg: Message):
