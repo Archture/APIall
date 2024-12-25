@@ -103,20 +103,22 @@ async def receive_message(msg: Message):
     ResponseGemini = ''
     ResponseRequest = ''
 
-    try:
-        ResponseOpenAI = await OpenAIf(msg)
-    except:
-        pass
-    try:
-        ResponseGemini = await Geminif(msg)
-    except:
-        pass
-    try:
-        ResponseRequest = await Requestf(msg)
-    except:
-        pass
+    results = await asyncio.gather(
+        OpenAIf(msg),
+        Geminif(msg),
+        Requestf(msg),
+        return_exceptions=True
+    )
+
+    if not isinstance(results[0], Exception):
+        ResponseOpenAI = results[0]
+    if not isinstance(results[1], Exception):
+        ResponseGemini = results[1]
+    if not isinstance(results[2], Exception):
+        ResponseRequest = results[2]
 
     return ResponseOpenAI + ResponseGemini + ResponseRequest
+
 
 @app.get("/")
 async def root():
