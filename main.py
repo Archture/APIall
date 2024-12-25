@@ -114,8 +114,8 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
     try:
         # We can pass a timeout via the ClientSession or the .post() method.
         async with session.post(url, headers=headers, json=data, timeout=500) as r:
-        r_json = await r.json()
-        return r_json['choices'][0]['message']['content']
+            r_json = await r.json()
+            return r_json['choices'][0]['message']['content']
     except Exception:
         # Catch and return an empty string if any error, or re-raise if you prefer
         return ""
