@@ -75,7 +75,7 @@ async def Requestf(msg):
     urls = {
         "https://api.x.ai/v1/chat/completions": ["Bearer "+msg.kenX, msg.modelX, msg.messageX],
         "https://api.groq.com/openai/v1/chat/completions": ["Bearer "+msg.kenGroq, msg.modelGrok, msg.messageGrok],
-        "https://api.mistral.ai/v1/chat/completions": ["Bearer "+msg.kenMistral, msg.modelMistral, msg.kenMistral],
+        "https://api.mistral.ai/v1/chat/completions": ["Bearer "+msg.kenMistral, msg.modelMistral, msg.messageMistral],
     }
     Response = ''
     for url, API in urls.items():
