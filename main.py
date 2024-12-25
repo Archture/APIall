@@ -73,9 +73,9 @@ async def Geminif(msg):
 
 async def Requestf(msg):
     urls = {
-        "https://api.x.ai/v1/chat/completions": ["Bearer "+msg.kenX, "grok-beta"],
-        "https://api.groq.com/openai/v1/chat/completions": ["Bearer "+msg.kenGroq, "llama-3.3-70b-specdec"],
-        "https://api.mistral.ai/v1/chat/completions": ["Bearer "+msg.kenMistral, "mistral-large-latest"],
+        "https://api.x.ai/v1/chat/completions": ["Bearer "+msg.kenX, modelX],
+        "https://api.groq.com/openai/v1/chat/completions": ["Bearer "+msg.kenGroq, msg.modelGrok],
+        "https://api.mistral.ai/v1/chat/completions": ["Bearer "+msg.kenMistral, msg.modelMistral],
     }
 
     for url, API in urls.items():
