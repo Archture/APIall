@@ -155,12 +155,12 @@ async def RequestfAlt(msg: Message):
     return response.json()['message']['content'][0]['text']
 
 async def baidu_request_async(msg: Message):
-    # try:
-    raw_response = await asyncio.to_thread(ask_Q, msg)
-    return raw_response.json().get('result', 'No result retrieved')
-    # except Exception as e:
-    #     print(f"Error in baidu_request_async: {e}")
-    #     return ""
+    try:
+        raw_response = await asyncio.to_thread(ask_Q, msg)
+        return raw_response.json().get('result', 'No result retrieved')
+    except Exception as e:
+        print(f"Error in baidu_request_async: {e}")
+        return ""
 
 @app.post("/message")
 async def receive_message(msg: Message):
@@ -171,11 +171,12 @@ async def receive_message(msg: Message):
         RequestfAlt(msg),
         # baidu_request_async(msg)
     ]
-
-    results = await asyncio.gather(*tasks, return_exceptions=True)
-    response_texts = [result for result in results if isinstance(result, str)]
-
-    return "".join(response_texts)
+    print(tasks)
+    return str(tasks)
+    
+    # results = await asyncio.gather(*tasks, return_exceptions=True)
+    # response_texts = [result for result in results if isinstance(result, str)]
+    # return "".join(response_texts)
 
 @app.get("/")
 async def root():
