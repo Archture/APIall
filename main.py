@@ -159,8 +159,9 @@ async def RequestfAlt(msg: Message):
     try:
         # Make the POST request with a timeout (e.g., 30 seconds)
         response = requests.post("https://api.cohere.com/v2/chat", headers=headers, json=data, timeout=500)
-
-    return "".join(response)
+    except:
+        response = ''
+    return response
 
 async def baidu_request_async(msg: Message):
     try:
