@@ -84,10 +84,6 @@ def ask_Q(msg: Message):
         print(f"Error making Baidu API request: {e}")
         raise HTTPException(status_code=500, detail="Error communicating with Baidu API.")
 
-
-
-
-
 async def OpenAIf(msg: Message):
     endpoint = "https://models.inference.ai.azure.com"
     client = ChatCompletionsClient(endpoint=endpoint, credential=AzureKeyCredential(msg.kenOpenAi))
@@ -140,7 +136,7 @@ async def Requestf(msg: Message):
 async def RequestfAlt(msg: Message):
     headers = {
         "Content-Type": "application/json",
-        "Authorization": msg.kenCohere
+        "Authorization": "Bearer " + msg.kenCohere
     }
     data = {
         "model": msg.modelCohere,
