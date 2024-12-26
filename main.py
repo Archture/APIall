@@ -155,7 +155,7 @@ async def RequestfAlt(msg: Message):
         # "model": ,
         "model": msg.modelCohere,
         "messages": [{"role": "user","content": msg.messageCohere}]
-
+    }
     try:
         # Make the POST request with a timeout (e.g., 30 seconds)
         response = requests.post("https://api.cohere.com/v2/chat", headers=headers, json=data, timeout=500)
