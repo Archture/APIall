@@ -171,10 +171,11 @@ async def receive_message(msg: Message):
         RequestfAlt(msg),
         # baidu_request_async(msg)
     ]
-    print(tasks)
-    return str(tasks)
-    
-    # results = await asyncio.gather(*tasks, return_exceptions=True)
+
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+    print(results)
+    return str(results)
+
     # response_texts = [result for result in results if isinstance(result, str)]
     # return "".join(response_texts)
 
