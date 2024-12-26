@@ -152,7 +152,10 @@ async def RequestfAlt(msg: Message):
     # except Exception as e:
     #     print(f"Error in RequestfAlt: {e}")
     #     response = ''
-    return response.json()['message']['content'][0]['text']
+    response_text = response.json()['message']['content'][0]['text']
+    print(response)
+    print(response_text)
+    return response_text
 
 async def baidu_request_async(msg: Message):
     try:
@@ -173,8 +176,6 @@ async def receive_message(msg: Message):
     ]
 
     results = await asyncio.gather(*tasks, return_exceptions=True)
-    print(results[0])
-    print(type(results[0]))
     return results[0]
 
     # response_texts = [result for result in results if isinstance(result, str)]
