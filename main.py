@@ -63,7 +63,7 @@ def get_access_token(msg: Message):
         return None
 
 def ask_Q(msg: Message):
-    access_token = get_access_token(msg.messageBaidu)
+    access_token = get_access_token(msg)
     if not access_token:
         raise HTTPException(status_code=500, detail="Failed to retrieve access token.")
 
@@ -152,7 +152,6 @@ async def RequestfAlt(msg: Message):
         "Authorization": msg.kenCohere
     }
     data = {
-        # "model": ,
         "model": msg.modelCohere,
         "messages": [{"role": "user","content": msg.messageCohere}]
     }
