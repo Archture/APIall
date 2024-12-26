@@ -115,15 +115,6 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
         print(f"Error in fetch_async: {e}")
         return ""
 
-async def fetch_async_alt(session: aiohttp.ClientSession, url: str, headers: dict, data: dict) -> str:
-    try:
-        async with session.post(url, headers=headers, json=data, timeout=500) as r:
-            r_json = await r.json()
-            return r_json['message']['content'][0]['text']
-    except Exception as e:
-        print(f"Error in fetch_async_alt: {e}")
-        return ""
-
 async def Requestf(msg: Message):
     urls = {
         "https://api.x.ai/v1/chat/completions": ["Bearer " + msg.kenX, msg.modelX, msg.messageX],
@@ -161,7 +152,7 @@ async def RequestfAlt(msg: Message):
     except Exception as e:
         print(f"Error in RequestfAlt: {e}")
         response = ''
-    return response
+    return response.json()['message']['content'][0]['text']
 
 async def baidu_request_async(msg: Message):
     try:
