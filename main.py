@@ -160,8 +160,8 @@ async def RequestfAlt(msg: Message):
                 # Safely access nested properties
                 response_text = response_json.get('message', {}).get('content', [{}])[0].get('text', '')
                 
-                print("Response:", response)
-                print("Response text:", response_text)
+                # print("Response:", response)
+                # print("Response text:", response_text)
                 
                 return response_text
                 
