@@ -174,7 +174,7 @@ async def receive_message(msg: Message):
 
     results = await asyncio.gather(*tasks, return_exceptions=True)
     print(results[0])
-    print(instance(results[0]))
+    print(type(results[0]))
     return results[0]
 
     # response_texts = [result for result in results if isinstance(result, str)]
