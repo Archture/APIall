@@ -146,21 +146,21 @@ async def RequestfAlt(msg: Message):
         "model": msg.modelCohere,
         "messages": [{"role": "user","content": msg.messageCohere}]
     }
-    try:
+    # try:
         # Make the POST request with a timeout (e.g., 30 seconds)
-        response = requests.post("https://api.cohere.com/v2/chat", headers=headers, json=data, timeout=500)
-    except Exception as e:
-        print(f"Error in RequestfAlt: {e}")
-        response = ''
+    response = requests.post("https://api.cohere.com/v2/chat", headers=headers, json=data, timeout=500)
+    # except Exception as e:
+    #     print(f"Error in RequestfAlt: {e}")
+    #     response = ''
     return response.json()['message']['content'][0]['text']
 
 async def baidu_request_async(msg: Message):
-    try:
-        raw_response = await asyncio.to_thread(ask_Q, msg)
-        return raw_response.json().get('result', 'No result retrieved')
-    except Exception as e:
-        print(f"Error in baidu_request_async: {e}")
-        return ""
+    # try:
+    raw_response = await asyncio.to_thread(ask_Q, msg)
+    return raw_response.json().get('result', 'No result retrieved')
+    # except Exception as e:
+    #     print(f"Error in baidu_request_async: {e}")
+    #     return ""
 
 @app.post("/message")
 async def receive_message(msg: Message):
