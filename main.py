@@ -47,7 +47,7 @@ class Message(BaseModel):
     kenBaiduSec: str
     sys: str = "You are a helpful assistant."
 
-async def get_access_token(msg: Message):
+def get_access_token(msg: Message):
     url = "https://aip.baidubce.com/oauth/2.0/token"
     params = {
         "grant_type": "client_credentials",
@@ -62,7 +62,7 @@ async def get_access_token(msg: Message):
         print(f"Error getting access token: {e}")
         return None
 
-async def ask_Q(msg: Message):
+def ask_Q(msg: Message):
     access_token = get_access_token(msg.messageBaidu)
     if not access_token:
         raise HTTPException(status_code=500, detail="Failed to retrieve access token.")
@@ -159,7 +159,8 @@ async def RequestfAlt(msg: Message):
     try:
         # Make the POST request with a timeout (e.g., 30 seconds)
         response = requests.post("https://api.cohere.com/v2/chat", headers=headers, json=data, timeout=500)
-    except:
+    except Exception as e:
+        print(f"Error in RequestfAlt: {e}")
         response = ''
     return response
 
