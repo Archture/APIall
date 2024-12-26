@@ -144,18 +144,37 @@ async def RequestfAlt(msg: Message):
     }
     data = {
         "model": msg.modelCohere,
-        "messages": [{"role": "user","content": msg.messageCohere}]
+        "messages": [{"role": "user", "content": msg.messageCohere}]
     }
-    # try:
-        # Make the POST request with a timeout (e.g., 30 seconds)
-    response = requests.post("https://api.cohere.com/v2/chat", headers=headers, json=data, timeout=500)
-    # except Exception as e:
-    #     print(f"Error in RequestfAlt: {e}")
-    #     response = ''
-    response_text = response.json()['message']['content'][0]['text']
-    print(response)
-    print(response_text)
-    return response_text
+    
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.post(
+                "https://api.cohere.com/v2/chat",
+                headers=headers,
+                json=data,
+                timeout=500
+            ) as response:
+                # Ensure the request was successful
+                response.raise_for_status()
+                
+                # Parse JSON response
+                response_json = await response.json()
+                
+                # Safely access nested properties
+                response_text = response_json.get('message', {}).get('content', [{}])[0].get('text', '')
+                
+                print("Response:", response)
+                print("Response text:", response_text)
+                
+                return response_text
+                
+    except aiohttp.ClientError as e:
+        print(f"Request error in RequestfAlt: {e}")
+        return ''
+    except (KeyError, IndexError, ValueError) as e:
+        print(f"Response parsing error in RequestfAlt: {e}")
+        return ''
 
 async def baidu_request_async(msg: Message):
     try:
