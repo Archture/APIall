@@ -186,15 +186,14 @@ async def receive_message(msg: Message):
         # OpenAIf(msg),
         # Geminif(msg),
         # Requestf(msg),
-        RequestfAlt(msg),
-        # baidu_request_async(msg)
+        # RequestfAlt(msg),
+        baidu_request_async(msg)
     ]
 
     results = await asyncio.gather(*tasks, return_exceptions=True)
-    return results[0]
 
-    # response_texts = [result for result in results if isinstance(result, str)]
-    # return "".join(response_texts)
+    response_texts = [result for result in results if isinstance(result, str)]
+    return "".join(response_texts)
 
 @app.get("/")
 async def root():
