@@ -183,10 +183,10 @@ async def baidu_request_async(msg: Message):
 @app.post("/message")
 async def receive_message(msg: Message):
     tasks = [
-        # OpenAIf(msg),
-        # Geminif(msg),
-        # Requestf(msg),
-        # RequestfAlt(msg),
+        OpenAIf(msg),
+        Geminif(msg),
+        Requestf(msg),
+        RequestfAlt(msg),
         baidu_request_async(msg)
     ]
 
