@@ -113,7 +113,7 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
 
 async def Requestf(msg: Message):
     urls = {
-        # "https://api.x.ai/v1/chat/completions": ["Bearer " + msg.kenX, msg.modelX, msg.messageX],
+        "https://open.bigmodel.cn/api/paas/v4/chat/completions": ["Bearer " + msg.kenX, msg.modelX, msg.messageX],
         "https://api.groq.com/openai/v1/chat/completions": ["Bearer " + msg.kenGroq, msg.modelGrok, msg.messageGrok],
         "https://api.mistral.ai/v1/chat/completions": ["Bearer " + msg.kenMistral, msg.modelMistral, msg.messageMistral],
     }
