@@ -25,7 +25,7 @@ class Message(BaseModel):
     messageOpenAi: str
     messageGemini: str
     messageX: str
-    messageGrok: str
+    messageGroq: str
     messageMistral: str
     messageBaidu: str
     messageCohere: str
@@ -34,7 +34,7 @@ class Message(BaseModel):
     modelOpenAi: str
     modelGemini: str
     modelX: str
-    modelGrok: str
+    modelGroq: str
     modelMistral: str
     modelCohere: str
     modelTogether: str
@@ -117,7 +117,7 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
 async def Requestf(msg: Message):
     urls = {
         "https://open.bigmodel.cn/api/paas/v4/chat/completions": ["Bearer " + msg.kenX, msg.modelX, msg.messageX],
-        "https://api.groq.com/openai/v1/chat/completions": ["Bearer " + msg.kenGroq, msg.modelGrok, msg.messageGrok],
+        "https://api.groq.com/openai/v1/chat/completions": ["Bearer " + msg.kenGroq, msg.modelGroq, msg.messageGroq],
         "https://api.mistral.ai/v1/chat/completions": ["Bearer " + msg.kenMistral, msg.modelMistral, msg.messageMistral],
         "https://api.together.xyz/v1/chat/completions":["Bearer " + msg.kenTogether, msg.modelTogether, msg.messageTogether]
 
