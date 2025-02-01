@@ -29,6 +29,7 @@ class Message(BaseModel):
     messageMistral: str
     messageBaidu: str
     messageCohere: str
+    messageTogether: str
 
     modelOpenAi: str
     modelGemini: str
@@ -36,6 +37,7 @@ class Message(BaseModel):
     modelGrok: str
     modelMistral: str
     modelCohere: str
+    modelTogether: str
 
     kenOpenAi: str
     kenGemini: str
@@ -45,6 +47,7 @@ class Message(BaseModel):
     kenCohere: str
     kenBaiduId: str
     kenBaiduSec: str
+    kenTogether: str
     sys: str = "You are a helpful assistant."
 
 def get_access_token(msg: Message):
@@ -116,6 +119,8 @@ async def Requestf(msg: Message):
         "https://open.bigmodel.cn/api/paas/v4/chat/completions": ["Bearer " + msg.kenX, msg.modelX, msg.messageX],
         "https://api.groq.com/openai/v1/chat/completions": ["Bearer " + msg.kenGroq, msg.modelGrok, msg.messageGrok],
         "https://api.mistral.ai/v1/chat/completions": ["Bearer " + msg.kenMistral, msg.modelMistral, msg.messageMistral],
+        "https://api.together.xyz/v1/chat/completions":["Bearer " + msg.kenTogether, msg.modelTogether, msg.messageTogether]
+
     }
 
     response_text = []
