@@ -186,19 +186,36 @@ async def baidu_request_async(msg: Message):
         return ""
 
 @app.post("/message")
-async def receive_message(msg: Message):
+async def receive_message(msg):
+    # Create the tasks
     tasks = [
-        OpenAIf(msg),
-        Geminif(msg),
-        Requestf(msg),
-        RequestfAlt(msg),
-        baidu_request_async(msg)
+        asyncio.create_task(OpenAIf(msg)),
+        asyncio.create_task(Geminif(msg)),
+        asyncio.create_task(Requestf(msg)),
+        asyncio.create_task(RequestfAlt(msg)),
+        asyncio.create_task(baidu_request_async(msg))
     ]
 
-    results = await asyncio.gather(*tasks, return_exceptions=True)
+    # Wait up to 30 seconds for the tasks to complete
+    done, pending = await asyncio.wait(tasks, timeout=30)
 
-    response_texts = [result for result in results if isinstance(result, str)]
-    return "".join(response_texts)
+    # Cancel any tasks that didn't finish
+    for p in pending:
+        p.cancel()
+
+    # Gather results from the tasks that completed
+    results = []
+    for d in done:
+        try:
+            result = d.result()  # May raise an exception if the task failed
+            if isinstance(result, str):
+                results.append(result)
+        except Exception:
+            # Handle or ignore exceptions in tasks
+            pass
+
+    # Return a combined string of valid results
+    return "".join(results)
 
 @app.get("/")
 async def root():
