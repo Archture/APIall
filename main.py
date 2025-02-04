@@ -186,7 +186,7 @@ async def baidu_request_async(msg: Message):
         return ""
 
 @app.post("/message")
-async def receive_message(msg):
+async def receive_message(msg: Message):
     # Create the tasks
     tasks = [
         asyncio.create_task(OpenAIf(msg)),
