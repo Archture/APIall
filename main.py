@@ -107,7 +107,7 @@ async def Geminif(msg: Message):
 
 async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, data: dict) -> str:
     try:
-        async with session.post(url, headers=headers, json=data, timeout=500) as r:
+        async with session.post(url, headers=headers, json=data, timeout=30) as r:
             r_json = await r.json()
             return r_json['choices'][0]['message']['content']
     except Exception as e:
@@ -197,7 +197,7 @@ async def receive_message(msg: Message):
     ]
 
     # Wait up to 30 seconds for the tasks to complete
-    done, pending = await asyncio.wait(tasks, timeout=30)
+    done, pending = await asyncio.wait(tasks, timeout=35)
 
     # Cancel any tasks that didn't finish
     for p in pending:
