@@ -3,7 +3,7 @@ import asyncio
 import aiohttp
 import requests
 import json
-import google.generativeai as genai
+# import google.generativeai as genai
 # from azure.ai.inference import ChatCompletionsClient
 # from azure.ai.inference.models import SystemMessage, UserMessage
 # from azure.core.credentials import AzureKeyCredential
@@ -121,7 +121,7 @@ async def Requestf(msg: Message):
         "https://api.groq.com/openai/v1/chat/completions": ["Bearer " + msg.kenGroq, msg.modelGroq, msg.messageGroq],
         "https://api.mistral.ai/v1/chat/completions": ["Bearer " + msg.kenMistral, msg.modelMistral, msg.messageMistral],
         "https://api.together.xyz/v1/chat/completions":["Bearer " + msg.kenTogether, msg.modelTogether, msg.messageTogether],
-        # "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.messageGemini],
+        "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.messageGemini],
         "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.messageOpenAi]
 
     }
@@ -196,7 +196,7 @@ async def receive_message(msg: Message):
     # Create the tasks
     tasks = [
         # OpenAIf(msg),
-        Geminif(msg),
+        # Geminif(msg),
         Requestf(msg),
         RequestfAlt(msg),
         baidu_request_async(msg)
