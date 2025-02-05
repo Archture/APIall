@@ -3,7 +3,7 @@ import asyncio
 import aiohttp
 import requests
 import json
-# import google.generativeai as genai
+import google.generativeai as genai
 # from azure.ai.inference import ChatCompletionsClient
 # from azure.ai.inference.models import SystemMessage, UserMessage
 # from azure.core.credentials import AzureKeyCredential
@@ -102,7 +102,7 @@ async def OpenAIf(msg: Message):
 async def Geminif(msg: Message):
     genai.configure(api_key=msg.kenGemini)
     model = genai.GenerativeModel(msg.modelGemini)
-    response = await asyncio.wait_for(asyncio.to_thread(blocking_function), timeout=35  # Set the timeout in seconds)
+    response = await asyncio.wait_for(asyncio.to_thread(model.generate_content, msg.messageGemini), timeout=35)  # Set the timeout in seconds
     return response.text
 
 async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, data: dict) -> str:
