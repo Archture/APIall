@@ -80,7 +80,7 @@ def ask_Q(msg: Message):
     headers = {"Content-Type": "application/json"}
 
     try:
-        response = requests.post(url, headers=headers, data=payload)
+        response = requests.post(url, headers=headers, data=payload, timeout=35)
         response.raise_for_status()
         return response
     except requests.RequestException as e:
@@ -102,12 +102,12 @@ async def OpenAIf(msg: Message):
 async def Geminif(msg: Message):
     genai.configure(api_key=msg.kenGemini)
     model = genai.GenerativeModel(msg.modelGemini)
-    response = await asyncio.to_thread(model.generate_content, msg.messageGemini)
+    response = await asyncio.wait_for(asyncio.to_thread(blocking_function), timeout=35  # Set the timeout in seconds)
     return response.text
 
 async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, data: dict) -> str:
     try:
-        async with session.post(url, headers=headers, json=data, timeout=30) as r:
+        async with session.post(url, headers=headers, json=data, timeout=35) as r:
             r_json = await r.json()
             return r_json['choices'][0]['message']['content']
     except Exception as e:
@@ -120,7 +120,7 @@ async def Requestf(msg: Message):
         "https://api.groq.com/openai/v1/chat/completions": ["Bearer " + msg.kenGroq, msg.modelGroq, msg.messageGroq],
         "https://api.mistral.ai/v1/chat/completions": ["Bearer " + msg.kenMistral, msg.modelMistral, msg.messageMistral],
         "https://api.together.xyz/v1/chat/completions":["Bearer " + msg.kenTogether, msg.modelTogether, msg.messageTogether],
-        "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.messageGemini],
+        # "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.messageGemini],
         "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.messageOpenAi]
 
     }
@@ -156,7 +156,7 @@ async def RequestfAlt(msg: Message):
                 "https://api.cohere.com/v2/chat",
                 headers=headers,
                 json=data,
-                timeout=500
+                timeout=35
             ) as response:
                 # Ensure the request was successful
                 response.raise_for_status()
@@ -191,33 +191,16 @@ async def baidu_request_async(msg: Message):
 async def receive_message(msg: Message):
     # Create the tasks
     tasks = [
-        # asyncio.create_task(OpenAIf(msg)),
-        # asyncio.create_task(Geminif(msg)),
-        asyncio.create_task(Requestf(msg)),
-        asyncio.create_task(RequestfAlt(msg)),
-        asyncio.create_task(baidu_request_async(msg))
+        # OpenAIf(msg),
+        Geminif(msg),
+        Requestf(msg),
+        RequestfAlt(msg),
+        baidu_request_async(msg)
     ]
 
-    # Wait up to 30 seconds for the tasks to complete
-    done, pending = await asyncio.wait(tasks, timeout=35)
-
-    # Cancel any tasks that didn't finish
-    for p in pending:
-        p.cancel()
-
-    # Gather results from the tasks that completed
-    results = []
-    for d in done:
-        try:
-            result = d.result()  # May raise an exception if the task failed
-            if isinstance(result, str):
-                results.append(result)
-        except Exception:
-            # Handle or ignore exceptions in tasks
-            pass
-
-    # Return a combined string of valid results
-    return "".join(results)
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+    response_texts = [result for result in results if isinstance(result, str)]
+    return "".join(response_texts)
 
 @app.get("/")
 async def root():
