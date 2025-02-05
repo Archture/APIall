@@ -135,7 +135,7 @@ async def Requestf(msg: Message):
             }) for url, API in urls.items()
         ]
         responses = await asyncio.gather(*tasks, return_exceptions=True)
-        for i,resp in enumberate(responses):
+        for i,resp in enumerate(responses):
             if isinstance(resp, str):
                 response_text.append(resp)
                 print(str(i)+resp)
