@@ -103,6 +103,7 @@ async def Geminif(msg: Message):
     genai.configure(api_key=msg.kenGemini)
     model = genai.GenerativeModel(msg.modelGemini)
     response = await asyncio.wait_for(asyncio.to_thread(model.generate_content, msg.messageGemini), timeout=35)  # Set the timeout in seconds
+    print('Geminif: '+response)
     return response.text
 
 async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, data: dict) -> str:
@@ -134,9 +135,10 @@ async def Requestf(msg: Message):
             }) for url, API in urls.items()
         ]
         responses = await asyncio.gather(*tasks, return_exceptions=True)
-        for resp in responses:
+        for i,resp in enumberate(responses):
             if isinstance(resp, str):
                 response_text.append(resp)
+                print(str(i)+response)
 
     return "".join(response_text)
 
@@ -168,7 +170,7 @@ async def RequestfAlt(msg: Message):
                 response_text = response_json.get('message', {}).get('content', [{}])[0].get('text', '')
                 
                 # print("Response:", response)
-                # print("Response text:", response_text)
+                print("RequestfAlt: "+response_text)
                 
                 return response_text
                 
@@ -182,7 +184,9 @@ async def RequestfAlt(msg: Message):
 async def baidu_request_async(msg: Message):
     try:
         raw_response = await asyncio.to_thread(ask_Q, msg)
-        return raw_response.json().get('result', 'No result retrieved')
+        response = raw_response.json().get('result', 'No result retrieved')
+        print('baidu: '+response)
+        return response
     except Exception as e:
         print(f"Error in baidu_request_async: {e}")
         return ""
