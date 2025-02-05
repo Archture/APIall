@@ -138,7 +138,7 @@ async def Requestf(msg: Message):
         for i,resp in enumberate(responses):
             if isinstance(resp, str):
                 response_text.append(resp)
-                print(str(i)+response)
+                print(str(i)+resp)
 
     return "".join(response_text)
 
