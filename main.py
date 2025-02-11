@@ -54,6 +54,7 @@ class Message(BaseModel):
     
     sys: str = "You are a helpful assistant."
     sentence: str
+    prompt: str
 
 def get_access_token(msg: Message):
     url = "https://aip.baidubce.com/oauth/2.0/token"
@@ -80,7 +81,7 @@ def ask_Q(msg: Message):
         f"wenxinworkshop/chat/ernie-speed-128k?access_token={access_token}"
     )
     payload = json.dumps({
-        "messages": [{"role": "user", "content": msg.messageBaidu + msg.sentence}]
+        "messages": [{"role": "user", "content": msg.prompt + msg.messageBaidu + msg.sentence}]
     })
     headers = {"Content-Type": "application/json"}
 
@@ -97,7 +98,7 @@ async def OpenAIf(msg: Message):
     client = ChatCompletionsClient(endpoint=endpoint, credential=AzureKeyCredential(msg.kenOpenAi))
     response = await asyncio.to_thread(
         client.complete,
-        messages=[SystemMessage(content=msg.sys), UserMessage(content=msg.messageOpenAi + msg.sentence)],
+        messages=[SystemMessage(content=msg.sys), UserMessage(content=msg.prompt + msg.messageOpenAi + msg.sentence)],
         temperature=1.0,
         top_p=1.0,
         model=msg.modelOpenAi
@@ -107,7 +108,7 @@ async def OpenAIf(msg: Message):
 async def Geminif(msg: Message):
     genai.configure(api_key=msg.kenGemini)
     model = genai.GenerativeModel(msg.modelGemini)
-    response = await asyncio.to_thread(model.generate_content, msg.messageGemini + msg.sentence)
+    response = await asyncio.to_thread(model.generate_content, msg.prompt + msg.messageGemini + msg.sentence)
     print('Gemini: '+ response)
     return response.text
 
@@ -123,13 +124,13 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
 
 async def Requestf(msg: Message):
     urls = {
-        "https://open.bigmodel.cn/api/paas/v4/chat/completions": ["Bearer " + msg.kenX, msg.modelX, msg.messageX + msg.sentence],
-        "https://api.groq.com/openai/v1/chat/completions": ["Bearer " + msg.kenGroq, msg.modelGroq, msg.messageGroq + msg.sentence],
-        "https://api.mistral.ai/v1/chat/completions": ["Bearer " + msg.kenMistral, msg.modelMistral, msg.messageMistral + msg.sentence],
-        "https://api.together.xyz/v1/chat/completions":["Bearer " + msg.kenTogether, msg.modelTogether, msg.messageTogether + msg.sentence],
-        "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.messageGemini + msg.sentence],
-        "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.messageOpenAi + msg.sentence],
-        "https://openrouter.ai/api/v1/chat/completions":["Bearer " + msg.kenOpenRouter, msg.modelOpenRouter, msg.messageOpenRouter + msg.sentence],
+        "https://open.bigmodel.cn/api/paas/v4/chat/completions": ["Bearer " + msg.kenX, msg.modelX, msg.prompt + msg.messageX + msg.sentence],
+        "https://api.groq.com/openai/v1/chat/completions": ["Bearer " + msg.kenGroq, msg.modelGroq, msg.prompt + msg.messageGroq + msg.sentence],
+        "https://api.mistral.ai/v1/chat/completions": ["Bearer " + msg.kenMistral, msg.modelMistral, msg.prompt + msg.messageMistral + msg.sentence],
+        "https://api.together.xyz/v1/chat/completions":["Bearer " + msg.kenTogether, msg.modelTogether, msg.prompt + msg.messageTogether + msg.sentence],
+        "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.prompt + msg.messageGemini + msg.sentence],
+        "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.prompt + msg.messageOpenAi + msg.sentence],
+        "https://openrouter.ai/api/v1/chat/completions":["Bearer " + msg.kenOpenRouter, msg.modelOpenRouter, msg.prompt + msg.messageOpenRouter + msg.sentence],
 
     }
 
@@ -156,7 +157,7 @@ async def RequestfAlt(msg: Message):
     }
     data = {
         "model": msg.modelCohere,
-        "messages": [{"role": "user", "content": msg.messageCohere + msg.sentence}]
+        "messages": [{"role": "user", "content": msg.prompt + msg.messageCohere + msg.sentence}]
     }
     
     try:
