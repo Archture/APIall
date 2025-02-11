@@ -30,6 +30,7 @@ class Message(BaseModel):
     messageBaidu: str
     messageCohere: str
     messageTogether: str
+    messageOpenRouter: str 
 
     modelOpenAi: str
     modelGemini: str
@@ -38,6 +39,7 @@ class Message(BaseModel):
     modelMistral: str
     modelCohere: str
     modelTogether: str
+    modelOpenRouter: str = "qwen/qwen2.5-vl-72b-instruct:free"
 
     kenOpenAi: str
     kenGemini: str
@@ -48,6 +50,10 @@ class Message(BaseModel):
     kenBaiduId: str
     kenBaiduSec: str
     kenTogether: str
+    kenOpenRouter: str
+
+
+    
     sys: str = "You are a helpful assistant."
 
 def get_access_token(msg: Message):
@@ -122,7 +128,8 @@ async def Requestf(msg: Message):
         "https://api.mistral.ai/v1/chat/completions": ["Bearer " + msg.kenMistral, msg.modelMistral, msg.messageMistral],
         "https://api.together.xyz/v1/chat/completions":["Bearer " + msg.kenTogether, msg.modelTogether, msg.messageTogether],
         "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.messageGemini],
-        "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.messageOpenAi]
+        "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.messageOpenAi]，
+        "https://openrouter.ai/api/v1/chat/completions":["Bearer " + msg.kenOpenRouter, msg.modelOpenRouter, msg.messageOpenRouter]，
 
     }
 
