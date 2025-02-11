@@ -133,9 +133,6 @@ async def Requestf(msg: Message):
 
     }
 
-    print(msg.kenOpenRouter)
-    print(msg.modelOpenRouter)
-    print(msg.messageOpenRouter)
     response_text = []
     async with aiohttp.ClientSession() as session:
         tasks = [
