@@ -115,10 +115,10 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
     try:
         async with session.post(url, headers=headers, json=data, timeout=35) as r:
             r_json = await r.json()
-            print(r_json)
             return r_json['choices'][0]['message']['content']
     except Exception as e:
         print(f"Error in fetch_async: {e}")
+        print(r_json)
         return ""
 
 async def Requestf(msg: Message):
