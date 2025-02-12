@@ -250,8 +250,8 @@ async def receive_message(msg: Message):
         # Geminif(msg),
         Requestf(msg),
         RequestfAlt(msg),
-        baidu_request_async(msg)，
-        RequestfCF(msg)
+        baidu_request_async(msg),
+        RequestfCF(msg),
     ]
 
     results = await asyncio.gather(*tasks, return_exceptions=True)
