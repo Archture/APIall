@@ -53,7 +53,7 @@ class Message(BaseModel):
     kenBaiduSec: str
     kenTogether: str
     kenOpenRouter: str
-    kenOpenCF: str
+    kenCF: str
     
     sys: str = "You are a helpful assistant."
     sentence: str
