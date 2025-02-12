@@ -31,6 +31,7 @@ class Message(BaseModel):
     messageCohere: str
     messageTogether: str
     messageOpenRouter: str 
+    messageCF: str
 
     modelOpenAi: str
     modelGemini: str
@@ -40,6 +41,7 @@ class Message(BaseModel):
     modelCohere: str
     modelTogether: str
     modelOpenRouter: str = "qwen/qwen2.5-vl-72b-instruct:free"
+    modelCF: str = "microsoft/phi-2"
 
     kenOpenAi: str
     kenGemini: str
@@ -51,6 +53,7 @@ class Message(BaseModel):
     kenBaiduSec: str
     kenTogether: str
     kenOpenRouter: str
+    kenOpenCF: str
     
     sys: str = "You are a helpful assistant."
     sentence: str
@@ -92,6 +95,46 @@ def ask_Q(msg: Message):
     except requests.RequestException as e:
         print(f"Error making Baidu API request: {e}")
         raise HTTPException(status_code=500, detail="Error communicating with Baidu API.")
+
+async def RequestfCF(msg: Message):
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + msg.kenCF
+    }
+    data = {
+        "messages": [{"role": "user", "content": msg.prompt + msg.messageCF + msg.sentence}]
+    }
+    
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.post(
+                r'https://api.cloudflare.com/client/v4/accounts/53a4ab7d625890920e433def35a30c59/ai/run/@cf/'+msg.modelCF,
+                headers=headers,
+                json=data,
+                timeout=35
+            ) as response:
+                # Ensure the request was successful
+                response.raise_for_status()
+                
+                # Parse JSON response
+                response_json = await response.json()
+                
+                # Safely access nested properties
+                response_text = response_json['result']['response']
+                
+                print("RequestCF: "+response_text)
+                
+                return response_text
+                
+    except aiohttp.ClientError as e:
+        print(f"Request error in RequestfAlt: {e}")
+        return ''
+    except (KeyError, IndexError, ValueError) as e:
+        print(f"Response parsing error in RequestfAlt: {e}")
+        return ''
+
+
+
 
 async def OpenAIf(msg: Message):
     endpoint = "https://models.inference.ai.azure.com"
@@ -207,7 +250,8 @@ async def receive_message(msg: Message):
         # Geminif(msg),
         Requestf(msg),
         RequestfAlt(msg),
-        baidu_request_async(msg)
+        baidu_request_async(msg)，
+        RequestfCF(msg)
     ]
 
     results = await asyncio.gather(*tasks, return_exceptions=True)
