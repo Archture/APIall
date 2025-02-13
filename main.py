@@ -32,6 +32,9 @@ class Message(BaseModel):
     messageTogether: str
     messageOpenRouter: str 
     messageCF: str
+    messageOVH: str
+    messageChutes: str
+    messageTargon: str
 
     modelOpenAi: str
     modelGemini: str
@@ -42,6 +45,9 @@ class Message(BaseModel):
     modelTogether: str
     modelOpenRouter: str = "qwen/qwen2.5-vl-72b-instruct:free"
     modelCF: str = "microsoft/phi-2"
+    modelOVH: str
+    modelChutes: str
+    modelTargon: str
 
     kenOpenAi: str
     kenGemini: str
@@ -54,6 +60,9 @@ class Message(BaseModel):
     kenTogether: str
     kenOpenRouter: str
     kenCF: str
+    kenOVH: str
+    kenChutes: str
+    kenTargon: str
     
     sys: str = "You are a helpful assistant."
     sentence: str
@@ -206,7 +215,7 @@ async def Requestf(msg: Message):
         "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.prompt + msg.messageGemini + msg.sentence],
         "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.prompt + msg.messageOpenAi + msg.sentence],
         "https://openrouter.ai/api/v1/chat/completions":["Bearer " + msg.kenOpenRouter, msg.modelOpenRouter, msg.prompt + msg.messageOpenRouter + msg.sentence],   
-        "https://chutes-"+ msg.modelChutes.lower().replace(r'/', '-') +".chutes.ai/v1/chat/completions":["Bearer " + msg.kenChutes, msg.modelChutes, msg.prompt + msg.message + msg.sentence],    
+        "https://chutes-"+ msg.modelChutes.lower().replace(r'/', '-') +".chutes.ai/v1/chat/completions":["Bearer " + msg.kenChutes, msg.modelChutes, msg.prompt + msg.messageChutes + msg.sentence],    
     }
 
     response_text = []
