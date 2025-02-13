@@ -274,6 +274,7 @@ async def RequestfAlt(msg: Message):
         return ''
 
 async def Requestfstream(msg: Message):
+    url = r"https://api.targon.com/v1/chat/completions"
     headers = {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + msg.kenTargon
