@@ -174,7 +174,7 @@ async def Requestf(msg: Message):
         "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.prompt + msg.messageGemini + msg.sentence],
         "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.prompt + msg.messageOpenAi + msg.sentence],
         "https://openrouter.ai/api/v1/chat/completions":["Bearer " + msg.kenOpenRouter, msg.modelOpenRouter, msg.prompt + msg.messageOpenRouter + msg.sentence],
-
+        "https://chutes-deepseek-ai-deepseek-r1-distill-llama-70b.chutes.ai/v1/chat/completions":["Bearer " + msg.ken, "deepseek-ai/DeepSeek-R1-Distill-Llama-70B", msg.prompt + msg.message + msg.sentence],
     }
 
     response_text = []
@@ -231,6 +231,56 @@ async def RequestfAlt(msg: Message):
     except (KeyError, IndexError, ValueError) as e:
         print(f"Response parsing error in RequestfAlt: {e}")
         return ''
+
+async def Requestfstream(msg: Message):
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + msg.kenTargon
+    }
+    data = {
+        "model": msg.modelTargon,
+        "messages": [{"role": "user", "content": msg.prompt + msg.messageTargon + msg.sentence}],
+        "stream": True,
+    }
+    
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.post(
+                "https://api.cohere.com/v2/chat",
+                headers=headers,
+                json=data,
+                timeout=35,
+                stream=True
+            ) as response:
+                # Ensure the request was successful
+                response.raise_for_status()
+                
+                full_response = ""
+            
+                for line in response.iter_lines():
+                    if line:
+                        decoded_line = line.decode('utf-8').strip()
+                        if decoded_line.startswith("data: "):  # OpenAI sends data in this format
+                            chunk = decoded_line[len("data: "):]  # Remove 'data: ' prefix
+                            if chunk.strip() != "[DONE]":  # Ignore the termination signal
+                                try:
+                                    json_data = json.loads(chunk)
+                                    full_response += json_data["choices"][0]["delta"].get("content", "")
+                                except:
+                                    pass  # Ignore malformed JSON parts
+            
+                print("Full response received:", full_response)
+                
+                return response_text
+                
+    except aiohttp.ClientError as e:
+        print(f"Request error in RequestfAlt: {e}")
+        return ''
+    except (KeyError, IndexError, ValueError) as e:
+        print(f"Response parsing error in RequestfAlt: {e}")
+        return ''
+
+
 
 async def baidu_request_async(msg: Message):
     try:
