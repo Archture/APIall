@@ -205,8 +205,8 @@ async def Requestf(msg: Message):
         "https://api.together.xyz/v1/chat/completions":["Bearer " + msg.kenTogether, msg.modelTogether, msg.prompt + msg.messageTogether + msg.sentence],
         "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.prompt + msg.messageGemini + msg.sentence],
         "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.prompt + msg.messageOpenAi + msg.sentence],
-        "https://openrouter.ai/api/v1/chat/completions":["Bearer " + msg.kenOpenRouter, msg.modelOpenRouter, msg.prompt + msg.messageOpenRouter + msg.sentence],
-        "https://chutes-deepseek-ai-deepseek-r1-distill-llama-70b.chutes.ai/v1/chat/completions":["Bearer " + msg.ken, "deepseek-ai/DeepSeek-R1-Distill-Llama-70B", msg.prompt + msg.message + msg.sentence],
+        "https://openrouter.ai/api/v1/chat/completions":["Bearer " + msg.kenOpenRouter, msg.modelOpenRouter, msg.prompt + msg.messageOpenRouter + msg.sentence],   
+        "https://chutes-"+ msg.modelChutes.lower().replace(r'/', '-') +".chutes.ai/v1/chat/completions":["Bearer " + msg.kenChutes, msg.modelChutes, msg.prompt + msg.message + msg.sentence],    
     }
 
     response_text = []
