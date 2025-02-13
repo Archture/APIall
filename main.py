@@ -343,6 +343,8 @@ async def receive_message(msg: Message):
         RequestfAlt(msg),
         baidu_request_async(msg),
         RequestfCF(msg),
+        RequestfOVH(msg),
+        Requestfstream(msg),
     ]
 
     results = await asyncio.gather(*tasks, return_exceptions=True)
