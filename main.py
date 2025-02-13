@@ -315,10 +315,10 @@ async def Requestfstream(msg: Message):
                 return full_response
                 
     except aiohttp.ClientError as e:
-        print(f"Request error in RequestfAlt: {e}")
+        print(f"Request error in Requestfstream: {e}")
         return ''
     except (KeyError, IndexError, ValueError) as e:
-        print(f"Response parsing error in RequestfAlt: {e}")
+        print(f"Response parsing error in Requestfstream: {e}")
         return ''
 
 
