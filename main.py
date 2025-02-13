@@ -285,44 +285,26 @@ async def Requestfstream(msg: Message):
     }
     
     try:
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
-                "https://api.targon.com/v1/chat/completions",  # Corrected URL for OpenAI
-                headers=headers,
-                json=data,
-                timeout=35
-            ) as response:
-                response.raise_for_status()
-                full_response = ""
-                
-                # Process the SSE stream
-                async for line in response.content.iter_lines():
-                    if line:
-                        line = line.decode('utf-8').strip()
-                        if line.startswith("data: "):
-                            if line == "data: [DONE]":
-                                break
-                            try:
-                                chunk = json.loads(line[6:])  # Remove "data: " prefix
-                                if chunk["choices"][0]["delta"].get("content"):
-                                    full_response += chunk["choices"][0]["delta"]["content"]
-                            except json.JSONDecodeError as e:
-                                print(f"JSON parsing error: {e}")
-                                continue
-                            except KeyError as e:
-                                print(f"Unexpected response format: {e}")
-                                continue
-                
-                print("Requestfstream:", full_response)
-                return full_response
-                
-    except aiohttp.ClientError as e:
-        print(f"Request error in Requestfstream: {e}")
-        return ''
-    except Exception as e:
-        print(f"Unexpected error in Requestfstream: {e}")
-        return ''
+        response = requests.post(url, headers=headers, json=data, timeout=35, stream=True)
+        full_response = ""
+    
+        for line in response.iter_lines():
+            if line:
+                decoded_line = line.decode('utf-8').strip()
+                if decoded_line.startswith("data: "):  # OpenAI sends data in this format
+                    chunk = decoded_line[len("data: "):]  # Remove 'data: ' prefix
+                    if chunk.strip() != "[DONE]":  # Ignore the termination signal
+                        try:
+                            json_data = json.loads(chunk)
+                            full_response += json_data["choices"][0]["delta"].get("content", "")
+                        except:
+                            pass  # Ignore malformed JSON parts
 
+        print("Requestfstream: "+ full_response)
+        return full_response
+    except Exception as e:
+        print(f"Error in Requestfstream: {e}")
+        return ""
 
 async def baidu_request_async(msg: Message):
     try:
