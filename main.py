@@ -235,6 +235,7 @@ async def Requestf(msg: Message):
     return "".join(response_text)
 
 async def RequestfAlt(msg: Message):
+    url = r"https://api.cohere.com/v2/chat"
     headers = {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + msg.kenCohere
@@ -245,26 +246,17 @@ async def RequestfAlt(msg: Message):
     }
     
     try:
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
-                "https://api.cohere.com/v2/chat",
-                headers=headers,
-                json=data,
-                timeout=35
-            ) as response:
-                # Ensure the request was successful
-                response.raise_for_status()
-                
-                # Parse JSON response
-                response_json = await response.json()
-                
-                # Safely access nested properties
-                response_text = response_json.get('message', {}).get('content', [{}])[0].get('text', '')
-                
-                # print("Response:", response)
-                print("RequestfAlt: "+response_text)
-                
-                return response_text
+        response = requests.post(url, headers=headers, json=data, timeout=35)
+        # Parse JSON response
+        response_json = response.json()
+        
+        # Safely access nested properties
+        response_text = response_json.get('message', {}).get('content', [{}])[0].get('text', '')
+        
+        # print("Response:", response)
+        print("RequestfAlt: "+response_text)
+        
+        return response_text
                 
     except aiohttp.ClientError as e:
         print(f"Request error in RequestfAlt: {e}")
