@@ -32,9 +32,9 @@ class Message(BaseModel):
     messageTogether: str
     messageOpenRouter: str 
     messageCF: str
-    messageOVH: str
-    messageChutes: str
-    messageTargon: str
+    messageOVH: str = "a flirtatious and scipy tone:"
+    messageChutes: str = "a flirtatious and scipy tone:"
+    messageTargon: str = "a flirtatious and scipy tone:"
 
     modelOpenAi: str
     modelGemini: str
