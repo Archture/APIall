@@ -151,6 +151,7 @@ async def RequestfOVH(msg: Message):
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer " + msg.kenOVH
+    }
     
     response = requests.post(url, json=payload, headers=headers)
     if response.status_code == 200:
