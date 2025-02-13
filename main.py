@@ -134,24 +134,23 @@ async def RequestfCF(msg: Message):
         return ''
 
 async def RequestfOVH(msg: Message):
-    url = "https://mistral-nemo-instruct-2407.endpoints.kepler.ai.cloud.ovh.net/api/openai_compat/v1/chat/completions"
+    url = "https://"+ msg.modelOVH.lower() +".endpoints.kepler.ai.cloud.ovh.net/api/openai_compat/v1/chat/completions"
     payload = {
         "max_tokens": 512,
         "messages": [
             {
-                "content": "Explain gravity for a 6 years old",
+                "content": msg.messageOVH,
                 "name": "User",
                 "role": "user"
             }
         ],
-        "model": "Mistral-Nemo-Instruct-2407",
+        "model": msg.modelOVH,
         "temperature": 0,
     }
     
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer eyJhbGciOiJFZERTQSJ9.eyJwcm9qZWN0IjoiMzBhOWM0MmNjNDNjNGQ3Nzk3NmU0NjFhNDk3MTIyM2YiLCJhdWQiOiIzNzM4NjExNjY0MDQzMDM0IiwiZXhwIjoxMDk2MjcxMjY4MywianRpIjoiNmE0YTVlMTUtNTM1ZC00NGEzLWIzMDEtYTU4NTBmNzg0OWQwIiwiaXNzIjoidHJhaW5pbmcuYWkuY2xvdWQub3ZoLm5ldCIsInN1YiI6ImNuNDg4MDUwLW92aCIsIm92aFRva2VuIjoieDdWRVlxZHZEOHRIazYtaHRWenRxb2hZY1lhNUhLMXZ2OHpJUGpRX09KWFhqU192X1NOeG54ZHAtV3lGVDA4ekxwWDZNZUZ4MlVyQnNNVHdWcDlPRlhtTUdoQktGejFjZ19hQWFwMGpxcFhwQU5kOFYzYnFSRTlBbzMzQVpKd1VHQmRNT0pmMXAtaFpibUM5eTJVTkNyT3JSbGYzbk84dHRNSWxTR3h4XzRVSTFaMW9jVVdfY3RVWmphaFFiVUhwdXpQTWtva18tYXBkTmhkZUVUUjNXYUtXdHU0U29mSURQRmxoNExvdEFHQTNkMXRqUm94VGU0LVhhajhQUm9GeDJyZlZ4RGc3WmlNQzBJUDltUkxoZkRDRE9PVWFOQVJLRHMtMUFNMlp0X01FOVdJVEc2alF6NW1rNUZmTmoyR0tPVVVwcVRvaW01MjcwY1FhZlM0dTdYOXBFUS15eEZsMEhoc3FYc0VnNExqbzZmQVVaV0JncnFVYkNwMXZKQ25kSlZQR0lfeE9EbllSNkVoNWpjS2h2ZUFMdHNtajdfVV9fMGRxUHdEdExibFJWNDlGandxRE8wWGF3Sk80aU5pVF9PS2lyQ0hGLTdPdGdCampDZVJCUGxsUmZZYm1lZ0hUM1poS00zT1l2a3A0R3pmUlVYekpobWhfSGtCSGxDemtBdzR4VzJBMmdkOXF2WmYxQXpzUDhRTFBBLWk3Nk9SaTZJQ2cxV3dCVGVKNVN1ZkdmWnpKTWZSOXJzTzJxUnVDQzJLOGFDZlhGc3FqSkQ2OWhVcUpGcDR0S09qQWZuN1RwZHRyemdONFVySHJPZVhJOWJSc2xDVm4wUHUxejEzQktKUVJ0NWRuajZpS0FyUHhxYjRCdnhHS2ZJZGg0Y3dIMGgyelZDZGREMkMtWndXQ0xRTTZJR0E5TUREYXgzVUlneXQ1dm44REhuU0ZGaUF0dmkya3JHcnVicWRtMUxwU3ktN29fdjlfNDNmQnNxMW1xdXZ0R0N4NHZveEFNUl9XREtQWjBMeXMtX09zMGtOWTd0b3FiVDJ4alYwU1FOLWMtV1BIZ19ValJBVkJtTFZYQ1ZxRUw2dXlEODU4ODg5NzYyZ05xT1g1OENQaUozendvSzVFVUpHY3ZHNVdLVHN1dS1LWnRfVlRwR2o4ZHlKMWN5Y0pZZHFsWjQzSVhFVTc0dTk1SThidXVsZ3VidTVKcEhSZ0hHRTJ4SFlPS2MxTm5tWXdLd0tKRzhDVWNwYmU0X2M3UW0zRkZzSEpNeTNWdzd5LWV3UWh3WTc1cUhGMmdGRXR4OXRLUDRUdkVFVkhMNmRhcXBrVnBmWmEifQ.RaNRzGB_3p5zwfP-RS9MZHS2cZDCU-H1ccFrZWDr-iBFQPrYgpFPtmdnKfyGnZerSEcK93M-aPnYZ_X1IsHkDQ",
-    }
+        "Authorization": f"Bearer " + msg.kenOVH
     
     response = requests.post(url, json=payload, headers=headers)
     if response.status_code == 200:
@@ -165,6 +164,8 @@ async def RequestfOVH(msg: Message):
             print('OVH:' + text)
     else:
         print("Error:", response.status_code)
+    
+    return text
 
 async def OpenAIf(msg: Message):
     endpoint = "https://models.inference.ai.azure.com"
