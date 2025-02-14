@@ -33,7 +33,7 @@ class Message(BaseModel):
     messageTogether: str
     messageOpenRouter: str 
     messageCF: str
-    messageOVH: str = "humorous joke:"
+    messageOVH: str = "humorous jokes:"
     messageChutes: str = "a flirtatious and spicy tone:"
     messageTargon: str = "a flirtatious and spicy tone:"
 
