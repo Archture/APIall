@@ -44,7 +44,7 @@ class Message(BaseModel):
     modelCohere: str
     modelTogether: str
     modelOpenRouter: str = "qwen/qwen2.5-vl-72b-instruct:free"
-    modelCF: str = "microsoft/phi-2"
+    modelCF: str = "openchat/openchat-3.5-0106"
     modelOVH: str = "Mistral-Nemo-Instruct-2407"
     modelChutes: str = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B"
     modelTargon: str = "NousResearch/Hermes-3-Llama-3.1-8B"
@@ -106,6 +106,7 @@ def ask_Q(msg: Message):
         raise HTTPException(status_code=500, detail="Error communicating with Baidu API.")
 
 async def RequestfCF(msg: Message):
+    url = r'https://api.cloudflare.com/client/v4/accounts/53a4ab7d625890920e433def35a30c59/ai/run/@cf/'+msg.modelCF
     headers = {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + msg.kenCF
@@ -115,31 +116,21 @@ async def RequestfCF(msg: Message):
     }
     
     try:
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
-                r'https://api.cloudflare.com/client/v4/accounts/53a4ab7d625890920e433def35a30c59/ai/run/@cf/'+msg.modelCF,
-                headers=headers,
-                json=data,
-                timeout=35
-            ) as response:
-                # Ensure the request was successful
-                response.raise_for_status()
-                
-                # Parse JSON response
-                response_json = await response.json()
-                
-                # Safely access nested properties
-                response_text = response_json['result']['response']
-                
-                print("RequestCF: "+response_text)
-                
-                return response_text
+        response = requests.post(url, headers=headers,json=data,timeout=35)
+        if response.status_code == 200:
+            response_json = response.json()
+            # Safely access nested properties
+            response_text = response_json['result']['response']
+            print("RequestCF: "+response_text)
+            return response_text
+        else:
+            print("Error cloudflare:", response.status_code)
                 
     except aiohttp.ClientError as e:
-        print(f"Request error in RequestfAlt: {e}")
+        print(f"Request error in RequestfCF: {e}")
         return ''
     except (KeyError, IndexError, ValueError) as e:
-        print(f"Response parsing error in RequestfAlt: {e}")
+        print(f"Response parsing error in RequestfCF: {e}")
         return ''
 
 async def RequestfOVH(msg: Message):
@@ -162,7 +153,7 @@ async def RequestfOVH(msg: Message):
         "Authorization": f"Bearer " + msg.kenOVH
     }
     
-    response = requests.post(url, json=payload, headers=headers)
+    response = requests.post(url, json=payload, headers=headers, timeout=35)
     if response.status_code == 200:
         # Handle response
         response_data = response.json()
