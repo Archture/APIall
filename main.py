@@ -103,7 +103,7 @@ def ask_Q(msg: Message):
     headers = {"Content-Type": "application/json"}
 
     try:
-        response = requests.post(url, headers=headers, data=payload, timeout=35)
+        response = requests.post(url, headers=headers, data=payload, timeout=30)
         response.raise_for_status()
         return response
     except requests.RequestException as e:
@@ -121,7 +121,7 @@ async def RequestfCF(msg: Message):
     }
     
     try:
-        response = requests.post(url, headers=headers,json=data,timeout=35)
+        response = requests.post(url, headers=headers,json=data,timeout=30)
         if response.status_code == 200:
             response_json = response.json()
             # Safely access nested properties
@@ -158,7 +158,7 @@ async def RequestfOVH(msg: Message):
         "Authorization": f"Bearer " + msg.kenOVH
     }
     
-    response = requests.post(url, json=payload, headers=headers, timeout=35)
+    response = requests.post(url, json=payload, headers=headers, timeout=30)
     if response.status_code == 200:
         # Handle response
         response_data = response.json()
@@ -242,7 +242,7 @@ async def RequestfAlt(msg: Message):
     }
     
     try:
-        response = requests.post(url, headers=headers, json=data, timeout=35)
+        response = requests.post(url, headers=headers, json=data, timeout=30)
         # Parse JSON response
         response_json = response.json()
         
@@ -274,7 +274,7 @@ async def Requestfstream(msg: Message):
     }
     
     try:
-        response = requests.post(url, headers=headers, json=data, timeout=35, stream=True)
+        response = requests.post(url, headers=headers, json=data, timeout=30, stream=True)
         full_response = ""
     
         for line in response.iter_lines():
