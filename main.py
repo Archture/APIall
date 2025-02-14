@@ -1,8 +1,9 @@
 import os
-import asyncio
-import aiohttp
+# import asyncio
+# import aiohttp
 import requests
 import json
+import re
 # import google.generativeai as genai
 # from azure.ai.inference import ChatCompletionsClient
 # from azure.ai.inference.models import SystemMessage, UserMessage
@@ -82,6 +83,10 @@ def get_access_token(msg: Message):
     except requests.RequestException as e:
         print(f"Error getting access token: {e}")
         return None
+
+def remove_think_tags(text: str) -> str:
+    """移除 <think>...</think> 包裹的内容"""
+    return re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL)
 
 def ask_Q(msg: Message):
     access_token = get_access_token(msg)
@@ -316,7 +321,8 @@ async def receive_message(msg: Message):
 
     results = await asyncio.gather(*tasks, return_exceptions=True)
     response_texts = [result for result in results if isinstance(result, str)]
-    return "".join(response_texts)
+    
+    return remove_think_tags("||".join(response_texts))
 
 @app.get("/")
 async def root():
