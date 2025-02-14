@@ -1,6 +1,6 @@
 import os
-# import asyncio
-# import aiohttp
+import asyncio
+import aiohttp
 import requests
 import json
 import re
@@ -297,7 +297,7 @@ async def Requestfstream(msg: Message):
 
 async def baidu_request_async(msg: Message):
     try:
-        raw_response = await asyncio.to_thread(ask_Q, msg)
+        raw_response = ask_Q(msg)
         response = raw_response.json().get('result', 'No result retrieved')
         print('baidu: '+response)
         return response
