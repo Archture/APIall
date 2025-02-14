@@ -228,7 +228,7 @@ async def Requestf(msg: Message):
                 response_text.append(resp)
                 print(str(i)+resp)
 
-    return "".join(response_text)
+    return "||".join(response_text)
 
 async def RequestfAlt(msg: Message):
     url = r"https://api.cohere.com/v2/chat"
