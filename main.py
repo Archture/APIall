@@ -144,7 +144,7 @@ async def RequestfOVH(msg: Message):
         "max_tokens": 512,
         "messages": [
             {
-                "content": msg.messageOVH,
+                "content": msg.prompt + msg.messageOVH + msg.sentence,
                 "name": "User",
                 "role": "user"
             }
