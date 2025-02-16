@@ -47,7 +47,7 @@ class Message(BaseModel):
     modelOpenRouter: str = "qwen/qwen2.5-vl-72b-instruct:free"
     modelCF: str = "openchat/openchat-3.5-0106"
     modelOVH: str = "Mistral-Nemo-Instruct-2407"
-    modelChutes: str = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B"
+    modelChutes: str = "cognitivecomputations/Dolphin3.0-R1-Mistral-24B" #  "deepseek-ai/DeepSeek-R1-Distill-Llama-70B"
     modelTargon: str = "NousResearch/Hermes-3-Llama-3.1-8B"
 
     kenOpenAi: str
