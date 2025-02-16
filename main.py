@@ -211,7 +211,7 @@ async def Requestf(msg: Message):
         "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.prompt + msg.messageGemini + msg.sentence],
         "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.prompt + msg.messageOpenAi + msg.sentence],
         "https://openrouter.ai/api/v1/chat/completions":["Bearer " + msg.kenOpenRouter, msg.modelOpenRouter, msg.prompt + msg.messageOpenRouter + msg.sentence],   
-        "https://chutes-"+ msg.modelChutes.lower().replace(r'/', '-') +".chutes.ai/v1/chat/completions":["Bearer " + msg.kenChutes, msg.modelChutes, msg.prompt + msg.messageChutes + msg.sentence],    
+        "https://chutes-"+ msg.modelChutes.lower().replace(r'/', '-').replace('.', '-') +".chutes.ai/v1/chat/completions":["Bearer " + msg.kenChutes, msg.modelChutes, msg.prompt + msg.messageChutes + msg.sentence],    
     }
 
     response_text = []
