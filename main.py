@@ -12,6 +12,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
+timeout = 18
+
 # -------------------- FastAPI Setup --------------------
 app = FastAPI()
 app.add_middleware(
@@ -103,7 +105,7 @@ def ask_Q(msg: Message):
     headers = {"Content-Type": "application/json"}
 
     try:
-        response = requests.post(url, headers=headers, data=payload, timeout=30)
+        response = requests.post(url, headers=headers, data=payload, timeout=timeout)
         response.raise_for_status()
         return response
     except requests.RequestException as e:
@@ -121,7 +123,7 @@ async def RequestfCF(msg: Message):
     }
     
     try:
-        response = requests.post(url, headers=headers,json=data,timeout=30)
+        response = requests.post(url, headers=headers,json=data,timeout=timeout)
         if response.status_code == 200:
             response_json = response.json()
             # Safely access nested properties
@@ -158,7 +160,7 @@ async def RequestfOVH(msg: Message):
         "Authorization": f"Bearer " + msg.kenOVH
     }
     
-    response = requests.post(url, json=payload, headers=headers, timeout=30)
+    response = requests.post(url, json=payload, headers=headers, timeout=timeout)
     if response.status_code == 200:
         # Handle response
         response_data = response.json()
@@ -194,7 +196,7 @@ async def Geminif(msg: Message):
 
 async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, data: dict) -> str:
     try:
-        async with session.post(url, headers=headers, json=data, timeout=10) as r:
+        async with session.post(url, headers=headers, json=data, timeout=timeout) as r:
             r_json = await r.json()
             return r_json['choices'][0]['message']['content']
     except Exception as e:
@@ -242,7 +244,7 @@ async def RequestfAlt(msg: Message):
     }
     
     try:
-        response = requests.post(url, headers=headers, json=data, timeout=30)
+        response = requests.post(url, headers=headers, json=data, timeout=timeout)
         # Parse JSON response
         response_json = response.json()
         
@@ -274,7 +276,7 @@ async def Requestfstream(msg: Message):
     }
     
     try:
-        response = requests.post(url, headers=headers, json=data, timeout=30, stream=True)
+        response = requests.post(url, headers=headers, json=data, timeout=timeout, stream=True)
         full_response = ""
     
         for line in response.iter_lines():
