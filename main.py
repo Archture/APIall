@@ -27,6 +27,7 @@ app.add_middleware(
 class Message(BaseModel):
     messageOpenAi: str
     messageGemini: str
+    messageBig: str
     messageX: str
     messageGroq: str
     messageMistral: str
@@ -41,7 +42,8 @@ class Message(BaseModel):
 
     modelOpenAi: str
     modelGemini: str
-    modelX: str
+    modelBig: str
+    modelX: str = "grok-2-1212"
     modelGroq: str
     modelMistral: str
     modelCohere: str
@@ -54,6 +56,7 @@ class Message(BaseModel):
 
     kenOpenAi: str
     kenGemini: str
+    kenBig: str
     kenX: str
     kenGroq: str
     kenMistral: str
@@ -206,7 +209,8 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
 
 async def Requestf(msg: Message):
     urls = {
-        "https://open.bigmodel.cn/api/paas/v4/chat/completions": ["Bearer " + msg.kenX, msg.modelX, msg.prompt + msg.messageX + msg.sentence],
+        "https://api.x.ai/v1/chat/completions": ["Bearer " + msg.kenX, msg.modelX, msg.prompt + msg.messageX + msg.sentence],
+        "https://open.bigmodel.cn/api/paas/v4/chat/completions": ["Bearer " + msg.kenBig, msg.modelBig, msg.prompt + msg.messageBig + msg.sentence],
         "https://api.groq.com/openai/v1/chat/completions": ["Bearer " + msg.kenGroq, msg.modelGroq, msg.prompt + msg.messageGroq + msg.sentence],
         "https://api.mistral.ai/v1/chat/completions": ["Bearer " + msg.kenMistral, msg.modelMistral, msg.prompt + msg.messageMistral + msg.sentence],
         "https://api.together.xyz/v1/chat/completions":["Bearer " + msg.kenTogether, msg.modelTogether, msg.prompt + msg.messageTogether + msg.sentence],
