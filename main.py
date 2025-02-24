@@ -39,8 +39,9 @@ class Message(BaseModel):
     messageOVH: str = "humorous jokes:"
     messageChutes: str = "a flirtatious and spicy tone:"
     messageTargon: str = "a flirtatious and spicy tone:"
-    messageFree: str = "a flirtatious and spicy tone:"
-    messageAnywhere: str = "precise wording and a sincere tone to give praise:"
+    # messageFree: str = "a flirtatious and spicy tone:"
+    # messageAnywhere: str = "precise wording and a sincere tone to give praise:"
+    
     modelOpenAi: str
     modelGemini: str
     modelBig: str
@@ -54,8 +55,8 @@ class Message(BaseModel):
     modelOVH: str = "Mistral-Nemo-Instruct-2407"
     modelChutes: str = "cognitivecomputations/Dolphin3.0-Mistral-24B" # "cognitivecomputations/Dolphin3.0-R1-Mistral-24B" #  "deepseek-ai/DeepSeek-R1-Distill-Llama-70B"
     modelTargon: str = "NousResearch/Hermes-3-Llama-3.1-8B"
-    modelFree: str = "gpt-4o-mini"
-    modelAnywhere: str = "gpt-4o-mini"
+    # modelFree: str = "gpt-4o-mini"
+    # modelAnywhere: str = "gpt-4o-mini"
 
     kenOpenAi: str
     kenGemini: str
@@ -72,8 +73,8 @@ class Message(BaseModel):
     kenOVH: str
     kenChutes: str
     kenTargon: str
-    kenFree: str
-    kenAnywhere: str
+    # kenFree: str
+    # kenAnywhere: str
     
     sys: str = "You are a helpful assistant."
     sentence: str
@@ -223,8 +224,8 @@ async def Requestf(msg: Message):
         "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.prompt + msg.messageOpenAi + msg.sentence],
         "https://openrouter.ai/api/v1/chat/completions":["Bearer " + msg.kenOpenRouter, msg.modelOpenRouter, msg.prompt + msg.messageOpenRouter + msg.sentence],   
         "https://chutes-"+ msg.modelChutes.lower().replace(r'/', '-').replace('.', '-') +".chutes.ai/v1/chat/completions":["Bearer " + msg.kenChutes, msg.modelChutes, msg.prompt + msg.messageChutes + msg.sentence],    
-        "https://free.v36.cm/v1/chat/completions": ["Bearer " + msg.kenFree, msg.modelFree, msg.prompt + msg.messageFree + msg.sentence],
-        "https://api.chatanywhere.org/v1/chat/completions": ["Bearer " + msg.kenAnywhere, msg.modelAnywhere, msg.prompt + msg.messageAnywhere + msg.sentence],
+        # "https://free.v36.cm/v1/chat/completions": ["Bearer " + msg.kenFree, msg.modelFree, msg.prompt + msg.messageFree + msg.sentence],
+        # "https://api.chatanywhere.org/v1/chat/completions": ["Bearer " + msg.kenAnywhere, msg.modelAnywhere, msg.prompt + msg.messageAnywhere + msg.sentence],
     }
 
     response_text = []
