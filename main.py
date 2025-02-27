@@ -292,7 +292,7 @@ async def RequestfWorkflow(msg: Message):
         response_json = response.json()
         
         # Safely access nested properties
-        response_text = response_json.get('output', {})
+        response_text = response_json.get('output', '')
         
         # print("Response:", response)
         print("RequestfWorkflow: "+response_text)
