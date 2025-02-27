@@ -279,7 +279,6 @@ async def RequestfAlt(msg: Message):
 async def RequestfWorkflow(msg: Message):
     url = r"https://api.vectorshift.ai/api/chatbots/run"
     headers = {
-        "Content-Type": "application/json",
         "Api-Key": msg.kenFlow
     }
     data = {
