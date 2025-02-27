@@ -289,8 +289,6 @@ async def RequestfWorkflow(msg: Message):
         
         # Parse JSON response
         response_json = response.json()
-        print("Full JSON Response:", response_json)
-
         
         # Safely access nested properties
         response_text = response_json.get('output', '')
@@ -305,6 +303,7 @@ async def RequestfWorkflow(msg: Message):
         return ''
     except (KeyError, IndexError, ValueError) as e:
         print(f"Response parsing error in RequestfWorkflow: {e}")
+        print("Full JSON Response:", response_json)
         return ''
 
 
