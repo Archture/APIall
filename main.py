@@ -284,7 +284,7 @@ async def RequestfWorkflow(msg: Message):
         "Authorization": "Bearer " + msg.kenFlow
     }
     data = {
-        "input": msg.sentence,"chatbot_name": "chat","username": "loveoraclevery","conversation_id": null
+        "input": msg.sentence,"chatbot_name": "chat","username": "loveoraclevery","conversation_id": None
     }
     print('9')
     try:
