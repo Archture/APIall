@@ -280,7 +280,7 @@ async def RequestfWorkflow(msg: Message):
     url = r"https://api.vectorshift.ai/api/chatbots/run"
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + msg.kenFlow
+        "Api-Key": msg.kenFlow
     }
     data = {
         "input": msg.sentence,"chatbot_name": "chat","username": "loveoraclevery","conversation_id": None
