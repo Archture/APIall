@@ -287,6 +287,8 @@ async def RequestfWorkflow(msg: Message):
     }
     try:
         response = requests.post(url, headers=headers, data=data, timeout=timeout)
+        print(response)
+        
         # Parse JSON response
         response_json = response.json()
         # Safely access nested properties
