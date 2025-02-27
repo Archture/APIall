@@ -277,7 +277,6 @@ async def RequestfAlt(msg: Message):
         return ''
 
 async def RequestfWorkflow(msg: Message):
-    print('5')
     url = r"https://api.vectorshift.ai/api/chatbots/run"
     headers = {
         "Content-Type": "application/json",
@@ -286,15 +285,12 @@ async def RequestfWorkflow(msg: Message):
     data = {
         "input": msg.sentence,"chatbot_name": "chat","username": "loveoraclevery","conversation_id": None
     }
-    print('9')
     try:
-        print('1')
         response = requests.post(url, headers=headers, data=data, timeout=timeout)
         # Parse JSON response
         response_json = response.json()
-        print('2')
         # Safely access nested properties
-        response_text = response_json.get('output', '')
+        response_text = response_json['output']
         
         # print("Response:", response)
         print("RequestfWorkflow: "+response_text)
