@@ -363,6 +363,7 @@ async def receive_message(msg: Message):
         RequestfCF(msg),
         RequestfOVH(msg),
         Requestfstream(msg),
+        RequestfWorkflow(msg),
     ]
 
     results = await asyncio.gather(*tasks, return_exceptions=True)
