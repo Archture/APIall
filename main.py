@@ -75,6 +75,7 @@ class Message(BaseModel):
     kenTargon: str
     kenFree: str
     kenAnywhere: str
+    kenFlow: str
     
     sys: str = "You are a helpful assistant."
     sentence: str
@@ -274,6 +275,37 @@ async def RequestfAlt(msg: Message):
     except (KeyError, IndexError, ValueError) as e:
         print(f"Response parsing error in RequestfAlt: {e}")
         return ''
+
+async def RequestfWorkflow(msg: Message):
+    url = r"https://api.vectorshift.ai/api/chatbots/run"
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + msg.kenFlow
+    }
+    data = {
+        "input": msg.sentence,"chatbot_name": "chat","username": "loveoraclevery","conversation_id": null
+    }
+    
+    try:
+        response = requests.post(url, headers=headers, json=data, timeout=timeout)
+        # Parse JSON response
+        response_json = response.json()
+        
+        # Safely access nested properties
+        response_text = response_json.get('output', {})
+        
+        # print("Response:", response)
+        print("RequestfWorkflow: "+response_text)
+        
+        return response_text
+                
+    except aiohttp.ClientError as e:
+        print(f"Request error in RequestfWorkflow: {e}")
+        return ''
+    except (KeyError, IndexError, ValueError) as e:
+        print(f"Response parsing error in RequestfWorkflow: {e}")
+        return ''
+
 
 async def Requestfstream(msg: Message):
     url = r"https://api.targon.com/v1/chat/completions"
