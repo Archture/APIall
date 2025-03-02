@@ -243,7 +243,7 @@ async def Requestf(msg: Message):
             fetch_async(session, url, {"Content-Type": "application/json", "Authorization": API[0]}, {
                 "model": API[1],
                 "messages": [{"role": "user", "content": API[2]}],
-                timeout=timeout
+                timeout:timeout
             }) for url, API in urls.items()
         ]
         responses = await asyncio.gather(*tasks, return_exceptions=True)
