@@ -12,7 +12,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
-timeout = 20
+global timeout = 20
 
 # -------------------- FastAPI Setup --------------------
 app = FastAPI()
@@ -204,7 +204,7 @@ async def Geminif(msg: Message):
     print('Gemini: '+ response)
     return response.text
 
-async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, data: dict) -> str:
+async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, data: dict, timeout: float = timeout) -> str:
     try:
         # Create a proper ClientTimeout object
         timeout_obj = aiohttp.ClientTimeout(total=timeout)
@@ -242,7 +242,8 @@ async def Requestf(msg: Message):
         tasks = [
             fetch_async(session, url, {"Content-Type": "application/json", "Authorization": API[0]}, {
                 "model": API[1],
-                "messages": [{"role": "user", "content": API[2]}]
+                "messages": [{"role": "user", "content": API[2]}],
+                timeout=timeout
             }) for url, API in urls.items()
         ]
         responses = await asyncio.gather(*tasks, return_exceptions=True)
