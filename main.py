@@ -206,12 +206,20 @@ async def Geminif(msg: Message):
 
 async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, data: dict) -> str:
     try:
-        async with session.post(url, headers=headers, json=data, timeout=timeout) as r:
+        # Create a proper ClientTimeout object
+        timeout_obj = aiohttp.ClientTimeout(total=timeout)
+        
+        async with session.post(url, headers=headers, json=data, timeout=timeout_obj) as r:
             r_json = await r.json()
             return r_json['choices'][0]['message']['content']
+    except asyncio.TimeoutError:
+        print(f"Timeout error for {url}")
+        return ""
+    except aiohttp.ClientError as e:
+        print(f"Client error in fetch_async for {url}: {e}")
+        return ""
     except Exception as e:
-        print(f"Error in fetch_async: {e}")
-        print(r_json)
+        print(f"Error in fetch_async for {url}: {e}")
         return ""
 
 async def Requestf(msg: Message):
