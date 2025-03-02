@@ -12,7 +12,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
-global timeout = 20
+timeout = 20
 
 # -------------------- FastAPI Setup --------------------
 app = FastAPI()
