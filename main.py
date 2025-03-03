@@ -209,18 +209,48 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
         # Create a proper ClientTimeout object
         timeout_obj = aiohttp.ClientTimeout(total=timeout)
         
-        async with session.post(url, headers=headers, json=data, timeout=timeout_obj) as r:
-            r_json = await r.json()
-            return r_json['choices'][0]['message']['content']
+        # Perform the POST request and raise for non-2xx statuses
+        async with session.post(url, headers=headers, json=data, timeout=timeout_obj) as response:
+            response.raise_for_status()  # Raises aiohttp.ClientResponseError if status is 4xx/5xx
+            
+            # Safely parse the response as JSON
+            r_json = await response.json()
+            
+            # Safely navigate the nested JSON structure
+            # e.g., r_json['choices'][0]['message']['content']
+            choices = r_json.get('choices', [])
+            if len(choices) > 0:
+                message_dict = choices[0].get('message', {})
+                return message_dict.get('content', "")
+            
+            # If the expected fields are not present, return a fallback/string
+            print("Response JSON does not contain the expected structure.")
+            return ""
+    
     except asyncio.TimeoutError:
         print(f"Timeout error for {url}")
         return ""
+    
+    # Handle errors for non-2xx status codes
+    except aiohttp.ClientResponseError as e:
+        print(f"HTTP error (status={e.status}) in fetch_async for {url}: {e}")
+        return ""
+    
+    # Handle JSON decoding/content-type issues
+    except aiohttp.ContentTypeError as e:
+        print(f"Unable to parse JSON in response for {url}: {e}")
+        return ""
+    
+    # Catch other types of client errors (e.g., connection issues)
     except aiohttp.ClientError as e:
         print(f"Client error in fetch_async for {url}: {e}")
         return ""
+    
+    # Catch all other unexpected exceptions
     except Exception as e:
-        print(f"Error in fetch_async for {url}: {e}")
+        print(f"Unexpected error in fetch_async for {url}: {e}")
         return ""
+
 
 async def Requestf(msg: Message):
     urls = {
