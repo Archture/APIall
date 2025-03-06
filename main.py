@@ -224,7 +224,7 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
                 return message_dict.get('content', "")
             
             # If the expected fields are not present, return a fallback/string
-            print("Response JSON does not contain the expected structure.")
+            print("Response JSON does not contain the expected structure. r_json:"+str(r_json))
             return ""
     
     except asyncio.TimeoutError:
