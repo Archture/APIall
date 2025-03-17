@@ -53,7 +53,7 @@ class Message(BaseModel):
     modelOpenRouter: str = "qwen/qwen2.5-vl-72b-instruct:free"
     modelCF: str = "openchat/openchat-3.5-0106"
     modelOVH: str = "Mistral-Nemo-Instruct-2407"
-    modelChutes: str = "cognitivecomputations/Dolphin3.0-Mistral-24B" # "cognitivecomputations/Dolphin3.0-R1-Mistral-24B" #  "deepseek-ai/DeepSeek-R1-Distill-Llama-70B"
+    modelChutes: str = "open-r1/OlympicCoder-32B" # "cognitivecomputations/Dolphin3.0-Mistral-24B" # "cognitivecomputations/Dolphin3.0-R1-Mistral-24B" #  "deepseek-ai/DeepSeek-R1-Distill-Llama-70B"
     modelTargon: str = "NousResearch/Hermes-3-Llama-3.1-8B"
     modelFree: str = "gpt-4o-mini"
     modelAnywhere: str = "gpt-4o-mini"
