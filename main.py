@@ -54,7 +54,7 @@ class Message(BaseModel):
     modelCF: str = "openchat/openchat-3.5-0106"
     modelOVH: str = "Mistral-Nemo-Instruct-2407"
     modelChutes: str = "open-r1/OlympicCoder-7B" # "cognitivecomputations/Dolphin3.0-Mistral-24B" # "cognitivecomputations/Dolphin3.0-R1-Mistral-24B" #  "deepseek-ai/DeepSeek-R1-Distill-Llama-70B"
-    modelTargon: str = "NousResearch/Hermes-3-Llama-3.1-8B"
+    modelTargon: str = "deepseek-ai/DeepSeek-V3-0324"
     modelFree: str = "gpt-4o-mini"
     modelAnywhere: str = "gpt-4o-mini"
 
