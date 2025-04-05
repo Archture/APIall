@@ -393,15 +393,22 @@ async def baidu_request_async(msg: Message):
 async def RequestfPollination(msg: Message):
     url = r"https://text.pollinations.ai/"
     try:
-        response = requests.get(url+msg.prompt + msg.messagePollination + msg.sentence, timeout=timeout)
-        print("RequestfPollination: "+response)
-        return response
+        # Use aiohttp for async request instead of synchronous requests
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                url + msg.prompt + msg.messagePollination + msg.sentence, 
+                timeout=timeout
+            ) as response:
+                # Get text content from the response
+                response_text = await response.text()
+                print(f"RequestfPollination response: {response_text}")
+                return response_text
     except aiohttp.ClientError as e:
         print(f"Request error in RequestfPollination: {e}")
         return ''
     except (KeyError, IndexError, ValueError) as e:
         print(f"Response parsing error in RequestfPollination: {e}")
-        print("Full JSON Response:", response_json)
+        # Remove reference to undefined response_json variable
         return ''
 
 
