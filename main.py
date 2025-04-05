@@ -41,6 +41,7 @@ class Message(BaseModel):
     messageTargon: str = "a flirtatious and spicy tone:"
     messageFree: str = "a flirtatious and spicy tone:"
     messageAnywhere: str = "precise wording and a sincere tone to give praise:"
+    messagePollination: str = "humorous jokes:"
     
     modelOpenAi: str
     modelGemini: str
@@ -389,6 +390,23 @@ async def baidu_request_async(msg: Message):
         print(f"Error in baidu_request_async: {e}")
         return ""
 
+async def RequestfPollination(msg: Message):
+    url = r"https://text.pollinations.ai/"
+    try:
+        response = requests.get(url+msg.prompt + msg.messagePollination + msg.sentence, timeout=timeout)
+        print("RequestfPollination: "+response)
+        return response
+    except aiohttp.ClientError as e:
+        print(f"Request error in RequestfPollination: {e}")
+        return ''
+    except (KeyError, IndexError, ValueError) as e:
+        print(f"Response parsing error in RequestfPollination: {e}")
+        print("Full JSON Response:", response_json)
+        return ''
+
+
+
+
 @app.post("/message")
 async def receive_message(msg: Message):
     # Create the tasks
@@ -402,6 +420,7 @@ async def receive_message(msg: Message):
         RequestfOVH(msg),
         Requestfstream(msg),
         RequestfWorkflow(msg),
+        RequestfPollination(msg),
     ]
 
     results = await asyncio.gather(*tasks, return_exceptions=True)
