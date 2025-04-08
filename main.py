@@ -47,7 +47,7 @@ class Message(BaseModel):
     modelGemini: str
     modelBig: str
     modelX: str = "grok-2-1212"
-    modelGroq: str
+    modelGroq: str = "llama-3.3-70b-versatile"
     modelMistral: str
     modelCohere: str
     modelTogether: str
