@@ -42,6 +42,7 @@ class Message(BaseModel):
     messageFree: str = "a flirtatious and spicy tone:"
     messageAnywhere: str = "precise wording and a sincere tone to give praise:"
     messagePollination: str = "humorous jokes:"
+    messageCerebras: str = "humorous jokes:"
     
     modelOpenAi: str
     modelGemini: str
@@ -58,6 +59,7 @@ class Message(BaseModel):
     modelTargon: str = "deepseek-ai/DeepSeek-V3-0324"
     modelFree: str = "gpt-4o-mini"
     modelAnywhere: str = "gpt-4o-mini"
+    modelCerebras: str = "llama-4-scout-17b-16e-instruct"
 
     kenOpenAi: str
     kenGemini: str
@@ -77,6 +79,7 @@ class Message(BaseModel):
     kenFree: str
     kenAnywhere: str
     kenFlow: str
+    kenCerebras: str
     
     sys: str = "You are a helpful assistant."
     sentence: str
@@ -266,6 +269,7 @@ async def Requestf(msg: Message):
         "https://chutes-"+ msg.modelChutes.lower().replace(r'/', '-').replace('.', '-') +".chutes.ai/v1/chat/completions":["Bearer " + msg.kenChutes, msg.modelChutes, msg.prompt + msg.messageChutes + msg.sentence],    
         "https://free.v36.cm/v1/chat/completions": ["Bearer " + msg.kenFree, msg.modelFree, msg.prompt + msg.messageFree + msg.sentence],
         "https://api.chatanywhere.org/v1/chat/completions": ["Bearer " + msg.kenAnywhere, msg.modelAnywhere, msg.prompt + msg.messageAnywhere + msg.sentence],
+        "https://api.cerebras.ai/v1/chat/completions": ["Bearer " + msg.kenCerebras, msg.modelCerebras, msg.prompt + msg.messageCerebras + msg.sentence],
     }
 
     response_text = []
