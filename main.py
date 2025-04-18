@@ -44,10 +44,10 @@ class Message(BaseModel):
     messagePollination: str = "humorous jokes:"
     messageCerebras: str = "humorous jokes:"
     
-    modelOpenAi: str
+    modelOpenAi: str = "gpt-4.1"
     modelGemini: str
     modelBig: str
-    modelX: str = "grok-2-1212"
+    modelX: str = "grok-3-fast-beta"
     modelGroq: str = "llama-3.3-70b-versatile"
     modelMistral: str
     modelCohere: str
