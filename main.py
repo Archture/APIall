@@ -25,17 +25,17 @@ app.add_middleware(
 )
 
 class Message(BaseModel):
-    messageOpenAi: str
-    messageGemini: str
-    messageBig: str
-    messageX: str
-    messageGroq: str
-    messageMistral: str
-    messageBaidu: str
-    messageCohere: str
-    messageTogether: str
-    messageOpenRouter: str 
-    messageCF: str
+    messageOpenAi: str = "humorous jokes:"
+    messageGemini: str = "flirtatious pick-up lines:"
+    messageBig: str = "humorous jokes:"
+    messageX: str = "humorous jokes:"
+    messageGroq: str = "warm and caring tongue:"
+    messageMistral: str = "warm and caring tongue:"
+    messageBaidu: str = "humorous jokes:"
+    messageCohere: str = "humorous jokes:"
+    messageTogether: str = "a flirtatious and spicy tone:"
+    messageOpenRouter: str = "humorous jokes:"
+    messageCF: str = " humorous jokes:"
     messageOVH: str = "humorous jokes:"
     messageChutes: str = "a flirtatious and spicy tone:"
     messageTargon: str = "a flirtatious and spicy tone:"
@@ -44,14 +44,14 @@ class Message(BaseModel):
     messagePollination: str = "humorous jokes:"
     messageCerebras: str = "humorous jokes:"
     
-    modelOpenAi: str = "gpt-4.1"
-    modelGemini: str
-    modelBig: str
+    modelOpenAi: str = "gpt-4.1-mini"
+    modelGemini: str = "gemini-2.5-pro-exp-03-25"
+    modelBig: str = "GLM-4-Flash"
     modelX: str = "grok-3-fast-beta"
     modelGroq: str = "llama-3.3-70b-versatile"
-    modelMistral: str
-    modelCohere: str
-    modelTogether: str
+    modelMistral: str = "mistral-large-latest"
+    modelCohere: str = "command-r-plus-08-2024"
+    modelTogether: str = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free"
     modelOpenRouter: str = "qwen/qwen2.5-vl-72b-instruct:free"
     modelCF: str = "openchat/openchat-3.5-0106"
     modelOVH: str = "Mistral-Nemo-Instruct-2407"
