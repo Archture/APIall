@@ -80,6 +80,7 @@ class Message(BaseModel):
     kenAnywhere: str
     kenFlow: str
     kenCerebras: str
+    kenDify: str
     
     sys: str = "You are a helpful assistant."
     sentence: str
@@ -319,6 +320,44 @@ async def RequestfAlt(msg: Message):
         print(f"Response parsing error in RequestfAlt: {e}")
         return ''
 
+async def RequestfWorkflowDify(msg: Message):
+    url = r"https://api.dify.ai/v1/workflows/run"
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + msg.kenDify
+    }
+    data = {
+    "inputs":{"userInput":msg.sentence},
+    "query": msg.sentence,
+    "response_mode": "blocking",
+    "conversation_id": "",
+    "user": "abc-123",
+    "files": [
+    ]
+    }
+    try:
+        response = requests.post(url, headers=headers, json=data, timeout=timeout)
+        
+        # Parse JSON response
+        response_json = response.json()
+        
+        # Safely access nested properties
+        response_text = response_json['data']['outputs']['text']
+        
+        # print("Response:", response)
+        print("RequestfWorkflowDify: "+response_text)
+        
+        return response_text
+                
+    except aiohttp.ClientError as e:
+        print(f"Request error in RequestfWorkflowDify: {e}")
+        return ''
+    except (KeyError, IndexError, ValueError) as e:
+        print(f"Response parsing error in RequestfWorkflowDify: {e}")
+        print("Full JSON Response:", response_json)
+        return ''
+
+
 async def RequestfWorkflow(msg: Message):
     url = r"https://api.vectorshift.ai/api/chatbots/run"
     headers = {
@@ -432,6 +471,7 @@ async def receive_message(msg: Message):
         Requestfstream(msg),
         RequestfWorkflow(msg),
         RequestfPollination(msg),
+        RequestfWorkflowDify(msg),
     ]
 
     results = await asyncio.gather(*tasks, return_exceptions=True)
