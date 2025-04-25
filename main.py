@@ -45,7 +45,7 @@ class Message(BaseModel):
     messageCerebras: str = "humorous jokes:"
     
     modelOpenAi: str = "gpt-4.1-mini"
-    modelGemini: str = "gemini-2.5-pro-exp-03-25"
+    modelGemini: str = "models/gemini-2.5-flash-preview-04-17"
     modelBig: str = "GLM-4-Flash"
     modelX: str = "grok-3-fast-beta"
     modelGroq: str = "llama-3.3-70b-versatile"
