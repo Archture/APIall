@@ -328,7 +328,7 @@ async def RequestfWorkflowDify(msg: Message):
     }
     data = {
     "inputs":{"userInput":msg.sentence},
-    "query": msg.sentence,
+    # "query": msg.sentence,
     "response_mode": "blocking",
     "conversation_id": "",
     "user": "abc-123",
