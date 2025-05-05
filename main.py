@@ -134,7 +134,7 @@ async def RequestfCF(msg: Message):
         "Authorization": "Bearer " + msg.kenCF
     }
     data = {
-        "messages": [{"role": "user", "content": msg.prompt + msg.messageCF + msg.sentence}]
+        "messages": [{"role": "system", "content": msg.prompt + msg.messageCF}, {"role": "user", "content": msg.sentence}]
     }
     
     try:
@@ -160,14 +160,11 @@ async def RequestfOVH(msg: Message):
     payload = {
         "max_tokens": 512,
         "messages": [
-            {
-                "content": msg.prompt + msg.messageOVH + msg.sentence,
-                "name": "User",
-                "role": "user"
-            }
+         {"content": msg.prompt + msg.messageOVH, "role": "system"},   
+         {"content": msg.sentence, "role": "user"}
         ],
         "model": msg.modelOVH,
-        "temperature": 0,
+        "temperature": 1,
     }
     
     headers = {
@@ -297,7 +294,7 @@ async def RequestfAlt(msg: Message):
     }
     data = {
         "model": msg.modelCohere,
-        "messages": [{"role": "user", "content": msg.prompt + msg.messageCohere + msg.sentence}]
+        "messages": [{"role": "system", "content": msg.prompt + msg.messageCohere}, {"role": "user", "content": msg.sentence}]
     }
     
     try:
