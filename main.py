@@ -259,18 +259,18 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
 
 async def Requestf(msg: Message):
     urls = {
-        "https://api.x.ai/v1/chat/completions": ["Bearer " + msg.kenX, msg.modelX, msg.prompt + msg.messageX + msg.sentence],
-        "https://open.bigmodel.cn/api/paas/v4/chat/completions": ["Bearer " + msg.kenBig, msg.modelBig, msg.prompt + msg.messageBig + msg.sentence],
-        "https://api.groq.com/openai/v1/chat/completions": ["Bearer " + msg.kenGroq, msg.modelGroq, msg.prompt + msg.messageGroq + msg.sentence],
-        "https://api.mistral.ai/v1/chat/completions": ["Bearer " + msg.kenMistral, msg.modelMistral, msg.prompt + msg.messageMistral + msg.sentence],
-        "https://api.together.xyz/v1/chat/completions":["Bearer " + msg.kenTogether, msg.modelTogether, msg.prompt + msg.messageTogether + msg.sentence],
-        "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.prompt + msg.messageGemini + msg.sentence],
-        "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.prompt + msg.messageOpenAi + msg.sentence],
-        "https://openrouter.ai/api/v1/chat/completions":["Bearer " + msg.kenOpenRouter, msg.modelOpenRouter, msg.prompt + msg.messageOpenRouter + msg.sentence],   
-        "https://chutes-"+ msg.modelChutes.lower().replace(r'/', '-').replace('.', '-') +".chutes.ai/v1/chat/completions":["Bearer " + msg.kenChutes, msg.modelChutes, msg.prompt + msg.messageChutes + msg.sentence],    
-        "https://free.v36.cm/v1/chat/completions": ["Bearer " + msg.kenFree, msg.modelFree, msg.prompt + msg.messageFree + msg.sentence],
-        "https://api.chatanywhere.org/v1/chat/completions": ["Bearer " + msg.kenAnywhere, msg.modelAnywhere, msg.prompt + msg.messageAnywhere + msg.sentence],
-        "https://api.cerebras.ai/v1/chat/completions": ["Bearer " + msg.kenCerebras, msg.modelCerebras, msg.prompt + msg.messageCerebras + msg.sentence],
+        "https://api.x.ai/v1/chat/completions": ["Bearer " + msg.kenX, msg.modelX, msg.prompt + msg.messageX],
+        "https://open.bigmodel.cn/api/paas/v4/chat/completions": ["Bearer " + msg.kenBig, msg.modelBig, msg.prompt + msg.messageBig],
+        "https://api.groq.com/openai/v1/chat/completions": ["Bearer " + msg.kenGroq, msg.modelGroq, msg.prompt + msg.messageGroq],
+        "https://api.mistral.ai/v1/chat/completions": ["Bearer " + msg.kenMistral, msg.modelMistral, msg.prompt + msg.messageMistral],
+        "https://api.together.xyz/v1/chat/completions":["Bearer " + msg.kenTogether, msg.modelTogether, msg.prompt + msg.messageTogether],
+        "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.prompt + msg.messageGemini],
+        "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.prompt + msg.messageOpenAi],
+        "https://openrouter.ai/api/v1/chat/completions":["Bearer " + msg.kenOpenRouter, msg.modelOpenRouter, msg.prompt + msg.messageOpenRouter],   
+        "https://chutes-"+ msg.modelChutes.lower().replace(r'/', '-').replace('.', '-') +".chutes.ai/v1/chat/completions":["Bearer " + msg.kenChutes, msg.modelChutes, msg.prompt + msg.messageChutes],    
+        "https://free.v36.cm/v1/chat/completions": ["Bearer " + msg.kenFree, msg.modelFree, msg.prompt + msg.messageFree],
+        "https://api.chatanywhere.org/v1/chat/completions": ["Bearer " + msg.kenAnywhere, msg.modelAnywhere, msg.prompt + msg.messageAnywhere],
+        "https://api.cerebras.ai/v1/chat/completions": ["Bearer " + msg.kenCerebras, msg.modelCerebras, msg.prompt + msg.messageCerebras],
     }
 
     response_text = []
@@ -278,7 +278,7 @@ async def Requestf(msg: Message):
         tasks = [
             fetch_async(session, url, {"Content-Type": "application/json", "Authorization": API[0]}, {
                 "model": API[1],
-                "messages": [{"role": "user", "content": API[2]}],
+                "messages": [{"role": "system", "content": API[2]}, {"role": "user", "content": msg.sentence}],
             }, timeout) for url, API in urls.items()
         ]
         responses = await asyncio.gather(*tasks, return_exceptions=True)
