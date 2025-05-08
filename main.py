@@ -61,6 +61,7 @@ class Message(BaseModel):
     modelFree: str = "gpt-4o-mini"
     modelAnywhere: str = "gpt-4o-mini"
     modelCerebras: str = "llama-4-scout-17b-16e-instruct"
+    modelFastGPT: str = ""
 
     kenOpenAi: str
     kenGemini: str
@@ -270,7 +271,7 @@ async def Requestf(msg: Message):
         "https://free.v36.cm/v1/chat/completions": ["Bearer " + msg.kenFree, msg.modelFree, msg.prompt + msg.messageFree],
         "https://api.chatanywhere.org/v1/chat/completions": ["Bearer " + msg.kenAnywhere, msg.modelAnywhere, msg.prompt + msg.messageAnywhere],
         "https://api.cerebras.ai/v1/chat/completions": ["Bearer " + msg.kenCerebras, msg.modelCerebras, msg.prompt + msg.messageCerebras],
-        "https://cloud.fastgpt.cn/api/v1/chat/completions":["Bearer " + msg.kenFastGPT, msg.prompt + msg.messageFastGPT], 
+        "https://cloud.fastgpt.cn/api/v1/chat/completions":["Bearer " + msg.kenFastGPT, msg.modelFastGPT, msg.prompt + msg.messageFastGPT], 
 
     }
 
