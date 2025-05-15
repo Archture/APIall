@@ -187,9 +187,9 @@ async def RequestfOVH(msg: Message):
                   print('OVH:' + text)
                   return text
           else:
-              print("Error:", response.status_code)
+              print("Error in OVH:", response.status_code)
     except Exception as e:
-          print(f"Error in RequestfWorkflow: {e}")
+          print(f"Error in OVH: {e}")
           return ''
 
 async def OpenAIf(msg: Message):
