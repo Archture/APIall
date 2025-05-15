@@ -174,21 +174,24 @@ async def RequestfOVH(msg: Message):
         "Content-Type": "application/json",
         "Authorization": f"Bearer " + msg.kenOVH
     }
-    
-    response = requests.post(url, json=payload, headers=headers, timeout=timeout)
-    if response.status_code == 200:
-        # Handle response
-        response_data = response.json()
-        # Parse JSON response
-        choices = response_data["choices"]
-        for choice in choices:
-            text = choice["message"]["content"]
-            # Process text and finish_reason
-            print('OVH:' + text)
+    try:
+          response = requests.post(url, json=payload, headers=headers, timeout=timeout)
+          if response.status_code == 200:
+              # Handle response
+              response_data = response.json()
+              # Parse JSON response
+              choices = response_data["choices"]
+              for choice in choices:
+                  text = choice["message"]["content"]
+                  # Process text and finish_reason
+                  print('OVH:' + text)
     else:
-        print("Error:", response.status_code)
-    
-    return text
+          print("Error:", response.status_code)
+      
+      return text
+    except Exception as e:
+    print(f"Error in RequestfWorkflow: {e}")
+    return ''
 
 async def OpenAIf(msg: Message):
     endpoint = "https://models.inference.ai.azure.com"
@@ -351,12 +354,8 @@ async def RequestfWorkflowDify(msg: Message):
         
         return response_text
                 
-    except aiohttp.ClientError as e:
-        print(f"Request error in RequestfWorkflowDify: {e}")
-        return ''
-    except (KeyError, IndexError, ValueError) as e:
-        print(f"Response parsing error in RequestfWorkflowDify: {e}")
-        print("Full JSON Response:", response_json)
+    except Exception as e:
+        print(f"Error in RequestfWorkflowDify: {e}")
         return ''
 
 
@@ -382,12 +381,8 @@ async def RequestfWorkflow(msg: Message):
         
         return response_text
                 
-    except aiohttp.ClientError as e:
-        print(f"Request error in RequestfWorkflow: {e}")
-        return ''
-    except (KeyError, IndexError, ValueError) as e:
-        print(f"Response parsing error in RequestfWorkflow: {e}")
-        print("Full JSON Response:", response_json)
+    except Exception as e:
+        print(f"Error in RequestfWorkflow: {e}")
         return ''
 
 
