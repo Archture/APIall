@@ -185,13 +185,12 @@ async def RequestfOVH(msg: Message):
                   text = choice["message"]["content"]
                   # Process text and finish_reason
                   print('OVH:' + text)
-    else:
-          print("Error:", response.status_code)
-      
-      return text
+                  return text
+          else:
+              print("Error:", response.status_code)
     except Exception as e:
-    print(f"Error in RequestfWorkflow: {e}")
-    return ''
+          print(f"Error in RequestfWorkflow: {e}")
+          return ''
 
 async def OpenAIf(msg: Message):
     endpoint = "https://models.inference.ai.azure.com"
