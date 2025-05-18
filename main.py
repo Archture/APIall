@@ -8,10 +8,10 @@ import re
 # from azure.ai.inference import ChatCompletionsClient
 # from azure.ai.inference.models import SystemMessage, UserMessage
 # from azure.core.credentials import AzureKeyCredential
-from fastapi import FastAPI, HTTPException, Header, Body
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Any, Dict
+
 timeout = 16
  
 # -------------------- FastAPI Setup --------------------
@@ -63,33 +63,31 @@ class Message(BaseModel):
     modelCerebras: str = "llama-4-scout-17b-16e-instruct"
     modelFastGPT: str = ""
 
-    # kenOpenAi: str
-    # kenGemini: str
-    # kenBig: str
-    # kenX: str
-    # kenGroq: str
-    # kenMistral: str
-    # kenCohere: str
-    # kenBaiduId: str
-    # kenBaiduSec: str
-    # kenTogether: str
-    # kenOpenRouter: str
-    # kenCF: str
-    # kenOVH: str
-    # kenChutes: str
-    # kenTargon: str
-    # kenFree: str
-    # kenAnywhere: str
-    # kenFlow: str
-    # kenCerebras: str
-    # kenDify: str
-    # kenFastGPT: str
+    kenOpenAi: str
+    kenGemini: str
+    kenBig: str
+    kenX: str
+    kenGroq: str
+    kenMistral: str
+    kenCohere: str
+    kenBaiduId: str
+    kenBaiduSec: str
+    kenTogether: str
+    kenOpenRouter: str
+    kenCF: str
+    kenOVH: str
+    kenChutes: str
+    kenTargon: str
+    kenFree: str
+    kenAnywhere: str
+    kenFlow: str
+    kenCerebras: str
+    kenDify: str
+    kenFastGPT: str
     
     sys: str = "You are a helpful assistant."
     sentence: str
     prompt: str
-    class Config:
-       extra = "ignore"  # drop any unexpected keys
 
 def get_access_token(msg: Message):
     url = "https://aip.baidubce.com/oauth/2.0/token"
@@ -456,29 +454,8 @@ async def RequestfPollination(msg: Message):
 
 
 @app.post("/message")
-async def receive_message(raw_body: Dict[str, Any] = Body(...), header_dict_json: str = Header(..., alias="X-My-Header"),):
-    try:
-        hdrs: Dict[str, Any] = json.loads(header_dict_json)
-    except json.JSONDecodeError:
-        raise HTTPException(
-            status_code=400,
-            detail="X-My-Header must be a valid JSON object"
-        )
-
-    # 2. Merge header‐dict entries into body payload
-    #    so that Pydantic will populate them as top‐level attributes
-    payload = {**raw_body, **hdrs}
-
-    # 3. Validate/construct your Message model
-    try:
-        msg = Message(**payload)
-    except Exception as e:
-        # return any validation errors
-        raise HTTPException(status_code=422, detail=str(e))
-
- 
- 
- # Create the tasks
+async def receive_message(msg: Message):
+    # Create the tasks
     tasks = [
         # OpenAIf(msg),
         # Geminif(msg),
