@@ -8,10 +8,10 @@ import re
 # from azure.ai.inference import ChatCompletionsClient
 # from azure.ai.inference.models import SystemMessage, UserMessage
 # from azure.core.credentials import AzureKeyCredential
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Header, Body
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-
+from typing import Any, Dict
 timeout = 16
  
 # -------------------- FastAPI Setup --------------------
