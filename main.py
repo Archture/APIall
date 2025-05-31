@@ -44,6 +44,7 @@ class Message(BaseModel):
     messagePollination: str = "a flirtatious and spicy tone. You are spicy, playful, and sharp-witted, with a knack for flirting. You love teasing and has a seductive charm that keeps conversations thrilling and unpredictable:"
     messageCerebras: str = "humorous jokes:"
     messageFastGPT: str = "pick-up lines or humorous jokes:"
+    messagesiliconflow: str = "pick-up lines or humorous jokes:"
  
     modelOpenAi: str = "gpt-4.1-mini"
     modelGemini: str = "models/gemini-2.5-flash-preview-04-17"
@@ -62,6 +63,7 @@ class Message(BaseModel):
     modelAnywhere: str = "gpt-4o-mini"
     modelCerebras: str = "llama-4-scout-17b-16e-instruct"
     modelFastGPT: str = ""
+    modelsiliconflow: str = ""
 
     kenOpenAi: str
     kenGemini: str
@@ -84,6 +86,7 @@ class Message(BaseModel):
     kenCerebras: str
     kenDify: str
     kenFastGPT: str
+    kensiliconflow: str
     
     sys: str = "You are a helpful assistant."
     sentence: str
@@ -274,6 +277,7 @@ async def Requestf(msg: Message):
         "https://api.chatanywhere.org/v1/chat/completions": ["Bearer " + msg.kenAnywhere, msg.modelAnywhere, msg.prompt + msg.messageAnywhere],
         "https://api.cerebras.ai/v1/chat/completions": ["Bearer " + msg.kenCerebras, msg.modelCerebras, msg.prompt + msg.messageCerebras],
         "https://cloud.fastgpt.cn/api/v1/chat/completions":["Bearer " + msg.kenFastGPT, msg.modelFastGPT, msg.prompt + msg.messageFastGPT], 
+        "https://api.siliconflow.cn/v1/chat/completions":["Bearer " + msg.kensiliconflow, msg.modelsiliconflow, msg.prompt + msg.messagesiliconflow], 
 
     }
 
