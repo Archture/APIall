@@ -63,7 +63,7 @@ class Message(BaseModel):
     modelAnywhere: str = "gpt-4o-mini"
     modelCerebras: str = "llama-4-scout-17b-16e-instruct"
     modelFastGPT: str = ""
-    modelsiliconflow: str = ""
+    modelsiliconflow: str = "Qwen/QwQ-32B"
 
     kenOpenAi: str
     kenGemini: str
