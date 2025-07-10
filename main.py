@@ -45,6 +45,10 @@ class Message(BaseModel):
     messageCerebras: str = "humorous jokes:"
     messageFastGPT: str = "pick-up lines or humorous jokes:"
     messagesiliconflow: str = "pick-up lines or humorous jokes:"
+    messageinfini: str = "humorous jokes:"
+    messageinternlm: str = "humorous jokes:"
+    messagescope: str = "humorous jokes:"
+    messagehuggingface: str = "humorous jokes:"
  
     modelOpenAi: str = "gpt-4.1-mini"
     modelGemini: str = "models/gemini-2.5-flash-preview-04-17"
@@ -64,6 +68,10 @@ class Message(BaseModel):
     modelCerebras: str = "llama-4-scout-17b-16e-instruct"
     modelFastGPT: str = ""
     modelsiliconflow: str = "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B"
+    modelinfini: str = "megrez-3b-instruct"
+    modelinternlm: str = "internlm3-latest"
+    modelscope: str = "deepseek-ai/DeepSeek-V3"
+    modelhuggingface: str = "deepseek-ai/DeepSeek-V3-0324"
 
     kenOpenAi: str
     kenGemini: str
@@ -87,6 +95,10 @@ class Message(BaseModel):
     kenDify: str
     kenFastGPT: str
     kensiliconflow: str
+    keninfini: str
+    keninternlm: str
+    kenscope: str
+    kenhuggingface: str
     
     sys: str = "You are a helpful assistant."
     sentence: str
@@ -278,6 +290,14 @@ async def Requestf(msg: Message):
         "https://api.cerebras.ai/v1/chat/completions": ["Bearer " + msg.kenCerebras, msg.modelCerebras, msg.prompt + msg.messageCerebras],
         "https://cloud.fastgpt.cn/api/v1/chat/completions":["Bearer " + msg.kenFastGPT, msg.modelFastGPT, msg.prompt + msg.messageFastGPT], 
         "https://api.siliconflow.cn/v1/chat/completions":["Bearer " + msg.kensiliconflow, msg.modelsiliconflow, msg.prompt + msg.messagesiliconflow], 
+     
+        "https://cloud.infini-ai.com/maas/v1/chat/completions":["Bearer "+ msg.keninfini, msg.modelinfini, msg.prompt + msg.messageinfini],
+        "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions":["Bearer "+ msg.keninternlm, msg.modelinternlm, msg.prompt + msg.messageinternlm],
+        "https://api-inference.modelscope.cn/v1/chat/completions":["Bearer "+ msg.kenscope, msg.modelscope, msg.prompt + msg.messagescope],
+        "https://router.huggingface.co/featherless-ai/v1/chat/completions":["Bearer "+ msg.kenhuggingface, msg.modelhuggingface, msg.prompt + msg.messagehuggingface],
+
+
+     
 
     }
 
