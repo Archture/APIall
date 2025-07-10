@@ -383,24 +383,21 @@ async def RequestfWorkflowDify(msg: Message):
 
 
 async def RequestfWorkflow(msg: Message):
-    url = r"https://api.vectorshift.ai/api/chatbots/run"
-    headers = {
-        "Api-Key": msg.kenFlow
-    }
-    data = {
-        "input": msg.sentence,"chatbot_name": "chat","username": "loveoraclevery","conversation_id": None
-    }
     try:
-        response = requests.post(url, headers=headers, data=data, timeout=timeout)
+        response = requests.post(
+            "https://api.vectorshift.ai/v1/pipeline/67bf6cfa207790ac67e917d0/run",
+            headers={"Authorization":"Bearer "+msg.kenFlow,"Content-Type": "application/json"},
+            json = {"inputs": {"input_0": msg.sentence}}
+        )
         
         # Parse JSON response
         response_json = response.json()
         
         # Safely access nested properties
-        response_text = response_json.get('output', '')
+        response_text = response_json['outputs'].get('output_0', '')
         
         # print("Response:", response)
-        print("RequestfWorkflow: "+response_text)
+        print("RequestfWorkflow: " + response_text)
         
         return response_text
                 
