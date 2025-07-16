@@ -56,7 +56,7 @@ class Message(BaseModel):
     messagePollination: str = "a flirtatious and spicy tone. You are spicy, playful, and sharp-witted, with a knack for flirting. You love teasing and has a seductive charm that keeps conversations thrilling and unpredictable:"
  
     modelOpenAi: str = "gpt-4.1-mini"
-    modelGemini: str = "models/gemini-2.5-flash-preview-04-17"
+    modelGemini: str = "models/gemini-2.5-flash"
     modelBig: str = "GLM-4-Flash"
     modelGroq: str = "llama-3.3-70b-versatile"
     modelMistral: str = "mistral-large-latest"
