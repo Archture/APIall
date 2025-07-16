@@ -4,15 +4,30 @@ import aiohttp
 import requests
 import json
 import re
-# import google.generativeai as genai
-# from azure.ai.inference import ChatCompletionsClient
-# from azure.ai.inference.models import SystemMessage, UserMessage
-# from azure.core.credentials import AzureKeyCredential
-from fastapi import FastAPI, HTTPException
+import google.generativeai as genai
+from azure.ai.inference import ChatCompletionsClient
+from azure.ai.inference.models import SystemMessage, UserMessage
+from azure.core.credentials import AzureKeyCredential
+from fastapi import FastAPI, HTTPException, Security, Depends
+from fastapi.security import APIKeyHeader
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from config import settings
+from providers import PROVIDERS
 
 timeout = 16
+
+# Security
+api_key_header = APIKeyHeader(name="X-API-Key", auto_error=True)
+
+async def get_api_key(api_key_header: str = Security(api_key_header)):
+    if api_key_header == settings.FASTAPI_API_KEY:
+        return api_key_header
+    else:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid or missing API Key",
+        )
  
 # -------------------- FastAPI Setup --------------------
 app = FastAPI()
@@ -28,7 +43,6 @@ class Message(BaseModel):
     messageOpenAi: str = "humorous jokes:"
     messageGemini: str = "flirtatious pick-up lines. You are spicy, playful, and sharp-witted, with a knack for flirting. You love teasing and has a seductive charm that keeps conversations thrilling and unpredictable:"
     messageBig: str = "humorous jokes:"
-    messageX: str = "humorous jokes:"
     messageGroq: str = "the workflow. First, capture the person's emotions, and then discern the needs behind the words. If the person is in a positive mood, use a cheerful tone. If the person is in a negative mood, align yourself with the person. Focus solely on addressing their emotions without offering specific advice:"
     messageMistral: str = "the workflow. First, capture the person's emotions, and then discern the needs behind the words. If the person is in a positive mood, use a cheerful tone. If the person is in a negative mood, align yourself with the person. Focus solely on addressing their emotions without offering specific advice:"
     messageBaidu: str = "humorous jokes:"
@@ -39,21 +53,11 @@ class Message(BaseModel):
     messageOVH: str = "humorous jokes:"
     messageChutes: str = "a flirtatious and spicy tone. You are spicy, playful, and sharp-witted, with a knack for flirting. You love teasing and has a seductive charm that keeps conversations thrilling and unpredictable:"
     messageTargon: str = "a flirtatious and spicy tone. You are spicy, playful, and sharp-witted, with a knack for flirting. You love teasing and has a seductive charm that keeps conversations thrilling and unpredictable:"
-    messageFree: str = "a flirtatious and spicy tone. You are spicy, playful, and sharp-witted, with a knack for flirting. You love teasing and has a seductive charm that keeps conversations thrilling and unpredictable:"
-    messageAnywhere: str = "precise wording and a sincere tone to give praise:"
     messagePollination: str = "a flirtatious and spicy tone. You are spicy, playful, and sharp-witted, with a knack for flirting. You love teasing and has a seductive charm that keeps conversations thrilling and unpredictable:"
-    messageCerebras: str = "humorous jokes:"
-    messageFastGPT: str = "pick-up lines or humorous jokes:"
-    messagesiliconflow: str = "pick-up lines or humorous jokes:"
-    messageinfini: str = "humorous jokes:"
-    messageinternlm: str = "humorous jokes:"
-    messagescope: str = "humorous jokes:"
-    messagehuggingface: str = "humorous jokes:"
  
     modelOpenAi: str = "gpt-4.1-mini"
     modelGemini: str = "models/gemini-2.5-flash-preview-04-17"
     modelBig: str = "GLM-4-Flash"
-    modelX: str = "grok-3-fast-beta"
     modelGroq: str = "llama-3.3-70b-versatile"
     modelMistral: str = "mistral-large-latest"
     modelCohere: str = "command-r-plus-08-2024"
@@ -61,55 +65,21 @@ class Message(BaseModel):
     modelOpenRouter: str = "qwen/qwen2.5-vl-72b-instruct:free"
     modelCF: str = "openchat/openchat-3.5-0106"
     modelOVH: str = "Mistral-Nemo-Instruct-2407"
-    modelChutes: str = "open-r1/OlympicCoder-7B" # "cognitivecomputations/Dolphin3.0-Mistral-24B" # "cognitivecomputations/Dolphin3.0-R1-Mistral-24B" #  "deepseek-ai/DeepSeek-R1-Distill-Llama-70B"
+    modelChutes: str = "open-r1/OlympicCoder-7B" 
     modelTargon: str = "deepseek-ai/DeepSeek-V3-0324"
-    modelFree: str = "gpt-4o-mini"
-    modelAnywhere: str = "gpt-4o-mini"
-    modelCerebras: str = "llama-4-scout-17b-16e-instruct"
-    modelFastGPT: str = ""
-    modelsiliconflow: str = "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B"
-    modelinfini: str = "megrez-3b-instruct"
-    modelinternlm: str = "internlm3-latest"
-    modelscope: str = "deepseek-ai/DeepSeek-V3"
-    modelhuggingface: str = "deepseek-ai/DeepSeek-V3-0324"
-
-    kenOpenAi: str
-    kenGemini: str
-    kenBig: str
-    kenX: str
-    kenGroq: str
-    kenMistral: str
-    kenCohere: str
-    kenBaiduId: str
-    kenBaiduSec: str
-    kenTogether: str
-    kenOpenRouter: str
-    kenCF: str
-    kenOVH: str
-    kenChutes: str
-    kenTargon: str
-    kenFree: str
-    kenAnywhere: str
-    kenFlow: str
-    kenCerebras: str
-    kenDify: str
-    kenFastGPT: str
-    kensiliconflow: str
-    keninfini: str
-    keninternlm: str
-    kenscope: str
-    kenhuggingface: str
+    modelPollination: str = ""
+    modelBaidu: str = "ernie-speed-128k"
     
     sys: str = "You are a helpful assistant."
     sentence: str
     prompt: str
 
-def get_access_token(msg: Message):
+def get_baidu_access_token():
     url = "https://aip.baidubce.com/oauth/2.0/token"
     params = {
         "grant_type": "client_credentials",
-        "client_id": msg.kenBaiduId,
-        "client_secret": msg.kenBaiduSec
+        "client_id": settings.BAIDU_ID,
+        "client_secret": settings.BAIDU_SEC
     }
     try:
         response = requests.post(url, params=params)
@@ -119,112 +89,52 @@ def get_access_token(msg: Message):
         print(f"Error getting access token: {e}")
         return None
 
+async def baidu_request_async(session: aiohttp.ClientSession, url: str, headers: dict, data: dict, timeout: float = timeout) -> str:
+    access_token = get_baidu_access_token()
+    if not access_token:
+        return "Failed to get Baidu access token"
+
+    url_with_token = f"{url}?access_token={access_token}"
+    
+    try:
+        timeout_obj = aiohttp.ClientTimeout(total=timeout)
+        async with session.post(url_with_token, headers=headers, json=data, timeout=timeout_obj) as response:
+            response.raise_for_status()
+            r_json = await response.json()
+            return r_json.get('result', 'No result retrieved')
+    except aiohttp.ClientError as e:
+        print(f"Error in baidu_request_async: {e}")
+        return ""
+
 def remove_think_tags(text: str) -> str:
     """移除 <think>...</think> 包裹的内容"""
     return re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL)
 
-def ask_Q(msg: Message):
-    access_token = get_access_token(msg)
-    if not access_token:
-        raise HTTPException(status_code=500, detail="Failed to retrieve access token.")
-
-    url = (
-        f"https://aip.baidubce.com/rpc/2.0/ai_custom/v1/"
-        f"wenxinworkshop/chat/ernie-speed-128k?access_token={access_token}"
-    )
-    payload = json.dumps({
-        "messages": [{"role": "user", "content": msg.prompt + msg.messageBaidu + msg.sentence}]
-    })
-    headers = {"Content-Type": "application/json"}
-
+async def request_cloudflare(session: aiohttp.ClientSession, url: str, headers: dict, data: dict, timeout: float = timeout) -> str:
     try:
-        response = requests.post(url, headers=headers, data=payload, timeout=timeout)
-        response.raise_for_status()
-        return response
-    except requests.RequestException as e:
-        print(f"Error making Baidu API request: {e}")
-        raise HTTPException(status_code=500, detail="Error communicating with Baidu API.")
-
-async def RequestfCF(msg: Message):
-    url = r'https://api.cloudflare.com/client/v4/accounts/53a4ab7d625890920e433def35a30c59/ai/run/@cf/'+msg.modelCF
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + msg.kenCF
-    }
-    data = {
-        "messages": [{"role": "system", "content": msg.prompt + msg.messageCF}, {"role": "user", "content": msg.sentence}]
-    }
-    
-    try:
-        response = requests.post(url, headers=headers,json=data,timeout=timeout)
-        if response.status_code == 200:
-            response_json = response.json()
-            # Safely access nested properties
-            response_text = response_json['result']['response']
-            print("RequestCF: "+response_text)
-            return response_text
-        else:
-            print("Error cloudflare:", response.status_code)
-                
+        timeout_obj = aiohttp.ClientTimeout(total=timeout)
+        async with session.post(url, headers=headers, json=data, timeout=timeout_obj) as response:
+            response.raise_for_status()
+            r_json = await response.json()
+            return r_json.get('result', {}).get('response', '')
     except aiohttp.ClientError as e:
-        print(f"Request error in RequestfCF: {e}")
-        return ''
-    except (KeyError, IndexError, ValueError) as e:
-        print(f"Response parsing error in RequestfCF: {e}")
-        return ''
+        print(f"Error in request_cloudflare: {e}")
+        return ""
 
-async def RequestfOVH(msg: Message):
-    url = "https://"+ msg.modelOVH.lower() +".endpoints.kepler.ai.cloud.ovh.net/api/openai_compat/v1/chat/completions"
-    payload = {
-        "max_tokens": 512,
-        "messages": [
-         {"content": msg.prompt + msg.messageOVH, "role": "system"},   
-         {"content": msg.sentence, "role": "user"}
-        ],
-        "model": msg.modelOVH,
-        "temperature": 1,
-    }
-    
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer " + msg.kenOVH
-    }
+async def request_ovh(session: aiohttp.ClientSession, url: str, headers: dict, data: dict, timeout: float = timeout) -> str:
     try:
-          response = requests.post(url, json=payload, headers=headers, timeout=timeout)
-          if response.status_code == 200:
-              # Handle response
-              response_data = response.json()
-              # Parse JSON response
-              choices = response_data["choices"]
-              for choice in choices:
-                  text = choice["message"]["content"]
-                  # Process text and finish_reason
-                  print('OVH:' + text)
-                  return text
-          else:
-              print("Error in OVH:", response.status_code)
-    except Exception as e:
-          print(f"Error in OVH: {e}")
-          return ''
-
-async def OpenAIf(msg: Message):
-    endpoint = "https://models.inference.ai.azure.com"
-    client = ChatCompletionsClient(endpoint=endpoint, credential=AzureKeyCredential(msg.kenOpenAi))
-    response = await asyncio.to_thread(
-        client.complete,
-        messages=[SystemMessage(content=msg.sys), UserMessage(content=msg.prompt + msg.messageOpenAi + msg.sentence)],
-        temperature=1.0,
-        top_p=1.0,
-        model=msg.modelOpenAi
-    )
-    return response.choices[0].message.content
-
-async def Geminif(msg: Message):
-    genai.configure(api_key=msg.kenGemini)
-    model = genai.GenerativeModel(msg.modelGemini)
-    response = await asyncio.to_thread(model.generate_content, msg.prompt + msg.messageGemini + msg.sentence)
-    print('Gemini: '+ response)
-    return response.text
+        timeout_obj = aiohttp.ClientTimeout(total=timeout)
+        async with session.post(url, headers=headers, json=data, timeout=timeout_obj) as response:
+            response.raise_for_status()
+            r_json = await response.json()
+            choices = r_json.get('choices', [])
+            if len(choices) > 0:
+                message_dict = choices[0].get('message', {})
+                return message_dict.get('content', "")
+            return ""
+    except aiohttp.ClientError as e:
+        print(f"Error in request_ovh: {e}")
+        return ""
 
 async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, data: dict, timeout: float = timeout) -> str:
     try:
@@ -274,224 +184,174 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
         return ""
 
 
-async def Requestf(msg: Message):
-    urls = {
-        #"https://api.x.ai/v1/chat/completions": ["Bearer " + msg.kenX, msg.modelX, msg.prompt + msg.messageX],
-        "https://open.bigmodel.cn/api/paas/v4/chat/completions": ["Bearer " + msg.kenBig, msg.modelBig, msg.prompt + msg.messageBig],
-        "https://api.groq.com/openai/v1/chat/completions": ["Bearer " + msg.kenGroq, msg.modelGroq, msg.prompt + msg.messageGroq],
-        "https://api.mistral.ai/v1/chat/completions": ["Bearer " + msg.kenMistral, msg.modelMistral, msg.prompt + msg.messageMistral],
-        "https://api.together.xyz/v1/chat/completions":["Bearer " + msg.kenTogether, msg.modelTogether, msg.prompt + msg.messageTogether],
-        "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions":["Bearer " + msg.kenGemini, msg.modelGemini, msg.prompt + msg.messageGemini],
-        "https://models.inference.ai.azure.com/chat/completions":["Bearer " + msg.kenOpenAi, msg.modelOpenAi, msg.prompt + msg.messageOpenAi],
-        "https://openrouter.ai/api/v1/chat/completions":["Bearer " + msg.kenOpenRouter, msg.modelOpenRouter, msg.prompt + msg.messageOpenRouter],   
-        "https://chutes-"+ msg.modelChutes.lower().replace(r'/', '-').replace('.', '-') +".chutes.ai/v1/chat/completions":["Bearer " + msg.kenChutes, msg.modelChutes, msg.prompt + msg.messageChutes],    
-        "https://free.v36.cm/v1/chat/completions": ["Bearer " + msg.kenFree, msg.modelFree, msg.prompt + msg.messageFree],
-        "https://api.chatanywhere.org/v1/chat/completions": ["Bearer " + msg.kenAnywhere, msg.modelAnywhere, msg.prompt + msg.messageAnywhere],
-        "https://api.cerebras.ai/v1/chat/completions": ["Bearer " + msg.kenCerebras, msg.modelCerebras, msg.prompt + msg.messageCerebras],
-        "https://cloud.fastgpt.cn/api/v1/chat/completions":["Bearer " + msg.kenFastGPT, msg.modelFastGPT, msg.prompt + msg.messageFastGPT], 
-        "https://api.siliconflow.cn/v1/chat/completions":["Bearer " + msg.kensiliconflow, msg.modelsiliconflow, msg.prompt + msg.messagesiliconflow], 
-     
-        "https://cloud.infini-ai.com/maas/v1/chat/completions":["Bearer "+ msg.keninfini, msg.modelinfini, msg.prompt + msg.messageinfini],
-        "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions":["Bearer "+ msg.keninternlm, msg.modelinternlm, msg.prompt + msg.messageinternlm],
-        "https://api-inference.modelscope.cn/v1/chat/completions":["Bearer "+ msg.kenscope, msg.modelscope, msg.prompt + msg.messagescope],
-        "https://router.huggingface.co/featherless-ai/v1/chat/completions":["Bearer "+ msg.kenhuggingface, msg.modelhuggingface, msg.prompt + msg.messagehuggingface],
-
-
-     
-
-    }
-
-    response_text = []
-    async with aiohttp.ClientSession() as session:
-        tasks = [
-            fetch_async(session, url, {"Content-Type": "application/json", "Authorization": API[0]}, {
-                "model": API[1],
-                "messages": [{"role": "system", "content": API[2]}, {"role": "user", "content": msg.sentence}],
-            }, timeout) for url, API in urls.items()
-        ]
-        responses = await asyncio.gather(*tasks, return_exceptions=True)
-        for i,resp in enumerate(responses):
-            if isinstance(resp, str):
-                response_text.append(resp)
-                print(str(i)+resp)
-
-    return "||".join(response_text)
-
-async def RequestfAlt(msg: Message):
-    url = r"https://api.cohere.com/v2/chat"
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + msg.kenCohere
-    }
-    data = {
-        "model": msg.modelCohere,
-        "messages": [{"role": "system", "content": msg.prompt + msg.messageCohere}, {"role": "user", "content": msg.sentence}]
-    }
-    
+async def request_cohere(session: aiohttp.ClientSession, url: str, headers: dict, data: dict, timeout: float = timeout) -> str:
     try:
-        response = requests.post(url, headers=headers, json=data, timeout=timeout)
-        # Parse JSON response
-        response_json = response.json()
-        
-        # Safely access nested properties
-        response_text = response_json.get('message', {}).get('content', [{}])[0].get('text', '')
-        
-        # print("Response:", response)
-        print("RequestfAlt: "+response_text)
-        
-        return response_text
-                
+        timeout_obj = aiohttp.ClientTimeout(total=timeout)
+        async with session.post(url, headers=headers, json=data, timeout=timeout_obj) as response:
+            response.raise_for_status()
+            r_json = await response.json()
+            return r_json.get('message', {}).get('content', [{}])[0].get('text', '')
     except aiohttp.ClientError as e:
-        print(f"Request error in RequestfAlt: {e}")
-        return ''
-    except (KeyError, IndexError, ValueError) as e:
-        print(f"Response parsing error in RequestfAlt: {e}")
-        return ''
-
-async def RequestfWorkflowDify(msg: Message):
-    url = r"https://api.dify.ai/v1/workflows/run"
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + msg.kenDify
-    }
-    data = {
-    "inputs":{"userInput":msg.sentence},
-    # "query": msg.sentence,
-    "response_mode": "blocking",
-    "conversation_id": "",
-    "user": "abc-123",
-    "files": [
-    ]
-    }
-    try:
-        response = requests.post(url, headers=headers, json=data, timeout=timeout)
-        
-        # Parse JSON response
-        response_json = response.json()
-        
-        # Safely access nested properties
-        response_text = response_json['data']['outputs']['text']
-        
-        # print("Response:", response)
-        print("RequestfWorkflowDify: "+response_text)
-        
-        return response_text
-                
-    except Exception as e:
-        print(f"Error in RequestfWorkflowDify: {e}")
-        return ''
-
-
-async def RequestfWorkflow(msg: Message):
-    try:
-        response = requests.post(
-            "https://api.vectorshift.ai/v1/pipeline/67bf6cfa207790ac67e917d0/run",
-            headers={"Authorization":"Bearer "+msg.kenFlow,"Content-Type": "application/json"},
-            json = {"inputs": {"input_0": msg.sentence}}
-        )
-        
-        # Parse JSON response
-        response_json = response.json()
-        
-        # Safely access nested properties
-        response_text = response_json['outputs'].get('output_0', '')
-        
-        # print("Response:", response)
-        print("RequestfWorkflow: " + response_text)
-        
-        return response_text
-                
-    except Exception as e:
-        print(f"Error in RequestfWorkflow: {e}")
-        return ''
-
-
-async def Requestfstream(msg: Message):
-    url = r"https://api.targon.com/v1/chat/completions"
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + msg.kenTargon
-    }
-    data = {
-        "model": msg.modelTargon,
-        "messages": [{"role": "user", "content": msg.prompt + msg.messageTargon + msg.sentence}],
-        "stream": True,
-    }
-    
-    try:
-        response = requests.post(url, headers=headers, json=data, timeout=timeout, stream=True)
-        full_response = ""
-    
-        for line in response.iter_lines():
-            if line:
-                decoded_line = line.decode('utf-8').strip()
-                if decoded_line.startswith("data: "):  # OpenAI sends data in this format
-                    chunk = decoded_line[len("data: "):]  # Remove 'data: ' prefix
-                    if chunk.strip() != "[DONE]":  # Ignore the termination signal
-                        try:
-                            json_data = json.loads(chunk)
-                            full_response += json_data["choices"][0]["delta"].get("content", "")
-                        except:
-                            pass  # Ignore malformed JSON parts
-
-        print("Requestfstream: "+ full_response)
-        return full_response
-    except Exception as e:
-        print(f"Error in Requestfstream: {e}")
+        print(f"Error in request_cohere: {e}")
         return ""
 
-async def baidu_request_async(msg: Message):
+async def request_dify_workflow(session: aiohttp.ClientSession, url: str, headers: dict, data: dict, timeout: float = timeout) -> str:
     try:
-        raw_response = ask_Q(msg)
-        response = raw_response.json().get('result', 'No result retrieved')
-        print('baidu: '+response)
-        return response
-    except Exception as e:
-        print(f"Error in baidu_request_async: {e}")
+        timeout_obj = aiohttp.ClientTimeout(total=timeout)
+        async with session.post(url, headers=headers, json=data, timeout=timeout_obj) as response:
+            response.raise_for_status()
+            r_json = await response.json()
+            return r_json.get('data', {}).get('outputs', {}).get('text', '')
+    except aiohttp.ClientError as e:
+        print(f"Error in request_dify_workflow: {e}")
         return ""
 
-async def RequestfPollination(msg: Message):
-    url = r"https://text.pollinations.ai/"
+
+async def request_vectorshift_workflow(session: aiohttp.ClientSession, url: str, headers: dict, data: dict, timeout: float = timeout) -> str:
     try:
-        # Use aiohttp for async request instead of synchronous requests
-        async with aiohttp.ClientSession() as session:
-            async with session.get(
-                url + msg.prompt + msg.messagePollination + msg.sentence, 
-                timeout=timeout
-            ) as response:
-                # Get text content from the response
-                response_text = await response.text()
-                print(f"RequestfPollination response: {response_text}")
-                return response_text
+        timeout_obj = aiohttp.ClientTimeout(total=timeout)
+        async with session.post(url, headers=headers, json=data, timeout=timeout_obj) as response:
+            response.raise_for_status()
+            r_json = await response.json()
+            return r_json.get('outputs', {}).get('output_0', '')
     except aiohttp.ClientError as e:
-        print(f"Request error in RequestfPollination: {e}")
-        return ''
-    except (KeyError, IndexError, ValueError) as e:
-        print(f"Response parsing error in RequestfPollination: {e}")
-        # Remove reference to undefined response_json variable
-        return ''
+        print(f"Error in request_vectorshift_workflow: {e}")
+        return ""
+
+
+async def request_targon_stream(session: aiohttp.ClientSession, url: str, headers: dict, data: dict, timeout: float = timeout) -> str:
+    try:
+        timeout_obj = aiohttp.ClientTimeout(total=timeout)
+        async with session.post(url, headers=headers, json=data, timeout=timeout_obj) as response:
+            response.raise_for_status()
+            full_response = ""
+            async for line in response.content:
+                if line:
+                    decoded_line = line.decode('utf-8').strip()
+                    if decoded_line.startswith("data: "):
+                        chunk = decoded_line[len("data: "):]
+                        if chunk.strip() != "[DONE]":
+                            try:
+                                json_data = json.loads(chunk)
+                                full_response += json_data["choices"][0]["delta"].get("content", "")
+                            except:
+                                pass
+            return full_response
+    except aiohttp.ClientError as e:
+        print(f"Error in request_targon_stream: {e}")
+        return ""
+
+async def request_pollination(session: aiohttp.ClientSession, url: str, timeout: float = timeout) -> str:
+    try:
+        timeout_obj = aiohttp.ClientTimeout(total=timeout)
+        async with session.get(url, timeout=timeout_obj) as response:
+            response.raise_for_status()
+            return await response.text()
+    except aiohttp.ClientError as e:
+        print(f"Error in request_pollination: {e}")
+        return ""
 
 
 
 
 @app.post("/message")
-async def receive_message(msg: Message):
-    # Create the tasks
-    tasks = [
-        # OpenAIf(msg),
-        # Geminif(msg),
-        Requestf(msg),
-        RequestfAlt(msg),
-        baidu_request_async(msg),
-        RequestfCF(msg),
-        RequestfOVH(msg),
-        Requestfstream(msg),
-        RequestfWorkflow(msg),
-        RequestfPollination(msg),
-        RequestfWorkflowDify(msg),
-    ]
+async def receive_message(msg: Message, api_key: str = Depends(get_api_key)):
+    tasks = []
+    async with aiohttp.ClientSession() as session:
+        for provider_name, provider_data in PROVIDERS.items():
+            model_name = getattr(msg, provider_data.get("model", ""), None)
+            if not model_name and "model" in provider_data:
+                continue
 
-    results = await asyncio.gather(*tasks, return_exceptions=True)
+            url = provider_data["url"]
+            if "{model}" in url:
+                url = url.format(model=model_name.lower().replace(r'/', '-').replace('.', '-'))
+
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {provider_data.get('key')}",
+            }
+
+            data = {}
+            request_func = None
+
+            if provider_name == "cohere":
+                data = {
+                    "model": model_name,
+                    "messages": [
+                        {"role": "system", "content": getattr(msg, provider_data["message"])},
+                        {"role": "user", "content": msg.sentence},
+                    ],
+                }
+                request_func = request_cohere
+            elif provider_name == "cloudflare":
+                url += model_name
+                data = {
+                    "messages": [
+                        {"role": "system", "content": getattr(msg, provider_data["message"])},
+                        {"role": "user", "content": msg.sentence},
+                    ],
+                }
+                request_func = request_cloudflare
+            elif provider_name == "ovh":
+                url = url.format(model=model_name.lower())
+                data = {
+                    "max_tokens": 512,
+                    "messages": [
+                        {"role": "system", "content": getattr(msg, provider_data["message"])},
+                        {"role": "user", "content": msg.sentence},
+                    ],
+                    "model": model_name,
+                    "temperature": 1,
+                }
+                request_func = request_ovh
+            elif provider_name == "targon":
+                data = {
+                    "model": model_name,
+                    "messages": [{"role": "user", "content": msg.prompt + getattr(msg, provider_data["message"]) + msg.sentence}],
+                    "stream": True,
+                }
+                request_func = request_targon_stream
+            elif provider_name == "pollination":
+                url += msg.prompt + getattr(msg, provider_data["message"]) + msg.sentence
+                tasks.append(request_pollination(session, url, timeout))
+                continue
+            elif provider_name == "dify":
+                data = {
+                    "inputs": {"userInput": msg.sentence},
+                    "response_mode": "blocking",
+                    "conversation_id": "",
+                    "user": "abc-123",
+                    "files": [],
+                }
+                request_func = request_dify_workflow
+            elif provider_name == "vectorshift":
+                data = {"inputs": {"input_0": msg.sentence}}
+                request_func = request_vectorshift_workflow
+            elif provider_data.get("auth_method") == "baidu":
+                headers = {"Content-Type": "application/json"}
+                data = {
+                    "messages": [
+                        {"role": "user", "content": msg.prompt + getattr(msg, provider_data["message"]) + msg.sentence}
+                    ]
+                }
+                tasks.append(baidu_request_async(session, url, headers, data, timeout))
+                continue
+            else:
+                data = {
+                    "model": model_name,
+                    "messages": [
+                        {"role": "system", "content": getattr(msg, provider_data["message"])},
+                        {"role": "user", "content": msg.sentence},
+                    ],
+                }
+                request_func = fetch_async
+
+            if request_func:
+                tasks.append(request_func(session, url, headers, data, timeout))
+
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+    
     response_texts = [result for result in results if isinstance(result, str)]
     
     return remove_think_tags("||".join(response_texts))

@@ -1,0 +1,35 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Settings:
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+    BIG_API_KEY = os.getenv("BIG_API_KEY")
+    X_API_KEY = os.getenv("X_API_KEY")
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+    MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
+    COHERE_API_KEY = os.getenv("COHERE_API_KEY")
+    BAIDU_ID = os.getenv("BAIDU_ID")
+    BAIDU_SEC = os.getenv("BAIDU_SEC")
+    TOGETHER_API_KEY = os.getenv("TOGETHER_API_KEY")
+    OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+    CF_API_KEY = os.getenv("CF_API_KEY")
+    OVH_API_KEY = os.getenv("OVH_API_KEY")
+    CHUTES_API_KEY = os.getenv("CHUTES_API_KEY")
+    TARGON_API_KEY = os.getenv("TARGON_API_KEY")
+    FREE_API_KEY = os.getenv("FREE_API_KEY")
+    ANYWHERE_API_KEY = os.getenv("ANYWHERE_API_KEY")
+    FLOW_API_KEY = os.getenv("FLOW_API_KEY")
+    CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY")
+    DIFY_API_KEY = os.getenv("DIFY_API_KEY")
+    FASTGPT_API_KEY = os.getenv("FASTGPT_API_KEY")
+    SILICONFLOW_API_KEY = os.getenv("SILICONFLOW_API_KEY")
+    INFINI_API_KEY = os.getenv("INFINI_API_KEY")
+    INTERNLM_API_KEY = os.getenv("INTERNLM_API_KEY")
+    SCOPE_API_KEY = os.getenv("SCOPE_API_KEY")
+    HUGGINGFACE_API_KEY = os.getenv("HUGGINGFACE_API_KEY")
+    FASTAPI_API_KEY = os.getenv("FASTAPI_API_KEY")
+
+settings = Settings()
