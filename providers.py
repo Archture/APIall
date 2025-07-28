@@ -94,4 +94,52 @@ PROVIDERS = {
         "url": "https://api.vectorshift.ai/v1/pipeline/67bf6cfa207790ac67e917d0/run",
         "key": settings.FLOW_API_KEY,
     },
+        "free": {
+        "url": "https://free.v36.cm/v1/chat/completions",
+        "key": settings.FREE_API_KEY,
+        "model": "modelFree",
+        "message": "messageFree",
+    },
+    "chatanywhere": {
+        "url": "https://api.chatanywhere.org/v1/chat/completions",
+        "key": settings.ANYWHERE_API_KEY,
+        "model": "modelAnywhere",
+        "message": "messageAnywhere",
+    },
+    "cerebras": {
+        "url": "https://api.cerebras.ai/v1/chat/completions",
+        "key": settings.CEREBRAS_API_KEY,
+        "model": "modelCerebras",
+        "message": "messageCerebras",
+    },
+    "fastgpt": {
+        "url": "https://cloud.fastgpt.cn/api/v1/chat/completions",
+        "key": settings.FASTGPT_API_KEY,
+        "model": "modelFastGPT",
+        "message": "messageFastGPT",
+    },    
+    "siliconflow": {
+        "url": "https://api.siliconflow.cn/v1/chat/completions",
+        "key": settings.SILICONFLOW_API_KEY,
+        "model": "modelSiliconFlow",
+        "message": "messageSiliconFlow",
+    },        
+    "infini": {
+        "url": "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions",
+        "key": settings.INFINI_API_KEY,
+        "model": "modelInfini",
+        "message": "messageInfini",
+    },            
+    "scope": {
+        "url": "https://api-inference.modelscope.cn/v1/chat/completions",
+        "key": settings.SCOPE_API_KEY,
+        "model": "modelScope",
+        "message": "messageScope",
+    },               
+    "huggingface": {
+        "url": "https://router.huggingface.co/featherless-ai/v1/chat/completions",
+        "key": settings.HUGGINGFACE_API_KEY,
+        "model": "modelHuggingface",
+        "message": "messageHuggingface",
+    }, 
 }
