@@ -54,7 +54,16 @@ class Message(BaseModel):
     messageChutes: str = "a flirtatious and spicy tone. You are spicy, playful, and sharp-witted, with a knack for flirting. You love teasing and has a seductive charm that keeps conversations thrilling and unpredictable:"
     messageTargon: str = "a flirtatious and spicy tone. You are spicy, playful, and sharp-witted, with a knack for flirting. You love teasing and has a seductive charm that keeps conversations thrilling and unpredictable:"
     messagePollination: str = "a flirtatious and spicy tone. You are spicy, playful, and sharp-witted, with a knack for flirting. You love teasing and has a seductive charm that keeps conversations thrilling and unpredictable:"
- 
+    messageFree: str = "a flirtatious and spicy tone. You are spicy, playful, and sharp-witted, with a knack for flirting. You love teasing and has a seductive charm that keeps conversations thrilling and unpredictable:"
+    messageAnywhere: str = "precise wording and a sincere tone to give praise:"
+    messageCerebras: str = "humorous jokes:"
+    messageFastGPT: str = "pick-up lines or humorous jokes:"
+    messageSiliconFlow: str = "pick-up lines or humorous jokes:"
+    messageInfini: str = "humorous jokes:"
+    messageInternlm: str = "humorous jokes:"
+    messageScope: str = "humorous jokes:"
+    messageHuggingface: str = "humorous jokes:"
+
     modelOpenAi: str = "gpt-4.1-mini"
     modelGemini: str = "models/gemini-2.5-flash"
     modelBig: str = "GLM-4-Flash"
@@ -69,6 +78,13 @@ class Message(BaseModel):
     modelTargon: str = "deepseek-ai/DeepSeek-V3-0324"
     modelPollination: str = ""
     modelBaidu: str = "ernie-speed-128k"
+    modelCerebras: str = "llama-4-scout-17b-16e-instruct"
+    modelFastGPT: str = ""
+    modelSiliconFlow: str = "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B"
+    modelInfini: str = "megrez-3b-instruct"
+    modelInternlm: str = "internlm3-latest"
+    modelScope: str = "deepseek-ai/DeepSeek-V3"
+    modelHuggingface: str = "deepseek-ai/DeepSeek-V3-0324"
     
     sys: str = "You are a helpful assistant."
     sentence: str
