@@ -129,7 +129,13 @@ PROVIDERS = {
         "key": settings.INFINI_API_KEY,
         "model": "modelInfini",
         "message": "messageInfini",
-    },            
+    },   
+    "internlm": {
+        "url": "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions",
+        "key": settings.INTERNLM_API_KEY,
+        "model": "modelInternlm",
+        "message": "messageInternlm",
+    },
     "scope": {
         "url": "https://api-inference.modelscope.cn/v1/chat/completions",
         "key": settings.SCOPE_API_KEY,
