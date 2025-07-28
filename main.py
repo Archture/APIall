@@ -80,7 +80,7 @@ class Message(BaseModel):
     modelBaidu: str = "ernie-speed-128k"
     modelCerebras: str = "llama-4-scout-17b-16e-instruct"
     modelFastGPT: str = ""
-    modelSiliconFlow: str = "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B"
+    modelSiliconFlow: str = "Qwen/QwQ-32B"
     modelInfini: str = "megrez-3b-instruct"
     modelInternlm: str = "internlm3-latest"
     modelScope: str = "deepseek-ai/DeepSeek-V3"
