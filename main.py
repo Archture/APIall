@@ -86,7 +86,7 @@ class Message(BaseModel):
     modelScope: str = "deepseek-ai/DeepSeek-V3"
     modelHuggingface: str = "deepseek-ai/DeepSeek-V3-0324"
     
-    sys: str = "You are a helpful assistant."
+    sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
     prompt: str
 
@@ -272,6 +272,7 @@ async def request_pollination(session: aiohttp.ClientSession, url: str, timeout:
 
 @app.post("/message")
 async def receive_message(msg: Message, api_key: str = Depends(get_api_key)):
+    msg.prompt = msg.sys + msg.prompt
     tasks = []
     async with aiohttp.ClientSession() as session:
         for provider_name, provider_data in PROVIDERS.items():
@@ -295,7 +296,7 @@ async def receive_message(msg: Message, api_key: str = Depends(get_api_key)):
                 data = {
                     "model": model_name,
                     "messages": [
-                        {"role": "system", "content": getattr(msg, provider_data["message"])},
+                        {"role": "system", "content": msg.prompt + getattr(msg, provider_data["message"])},
                         {"role": "user", "content": msg.sentence},
                     ],
                 }
@@ -304,7 +305,7 @@ async def receive_message(msg: Message, api_key: str = Depends(get_api_key)):
                 url += model_name
                 data = {
                     "messages": [
-                        {"role": "system", "content": getattr(msg, provider_data["message"])},
+                        {"role": "system", "content": msg.prompt + getattr(msg, provider_data["message"])},
                         {"role": "user", "content": msg.sentence},
                     ],
                 }
@@ -314,7 +315,7 @@ async def receive_message(msg: Message, api_key: str = Depends(get_api_key)):
                 data = {
                     "max_tokens": 512,
                     "messages": [
-                        {"role": "system", "content": getattr(msg, provider_data["message"])},
+                        {"role": "system", "content": msg.prompt + getattr(msg, provider_data["message"])},
                         {"role": "user", "content": msg.sentence},
                     ],
                     "model": model_name,
@@ -357,7 +358,7 @@ async def receive_message(msg: Message, api_key: str = Depends(get_api_key)):
                 data = {
                     "model": model_name,
                     "messages": [
-                        {"role": "system", "content": getattr(msg, provider_data["message"])},
+                        {"role": "system", "content": msg.prompt + getattr(msg, provider_data["message"])},
                         {"role": "user", "content": msg.sentence},
                     ],
                 }
