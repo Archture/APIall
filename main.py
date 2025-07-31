@@ -182,7 +182,8 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
     # Handle errors for non-2xx status codes
     except aiohttp.ClientResponseError as e:
         print(f"HTTP error (status={e.status}) in fetch_async for {url}: {e}")
-        print(response.text)
+        body_text = await r_json.get('text', [])
+        print("Body:", body_text)
         return ""
     
     # Handle JSON decoding/content-type issues
