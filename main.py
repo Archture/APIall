@@ -170,7 +170,7 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
             if len(choices) > 0:
                 message_dict = choices[0].get('message', {})
                 return message_dict.get('content', "")
-            
+                
             # If the expected fields are not present, return a fallback/string
             print("Response JSON does not contain the expected structure. r_json:"+str(r_json))
             return ""
@@ -182,6 +182,7 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
     # Handle errors for non-2xx status codes
     except aiohttp.ClientResponseError as e:
         print(f"HTTP error (status={e.status}) in fetch_async for {url}: {e}")
+        print(response.text)
         return ""
     
     # Handle JSON decoding/content-type issues
