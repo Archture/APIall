@@ -159,44 +159,39 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
         
         # Perform the POST request and raise for non-2xx statuses
         async with session.post(url, headers=headers, json=data, timeout=timeout_obj) as response:
-            response.raise_for_status()  # Raises aiohttp.ClientResponseError if status is 4xx/5xx
+            body_text = await response.text()
             
-            # Safely parse the response as JSON
-            r_json = await response.json()
+            # If non-2xx, log status and full body for debugging
+            if not 200 <= response.status < 300:
+                print(f"HTTP error (status={response.status}) for {url}")
+                print("Response body:", body_text)
+                return ""
             
-            # Safely navigate the nested JSON structure
-            # e.g., r_json['choices'][0]['message']['content']
+            # Otherwise try to parse JSON
+            try:
+                r_json = await response.json()
+            except aiohttp.ContentTypeError:
+                print(f"Expected JSON but got something else for {url}:")
+                print(body_text)
+                return ""
+            
+            # Navigate the choice structure
             choices = r_json.get('choices', [])
-            if len(choices) > 0:
-                message_dict = choices[0].get('message', {})
-                return message_dict.get('content', "")
-                
-            # If the expected fields are not present, return a fallback/string
-            print("Response JSON does not contain the expected structure. r_json:"+str(r_json))
+            if choices:
+                return choices[0].get('message', {}).get('content', "")
+            
+            # Fallback if structure isn’t as expected
+            print("Response JSON does not contain choices. Full payload:")
+            print(r_json)
             return ""
     
     except asyncio.TimeoutError:
         print(f"Timeout error for {url}")
         return ""
-    
-    # Handle errors for non-2xx status codes
-    except aiohttp.ClientResponseError as e:
-        print(f"HTTP error (status={e.status}) in fetch_async for {url}: {e}")
-        body_text = await r_json.get('text', [])
-        print("Body:", body_text)
-        return ""
-    
-    # Handle JSON decoding/content-type issues
-    except aiohttp.ContentTypeError as e:
-        print(f"Unable to parse JSON in response for {url}: {e}")
-        return ""
-    
-    # Catch other types of client errors (e.g., connection issues)
     except aiohttp.ClientError as e:
+        # This will catch connection errors, etc.
         print(f"Client error in fetch_async for {url}: {e}")
         return ""
-    
-    # Catch all other unexpected exceptions
     except Exception as e:
         print(f"Unexpected error in fetch_async for {url}: {e}")
         return ""
