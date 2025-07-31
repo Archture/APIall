@@ -125,7 +125,7 @@ PROVIDERS = {
         "message": "messageSiliconFlow",
     },        
     "infini": {
-        "url": "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions",
+        "url": "https://cloud.infini-ai.com/maas/v1/chat/completions",
         "key": settings.INFINI_API_KEY,
         "model": "modelInfini",
         "message": "messageInfini",
