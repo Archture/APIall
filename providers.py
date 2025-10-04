@@ -148,4 +148,10 @@ PROVIDERS = {
         "model": "modelHuggingface",
         "message": "messageHuggingface",
     }, 
+    "ollma": {
+        "url": "https://ollama.com/v1/chat/completions",
+        "key": settings.OLLMA_API_KEY,
+        "model": "modelOllma",
+        "message": "messageOllma",
+    }, 
 }
