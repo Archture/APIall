@@ -31,5 +31,6 @@ class Settings:
     SCOPE_API_KEY = os.getenv("SCOPE_API_KEY")
     HUGGINGFACE_API_KEY = os.getenv("HUGGINGFACE_API_KEY")
     FASTAPI_API_KEY = os.getenv("FASTAPI_API_KEY")
+    OLLMA_API_KEY = os.getenv("OLLMA_API_KEY")
 
 settings = Settings()
