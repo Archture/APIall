@@ -306,7 +306,7 @@ async def receive_message(msg: Message, api_key: str = Depends(get_api_key)):
                 # url += model_name
                 data = {
                     "model": model_name,
-                    "messages": [
+                    "input": [
                         {"role": "system", "content": msg.prompt + getattr(msg, provider_data["message"])},
                         {"role": "user", "content": msg.sentence},
                     ],
