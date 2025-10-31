@@ -70,7 +70,7 @@ PROVIDERS = {
         "message": "messageCohere",
     },
     "cloudflare": {
-        "url": "https://api.cloudflare.com/client/v4/accounts/53a4ab7d625890920e433def35a30c59/ai/run/@cf/",
+        "url": "https://api.cloudflare.com/client/v4/accounts/53a4ab7d625890920e433def35a30c59/ai/v1/responses",
         "key": settings.CF_API_KEY,
         "model": "modelCF",
         "message": "messageCF",
