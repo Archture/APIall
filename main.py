@@ -74,7 +74,7 @@ class Message(BaseModel):
     modelCohere: str = "command-r-plus-08-2024"
     modelTogether: str = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free"
     modelOpenRouter: str = "deepseek/deepseek-chat-v3.1:free"
-    modelCF: str = "@openai/gpt-oss-120b"
+    modelCF: str = "@cf/openai/gpt-oss-120b"
     modelOVH: str = "Mistral-Nemo-Instruct-2407"
     modelChutes: str = "open-r1/OlympicCoder-7B" 
     modelTargon: str = "deepseek-ai/DeepSeek-V3-0324"
@@ -303,8 +303,9 @@ async def receive_message(msg: Message, api_key: str = Depends(get_api_key)):
                 }
                 request_func = request_cohere
             elif provider_name == "cloudflare":
-                url += model_name
+                # url += model_name
                 data = {
+                    "model": model_name,
                     "messages": [
                         {"role": "system", "content": msg.prompt + getattr(msg, provider_data["message"])},
                         {"role": "user", "content": msg.sentence},
