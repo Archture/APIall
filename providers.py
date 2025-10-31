@@ -40,7 +40,7 @@ PROVIDERS = {
         "message": "messageGemini",
     },
     "openai_azure": {
-        "url": "https://models.inference.ai.azure.com/chat/completions",
+        "url": "https://models.github.ai/inference/chat/completions",
         "key": settings.OPENAI_API_KEY,
         "model": "modelOpenAi",
         "message": "messageOpenAi",
