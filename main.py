@@ -64,6 +64,7 @@ class Message(BaseModel):
     messageScope: str = "humorous jokes:"
     messageHuggingface: str = "humorous jokes:"
     messageOllma: str = "humorous jokes:"
+    messageGrok: str = "humorous jokes:"
 
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-2.5-flash"
@@ -87,6 +88,7 @@ class Message(BaseModel):
     modelScope: str = "deepseek-ai/DeepSeek-V3"
     modelHuggingface: str = "deepseek-ai/DeepSeek-V3-0324"
     modelOllma: str = "gpt-oss:120b"
+    modelGrok: str = "xai/grok-3"
     
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
