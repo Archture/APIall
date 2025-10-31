@@ -45,6 +45,12 @@ PROVIDERS = {
         "model": "modelOpenAi",
         "message": "messageOpenAi",
     },
+    "grok_azure": {
+        "url": "https://models.github.ai/inference/chat/completions",
+        "key": settings.OPENAI_API_KEY,
+        "model": "modelGrok",
+        "message": "messageGrok",
+    },
     "openrouter": {
         "url": "https://openrouter.ai/api/v1/chat/completions",
         "key": settings.OPENROUTER_API_KEY,
