@@ -74,7 +74,7 @@ class Message(BaseModel):
     modelCohere: str = "command-r-plus-08-2024"
     modelTogether: str = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free"
     modelOpenRouter: str = "qwen/qwen2.5-vl-72b-instruct:free"
-    modelCF: str = "openchat/openchat-3.5-0106"
+    modelCF: str = ""@cf/openai/gpt-oss-120b"
     modelOVH: str = "Mistral-Nemo-Instruct-2407"
     modelChutes: str = "open-r1/OlympicCoder-7B" 
     modelTargon: str = "deepseek-ai/DeepSeek-V3-0324"
