@@ -65,7 +65,7 @@ class Message(BaseModel):
     messageHuggingface: str = "humorous jokes:"
     messageOllma: str = "humorous jokes:"
 
-    modelOpenAi: str = "gpt-4.1-mini"
+    modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-2.5-flash"
     modelBig: str = "GLM-4-Flash"
     modelGroq: str = "llama-3.3-70b-versatile"
