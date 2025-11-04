@@ -15,7 +15,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from config import settings
 from providers import PROVIDERS
 
-timeout = 17
+timeout = 25
 
 # Security
 api_key_header = APIKeyHeader(name="X-API-Key", auto_error=True)
