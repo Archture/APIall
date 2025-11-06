@@ -80,7 +80,7 @@ class Message(BaseModel):
     modelTargon: str = "deepseek-ai/DeepSeek-V3-0324"
     modelPollination: str = ""
     modelBaidu: str = "ernie-speed-128k"
-    modelCerebras: str = "llama-4-scout-17b-16e-instruct"
+    modelCerebras: str = "gpt-oss-120b"
     modelFastGPT: str = ""
     modelSiliconFlow: str = "Qwen/QwQ-32B"
     modelInfini: str = "megrez-3b-instruct"
