@@ -65,6 +65,7 @@ class Message(BaseModel):
     messageHuggingface: str = "humorous jokes:"
     messageOllma: str = "push-pull method:"
     messageGrok: str = "humorous jokes:"
+    messageZenmux: str = "humorous jokes:"
 
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-2.5-flash"
@@ -89,6 +90,7 @@ class Message(BaseModel):
     modelHuggingface: str = "deepseek-ai/DeepSeek-V3-0324"
     modelOllma: str = "gpt-oss:120b"
     modelGrok: str = "xai/grok-3"
+    modelZenmux: str = "google/gemini-3-pro-preview-free"
     
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
