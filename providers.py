@@ -160,4 +160,10 @@ PROVIDERS = {
         "model": "modelOllma",
         "message": "messageOllma",
     }, 
+    "zenmux": {
+        "url": "https://zenmux.ai/api/v1/chat/completions",
+        "key": settings.ZENMUX_API_KEY,
+        "model": "modelZenmux",
+        "message": "messageZenmux",
+    }, 
 }
