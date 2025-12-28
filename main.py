@@ -74,7 +74,7 @@ class Message(BaseModel):
     modelMistral: str = "mistral-large-latest"
     modelCohere: str = "command-r-plus-08-2024"
     modelTogether: str = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free"
-    modelOpenRouter: str = "x-ai/grok-4.1-fast:free"
+    modelOpenRouter: str = "xiaomi/mimo-v2-flash:free"
     modelCF: str = "@cf/openai/gpt-oss-120b"
     modelOVH: str = "Mistral-Nemo-Instruct-2407"
     modelChutes: str = "open-r1/OlympicCoder-7B" 
@@ -90,7 +90,7 @@ class Message(BaseModel):
     modelHuggingface: str = "deepseek-ai/DeepSeek-V3-0324"
     modelOllma: str = "gpt-oss:120b"
     modelGrok: str = "xai/grok-3"
-    modelZenmux: str = "google/gemini-3-pro-preview-free"
+    modelZenmux: str = "google/gemini-3-flash-preview-free"
     
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
