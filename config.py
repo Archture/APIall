@@ -33,5 +33,5 @@ class Settings:
     FASTAPI_API_KEY = os.getenv("FASTAPI_API_KEY")
     OLLMA_API_KEY = os.getenv("OLLMA_API_KEY")
     ZENMUX_API_KEY = os.getenv("ZENMUX_API_KEY")
-
+    LONGCAT_API_KEY = os.getenv("LONGCAT_API_KEY")
 settings = Settings()
