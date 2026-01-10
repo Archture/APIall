@@ -66,6 +66,7 @@ class Message(BaseModel):
     messageOllma: str = "push-pull method:"
     messageGrok: str = "humorous jokes:"
     messageZenmux: str = "humorous jokes:"
+    messageLongcat: str = "precise wording and a sincere tone to give praise:"
 
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-2.5-flash"
@@ -91,6 +92,7 @@ class Message(BaseModel):
     modelOllma: str = "gpt-oss:120b"
     modelGrok: str = "xai/grok-3"
     modelZenmux: str = "google/gemini-3-flash-preview-free"
+    modelLongcat: str = "LongCat-Flash-Chat"
     
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
