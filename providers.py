@@ -166,4 +166,10 @@ PROVIDERS = {
         "model": "modelZenmux",
         "message": "messageZenmux",
     }, 
+    "longcat": {
+        "url": "https://api.longcat.chat/openai/v1/chat/completions",
+        "key": settings.LONGCAT_API_KEY,
+        "model": "modelLongcat",
+        "message": "messageLongcat",
+    }, 
 }
