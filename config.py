@@ -34,4 +34,5 @@ class Settings:
     OLLMA_API_KEY = os.getenv("OLLMA_API_KEY")
     ZENMUX_API_KEY = os.getenv("ZENMUX_API_KEY")
     LONGCAT_API_KEY = os.getenv("LONGCAT_API_KEY")
+    NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY")
 settings = Settings()
