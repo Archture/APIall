@@ -172,4 +172,10 @@ PROVIDERS = {
         "model": "modelLongcat",
         "message": "messageLongcat",
     }, 
+    "nvidia": {
+        "url": "https://integrate.api.nvidia.com/v1/chat/completions",
+        "key": settings.NVIDIA_API_KEY,
+        "model": "modelNvidia",
+        "message": "messageNvidia",
+    }, 
 }
