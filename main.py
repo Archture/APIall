@@ -88,7 +88,7 @@ class Message(BaseModel):
     modelSiliconFlow: str = "Qwen/QwQ-32B"
     modelInfini: str = "megrez-3b-instruct"
     modelInternlm: str = "internlm3-latest"
-    modelScope: str = "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B"
+    modelScope: str = "deepseek-ai/DeepSeek-V3.2"
     modelHuggingface: str = "deepseek-ai/DeepSeek-V3-0324"
     modelOllma: str = "gpt-oss:120b"
     modelGrok: str = "xai/grok-3"
