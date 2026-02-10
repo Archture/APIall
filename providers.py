@@ -178,4 +178,22 @@ PROVIDERS = {
         "model": "modelNvidia",
         "message": "messageNvidia",
     }, 
+    "literouter": {
+        "url": "https://api.literouter.com/v1/chat/completions",
+        "key": settings.LITEROUTER_API_KEY,
+        "model": "modelLiterouter",
+        "message": "messageLiterouter",
+    }, 
+    "routeway": {
+        "url": "https://api.routeway.ai/v1/chat/completions",
+        "key": settings.ROUTEWAY_API_KEY,
+        "model": "modelRouteway",
+        "message": "messageRouteway",
+    }, 
+    "poixe": {
+        "url": "https://api.poixe.com/v1/chat/completions",
+        "key": settings.POIXE_API_KEY,
+        "model": "modelPoixe",
+        "message": "messagePoixe",
+    }, 
 }
