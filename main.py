@@ -68,6 +68,9 @@ class Message(BaseModel):
     messageZenmux: str = "humorous jokes:"
     messageLongcat: str = "precise wording and a sincere tone to give praise:"
     messageNvidia: str = "push-pull method:"
+    messageLiterouter: str = "humorous jokes:"
+    messageRouteway: str = "humorous jokes:"
+    messagePoixe: str = "humorous jokes:"
 
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-2.5-flash"
@@ -95,6 +98,9 @@ class Message(BaseModel):
     modelZenmux: str = "google/gemini-3-flash-preview-free"
     modelLongcat: str = "LongCat-Flash-Chat"
     modelNvidia: str = "minimaxai/minimax-m2.1"
+    modelLiterouter: str = "gpt-oss-120b-free"
+    modelRouteway: str = "minimax-m2:free"
+    modelPoixe: str = "claude-sonnet-4-5-20250929"
     
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
