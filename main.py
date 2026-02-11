@@ -71,6 +71,7 @@ class Message(BaseModel):
     messageLiterouter: str = "humorous jokes:"
     messageRouteway: str = "humorous jokes:"
     messagePoixe: str = "humorous jokes:"
+    messageZaiwenai: str = "precise wording and a sincere tone to give praise:"
 
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-2.5-flash"
@@ -79,7 +80,7 @@ class Message(BaseModel):
     modelMistral: str = "mistral-large-latest"
     modelCohere: str = "command-r-plus-08-2024"
     modelTogether: str = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free"
-    modelOpenRouter: str = "xiaomi/mimo-v2-flash:free"
+    modelOpenRouter: str = "meta-llama/llama-3.3-70b-instruct:free"
     modelCF: str = "@cf/openai/gpt-oss-120b"
     modelOVH: str = "Mistral-Nemo-Instruct-2407"
     modelChutes: str = "open-r1/OlympicCoder-7B" 
@@ -95,12 +96,13 @@ class Message(BaseModel):
     modelHuggingface: str = "deepseek-ai/DeepSeek-V3-0324"
     modelOllma: str = "gpt-oss:120b"
     modelGrok: str = "xai/grok-3"
-    modelZenmux: str = "google/gemini-3-flash-preview-free"
+    modelZenmux: str = "xiaomi/mimo-v2-flash-free"
     modelLongcat: str = "LongCat-Flash-Chat"
     modelNvidia: str = "minimaxai/minimax-m2.1"
     modelLiterouter: str = "gpt-oss-120b-free"
     modelRouteway: str = "minimax-m2:free"
-    modelPoixe: str = "claude-sonnet-4-5-20250929"
+    modelPoixe: str = "claude-sonnet-4-5-20250929:free"
+    modelZaiwenai: str = "Grok-4.1-Fast-Non-Reasoning"
     
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
