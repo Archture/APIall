@@ -196,4 +196,11 @@ PROVIDERS = {
         "model": "modelPoixe",
         "message": "messagePoixe",
     }, 
+    "zaiwenai": {
+        "url": "https://back.zaiwenai.com/api/v1/ai/chat/completions",
+        "key": settings.ZAIWENAI_API_KEY,
+        "model": "modelZaiwenai",
+        "message": "messageZaiwenai",
+    }, 
+    
 }
