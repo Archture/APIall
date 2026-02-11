@@ -38,4 +38,6 @@ class Settings:
     LITEROUTER_API_KEY = os.getenv("LITEROUTER_API_KEY")
     ROUTEWAY_API_KEY = os.getenv("ROUTEWAY_API_KEY")
     POIXE_API_KEY = os.getenv("POIXE_API_KEY")
+    POIXE_API_KEY = os.getenv("POIXE_API_KEY")
+    ZAIWENAI_API_KEY = os.getenv("ZAIWENAI_API_KEY")
 settings = Settings()
