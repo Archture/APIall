@@ -202,5 +202,22 @@ PROVIDERS = {
         "model": "modelZaiwenai",
         "message": "messageZaiwenai",
     }, 
-    
+    "aihubmix": {
+        "url": "https://aihubmix.com/v1/ai/chat/completions",
+        "key": settings.AIHUBMIX_API_KEY ,
+        "model": "modelAihubmix",
+        "message": "messageAihubmix",
+    }, 
+    "electronhub": {
+        "url": "https://api.electronhub.ai/v1/ai/chat/completions",
+        "key": settings.ELECTRONHUB_API_KEY ,
+        "model": "modelElectronhub",
+        "message": "messageElectronhub",
+    }, 
+    "modelshub": {
+        "url": "https://www.models-hub.net/v1/ai/chat/completions",
+        "key": settings.MODELSHUB_API_KEY ,
+        "model": "modelModelshub",
+        "message": "messageModelshub",
+    }, 
 }
