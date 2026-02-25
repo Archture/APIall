@@ -72,6 +72,9 @@ class Message(BaseModel):
     messageRouteway: str = "humorous jokes:"
     messagePoixe: str = "humorous jokes:"
     messageZaiwenai: str = "precise wording and a sincere tone to give praise:"
+    messageAihubmix: str = "humorous jokes:"
+    messageElectronhub: str = "humorous jokes:"
+    messageModelshub: str = "humorous jokes:"
 
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-2.5-flash"
@@ -103,6 +106,9 @@ class Message(BaseModel):
     modelRouteway: str = "minimax-m2:free"
     modelPoixe: str = "claude-sonnet-4-5-20250929:free"
     modelZaiwenai: str = "Grok-4.1-Fast-Non-Reasoning"
+    modelAihubmix: str = "gpt-4.1-free"
+    modelElectronhub: str = "gpt-4.1"
+    modelModelshub: str = "nex-agi/deepseek-v3.1-nex-n1:free"
     
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
