@@ -219,5 +219,23 @@ PROVIDERS = {
         "key": settings.MODELSHUB_API_KEY ,
         "model": "modelModelshub",
         "message": "messageModelshub",
+    },    
+    "dataeyes": {
+        "url": "https://platform.dataeyes.ai/v1/chat/completions",
+        "key": settings.DATAEYES_API_KEY ,
+        "model": "modelDataeyes",
+        "message": "messageDataeyes",
+    }, 
+    "naga": {
+        "url": "https://api.naga.ac/v1/chat/completions",
+        "key": settings.NAGA_API_KEY ,
+        "model": "modelNage",
+        "message": "messageNage",
+    }, 
+    "spark": {
+        "url": "https://spark-api-open.xf-yun.com/v1/chat/completions",
+        "key": settings.SPARK_API_KEY ,
+        "model": "modelSpark",
+        "message": "messageSpark",
     }, 
 }
