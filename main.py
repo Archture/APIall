@@ -75,7 +75,11 @@ class Message(BaseModel):
     messageAihubmix: str = "humorous jokes:"
     messageElectronhub: str = "humorous jokes:"
     messageModelshub: str = "humorous jokes:"
+    messageDataeyes: str = "humorous jokes:"
+    messageNage: str = "humorous jokes:"
+    messageSpark: str = "humorous jokes:"
 
+    
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-2.5-flash"
     modelBig: str = "GLM-4-Flash"
@@ -109,6 +113,9 @@ class Message(BaseModel):
     modelAihubmix: str = "gpt-4.1-free"
     modelElectronhub: str = "gpt-4.1"
     modelModelshub: str = "nex-agi/deepseek-v3.1-nex-n1:free"
+    modelDataeyes: str = "gpt-oss-120b"
+    modelNage: str = "gpt-5-mini-2025-08-07:free"
+    modelSpark: str = "lite"
     
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
