@@ -43,5 +43,8 @@ class Settings:
     AIHUBMIX_API_KEY = os.getenv("AIHUBMIX_API_KEY")
     ELECTRONHUB_API_KEY = os.getenv("ELECTRONHUB_API_KEY")
     MODELSHUB_API_KEY = os.getenv("MODELSHUB_API_KEY")
+    DATAEYES_API_KEY = os.getenv("DATAEYES_API_KEY")
+    NAGA_API_KEY = os.getenv("NAGA_API_KEY")
+    SPARK_API_KEY = os.getenv("SPARK_API_KEY")
 
 settings = Settings()
