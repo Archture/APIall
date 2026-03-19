@@ -46,5 +46,7 @@ class Settings:
     DATAEYES_API_KEY = os.getenv("DATAEYES_API_KEY")
     NAGA_API_KEY = os.getenv("NAGA_API_KEY")
     SPARK_API_KEY = os.getenv("SPARK_API_KEY")
-
+    ASKCODI_API_KEY = os.getenv("ASKCODI_API_KEY")
+    GITCODE_API_KEY = os.getenv("GITCODE_API_KEY")
+    MAAS_API_KEY = os.getenv("MAAS_API_KEY")
 settings = Settings()
