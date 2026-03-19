@@ -78,8 +78,10 @@ class Message(BaseModel):
     messageDataeyes: str = "humorous jokes:"
     messageNage: str = "humorous jokes:"
     messageSpark: str = "humorous jokes:"
+    messageAskcodi: str = "humorous jokes:"
+    messageGitcode: str = "humorous jokes:"
+    messageMaas: str = "humorous jokes:"
 
-    
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-2.5-flash"
     modelBig: str = "GLM-4-Flash"
@@ -116,7 +118,11 @@ class Message(BaseModel):
     modelDataeyes: str = "gpt-oss-120b"
     modelNage: str = "gpt-5-mini-2025-08-07:free"
     modelSpark: str = "lite"
-    
+    modelAskcodi: str = "openai/gpt-5-mini:free"
+    modelGitcode: str = "zai-org/GLM-5"
+    modelMaas: str = "xop3qwencodernext"
+
+
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
     prompt: str
