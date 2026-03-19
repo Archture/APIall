@@ -238,4 +238,23 @@ PROVIDERS = {
         "model": "modelSpark",
         "message": "messageSpark",
     }, 
+    "askcodi": {
+        "url": "https://api.askcodi.com/v1/chat/completions",
+        "key": settings.ASKCODI_API_KEY ,
+        "model": "modelAskcodi",
+        "message": "messageAskcodi",
+    },   
+    "gitcode": {
+        "url": "https://api-ai.gitcode.com/v1/chat/completions",
+        "key": settings.GITCODE_API_KEY ,
+        "model": "modelGitcode",
+        "message": "messageGitcode",
+    },
+    "maas": {
+        "url": "https://maas-api.cn-huabei-1.xf-yun.com/v2/chat/completions",
+        "key": settings.MAAS_API_KEY ,
+        "model": "modelMaas",
+        "message": "messageMaas",
+    },
+    
 }
