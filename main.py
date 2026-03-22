@@ -208,9 +208,24 @@ async def fetch_async(session: aiohttp.ClientSession, url: str, headers: dict, d
             try:
                 r_json = await response.json()
             except aiohttp.ContentTypeError:
-                print(f"Expected JSON but got something else for {url}:")
-                print(body_text)
-                return ""
+                body_text = await response.text()
+                # Check if it's an SSE stream prefixed with "data:"
+                body_text_stripped = body_text.strip()
+                if body_text_stripped.startswith("data:"):
+                    # Remove the "data:" prefix (first 5 characters) and parse
+                    json_string = body_text_stripped[5:].strip()
+                    try:
+                        r_json = json.loads(json_string)
+                    except json.JSONDecodeError:
+                        print(f"Failed to decode JSON from data payload for {url}:")
+                        print(body_text)
+                        return ""
+                else:
+                    # It's something else entirely (e.g., an HTML error page)
+                    print(f"Expected JSON but got something else for {url}:")
+                    print(body_text)
+                    return ""
+
             
             # Navigate the choice structure
             choices = r_json.get('choices', [])
