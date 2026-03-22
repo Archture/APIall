@@ -27,12 +27,12 @@ PROVIDERS = {
         "model": "modelMistral",
         "message": "messageMistral",
     },
-    "together": {
-        "url": "https://api.together.xyz/v1/chat/completions",
-        "key": settings.TOGETHER_API_KEY,
-        "model": "modelTogether",
-        "message": "messageTogether",
-    },
+    # "together": {
+    #     "url": "https://api.together.xyz/v1/chat/completions",
+    #     "key": settings.TOGETHER_API_KEY,
+    #     "model": "modelTogether",
+    #     "message": "messageTogether",
+    # },
     "gemini_openai": {
         "url": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
         "key": settings.GEMINI_API_KEY,
@@ -57,12 +57,12 @@ PROVIDERS = {
         "model": "modelOpenRouter",
         "message": "messageOpenRouter",
     },
-    "chutes": {
-        "url": "https://chutes-{model}.chutes.ai/v1/chat/completions",
-        "key": settings.CHUTES_API_KEY,
-        "model": "modelChutes",
-        "message": "messageChutes",
-    },
+    # "chutes": {
+    #     "url": "https://chutes-{model}.chutes.ai/v1/chat/completions",
+    #     "key": settings.CHUTES_API_KEY,
+    #     "model": "modelChutes",
+    #     "message": "messageChutes",
+    # },
     "cohere": {
         "url": "https://api.cohere.com/v2/chat",
         "key": settings.COHERE_API_KEY,
