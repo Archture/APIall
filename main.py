@@ -345,6 +345,7 @@ async def receive_message(msg: Message, api_key: str = Depends(get_api_key)):
                     ],
                 }
                 request_func = request_cloudflare
+            """
             elif provider_name == "ovh":
                 url = url.format(model=model_name.lower())
                 data = {
@@ -357,6 +358,7 @@ async def receive_message(msg: Message, api_key: str = Depends(get_api_key)):
                     "temperature": 1,
                 }
                 request_func = request_ovh
+            """
             elif provider_name == "targon":
                 data = {
                     "model": model_name,
