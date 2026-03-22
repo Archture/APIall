@@ -114,7 +114,7 @@ class Message(BaseModel):
     modelZaiwenai: str = "Grok-4.1-Fast-Non-Reasoning"
     modelAihubmix: str = "gpt-4.1-free"
     modelElectronhub: str = "gpt-4.1"
-    modelModelshub: str = "openai/gpt-oss-20b:free"
+    modelModelshub: str = "openai/gpt-oss-120b:free"
     modelDataeyes: str = "gpt-oss-120b"
     modelNage: str = "gpt-5-mini-2025-08-07:free"
     modelSpark: str = "lite"
