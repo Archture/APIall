@@ -75,18 +75,18 @@ PROVIDERS = {
         "model": "modelCF",
         "message": "messageCF",
     },
-    "ovh": {
-        "url": "https://{model}.endpoints.kepler.ai.cloud.ovh.net/api/openai_compat/v1/chat/completions",
-        "key": settings.OVH_API_KEY,
-        "model": "modelOVH",
-        "message": "messageOVH",
-    },
-    "targon": {
-        "url": "https://api.targon.com/v1/chat/completions",
-        "key": settings.TARGON_API_KEY,
-        "model": "modelTargon",
-        "message": "messageTargon",
-    },
+    # "ovh": {
+    #     "url": "https://{model}.endpoints.kepler.ai.cloud.ovh.net/api/openai_compat/v1/chat/completions",
+    #     "key": settings.OVH_API_KEY,
+    #     "model": "modelOVH",
+    #     "message": "messageOVH",
+    # },
+    # "targon": {
+    #     "url": "https://api.targon.com/v1/chat/completions",
+    #     "key": settings.TARGON_API_KEY,
+    #     "model": "modelTargon",
+    #     "message": "messageTargon",
+    # },
     "pollination": {
         "url": "https://text.pollinations.ai/",
         "model": "modelPollination",
