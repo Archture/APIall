@@ -360,27 +360,25 @@ async def receive_message(msg: Message, api_key: str = Depends(get_api_key)):
                     ],
                 }
                 request_func = request_cloudflare
-            """
-            elif provider_name == "ovh":
-                url = url.format(model=model_name.lower())
-                data = {
-                    "max_tokens": 512,
-                    "messages": [
-                        {"role": "system", "content": msg.prompt + getattr(msg, provider_data["message"])},
-                        {"role": "user", "content": msg.sentence},
-                    ],
-                    "model": model_name,
-                    "temperature": 1,
-                }
-                request_func = request_ovh
-            """
-            elif provider_name == "targon":
-                data = {
-                    "model": model_name,
-                    "messages": [{"role": "user", "content": msg.prompt + getattr(msg, provider_data["message"]) + msg.sentence}],
-                    "stream": True,
-                }
-                request_func = request_targon_stream
+            # elif provider_name == "ovh":
+            #     url = url.format(model=model_name.lower())
+            #     data = {
+            #         "max_tokens": 512,
+            #         "messages": [
+            #             {"role": "system", "content": msg.prompt + getattr(msg, provider_data["message"])},
+            #             {"role": "user", "content": msg.sentence},
+            #         ],
+            #         "model": model_name,
+            #         "temperature": 1,
+            #     }
+            #     request_func = request_ovh
+            # elif provider_name == "targon":
+            #     data = {
+            #         "model": model_name,
+            #         "messages": [{"role": "user", "content": msg.prompt + getattr(msg, provider_data["message"]) + msg.sentence}],
+            #         "stream": True,
+            #     }
+            #     request_func = request_targon_stream
             elif provider_name == "pollination":
                 url += msg.prompt + getattr(msg, provider_data["message"]) + msg.sentence
                 tasks.append(request_pollination(session, url, timeout))
