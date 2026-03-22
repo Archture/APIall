@@ -136,12 +136,12 @@ PROVIDERS = {
         "model": "modelInfini",
         "message": "messageInfini",
     },   
-    "internlm": {
-        "url": "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions",
-        "key": settings.INTERNLM_API_KEY,
-        "model": "modelInternlm",
-        "message": "messageInternlm",
-    },
+    # "internlm": {
+    #     "url": "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions",
+    #     "key": settings.INTERNLM_API_KEY,
+    #     "model": "modelInternlm",
+    #     "message": "messageInternlm",
+    # },
     "scope": {
         "url": "https://api-inference.modelscope.cn/v1/chat/completions",
         "key": settings.SCOPE_API_KEY,
@@ -203,19 +203,19 @@ PROVIDERS = {
         "message": "messageZaiwenai",
     }, 
     "aihubmix": {
-        "url": "https://aihubmix.com/v1/ai/chat/completions",
+        "url": "https://aihubmix.com/v1/chat/completions",
         "key": settings.AIHUBMIX_API_KEY ,
         "model": "modelAihubmix",
         "message": "messageAihubmix",
     }, 
     "electronhub": {
-        "url": "https://api.electronhub.ai/v1/ai/chat/completions",
+        "url": "https://api.electronhub.ai/v1/chat/completions",
         "key": settings.ELECTRONHUB_API_KEY ,
         "model": "modelElectronhub",
         "message": "messageElectronhub",
     }, 
     "modelshub": {
-        "url": "https://www.models-hub.net/v1/ai/chat/completions",
+        "url": "https://www.models-hub.net/v1/chat/completions",
         "key": settings.MODELSHUB_API_KEY ,
         "model": "modelModelshub",
         "message": "messageModelshub",
