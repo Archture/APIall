@@ -49,4 +49,9 @@ class Settings:
     ASKCODI_API_KEY = os.getenv("ASKCODI_API_KEY")
     GITCODE_API_KEY = os.getenv("GITCODE_API_KEY")
     MAAS_API_KEY = os.getenv("MAAS_API_KEY")
+    SCITELY_API_KEY = os.getenv("SCITELY_API_KEY")
+    NAVY_API_KEY = os.getenv("NAVY_API_KEY")
+    HIDNS_API_KEY = os.getenv("HIDNS_API_KEY")
+
+
 settings = Settings()
