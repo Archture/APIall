@@ -257,4 +257,23 @@ PROVIDERS = {
         "message": "messageMaas",
     },
     
+    "scitely": {
+        "url": "https://api.scitely.com/v1/chat/completions",
+        "key": settings.SCITELY_API_KEY ,
+        "model": "modelScitely",
+        "message": "messageScitely",
+    },
+    "navy": {
+        "url": "https://api.navy/v1/chat/completions",
+        "key": settings.NAVY_API_KEY ,
+        "model": "modelNavy",
+        "message": "messageNavy",
+    },
+    "hidns": {
+        "url": "https://openai.good.hidns.vip/v1/chat/completions",
+        "key": settings.HIDNS_API_KEY ,
+        "model": "modelHidns",
+        "message": "messageHidns",
+    },
+
 }
