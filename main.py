@@ -77,6 +77,9 @@ class Message(BaseModel):
     messageAskcodi: str = "humorous jokes:"
     messageGitcode: str = "humorous jokes:"
     messageMaas: str = "humorous jokes:"
+    messageScitely: str = "humorous jokes:"
+    messageNavy: str = "humorous jokes:"
+    messageHidns: str = "humorous jokes:"
 
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-2.5-flash"
@@ -117,7 +120,9 @@ class Message(BaseModel):
     modelAskcodi: str = "openai/gpt-5-mini:free"
     modelGitcode: str = "zai-org/GLM-5"
     modelMaas: str = "xop3qwencodernext"
-
+    modelScitely: str = "deepseek-v3.2"
+    modelNavy: str = "grok-4.1-fast-non-reasoning"
+    modelHidns: str = "anthropic/claude-sonnet-4.6"
 
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
