@@ -283,7 +283,7 @@ PROVIDERS = {
     },
    "freetheai": {
         "url": "https://api.freetheai.xyz/v1/chat/completions",
-        "key": settings.FREETHEAI ,
+        "key": settings.FREETHEAI_API_KEY ,
         "model": "modelFreetheai",
         "message": "messageFreetheai",
     },
