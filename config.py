@@ -52,6 +52,9 @@ class Settings:
     SCITELY_API_KEY = os.getenv("SCITELY_API_KEY")
     NAVY_API_KEY = os.getenv("NAVY_API_KEY")
     HIDNS_API_KEY = os.getenv("HIDNS_API_KEY")
-
+    OAI_API_KEY = os.getenv("OAI_API_KEY")
+    FREETHEAI_API_KEY = os.getenv("FREETHEAI_API_KEY")
+    SENSENOVA_API_KEY = os.getenv("SENSENOVA_API_KEY")
+    IAMHC_API_KEY = os.getenv("IAMHC_API_KEY")
 
 settings = Settings()
