@@ -275,5 +275,29 @@ PROVIDERS = {
         "model": "modelHidns",
         "message": "messageHidns",
     },
+    "oai": {
+        "url": "",
+        "key": settings.OAI_API_KEY ,
+        "model": "modelOai",
+        "message": "messageOai",
+    },
+   "freetheai": {
+        "url": "",
+        "key": settings.FREETHEAI ,
+        "model": "modelFreetheai",
+        "message": "messageFreetheai",
+    },
+   "sensenova": {
+        "url": "",
+        "key": settings.SENSENOVA_API_KEY ,
+        "model": "modelSensenova",
+        "message": "messageSensenova",
+    },
+   "iamhc": {
+        "url": "",
+        "key": settings.IAMHC_API_KEY ,
+        "model": "modelIamhc",
+        "message": "messageIamhc",
+    },
 
 }
