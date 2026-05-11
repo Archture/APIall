@@ -80,7 +80,11 @@ class Message(BaseModel):
     messageScitely: str = "humorous jokes:"
     messageNavy: str = "humorous jokes:"
     messageHidns: str = "humorous jokes:"
-
+    messageOai: str = "push-pull method:"
+    messageFreetheai: str = "push-pull method:"
+    messageSensenova: str = "push-pull method:"
+    messageIamhc: str = "push-pull method:"
+    
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-2.5-flash"
     modelBig: str = "GLM-4-Flash"
@@ -123,6 +127,10 @@ class Message(BaseModel):
     modelScitely: str = "deepseek-v3.2"
     modelNavy: str = "grok-4.1-fast-non-reasoning"
     modelHidns: str = "anthropic/claude-sonnet-4.6"
+    modelOai: str = "openai/gpt-oss-120b"
+    modelFreetheai: str = "or/openai/gpt-oss-120b:free"
+    modelSensenova: str = "sensenova-6.7-flash-lite"
+    modelIamhc: str = "auto"
 
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
