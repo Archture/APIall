@@ -56,5 +56,7 @@ class Settings:
     FREETHEAI_API_KEY = os.getenv("FREETHEAI_API_KEY")
     SENSENOVA_API_KEY = os.getenv("SENSENOVA_API_KEY")
     IAMHC_API_KEY = os.getenv("IAMHC_API_KEY")
+    AGNES_API_KEY = os.getenv("AGNES_API_KEY")
+    GITLAWB_API_KEY = os.getenv("GITLAWB_API_KEY")
 
 settings = Settings()
