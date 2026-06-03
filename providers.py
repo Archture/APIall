@@ -299,5 +299,21 @@ PROVIDERS = {
         "model": "modelIamhc",
         "message": "messageIamhc",
     },
+   "agnes": {
+        "url": "https://apihub.agnes-ai.com/v1/chat/completions",
+        "key": settings.AGNES_API_KEY ,
+        "model": "modelAgnes",
+        "message": "messageAgnes",
+    },
+   "gitlawb": {
+        "url": "https://opengateway.gitlawb.com/v1/chat/completions",
+        "key": settings.GITLAWB_API_KEY ,
+        "model": "modelGitlawb",
+        "message": "messageGitlawb",
+    },
+
+
+
+    
 
 }
