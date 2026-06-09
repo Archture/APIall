@@ -88,7 +88,7 @@ class Message(BaseModel):
     messageGitlawb: str = "conversational and playful push-and-pull technique:"
     
     modelOpenAi: str = "openai/gpt-4.1"
-    modelGemini: str = "models/gemini-2.5-flash"
+    modelGemini: str = "models/gemini-flash-latest"
     modelBig: str = "GLM-4-Flash"
     modelGroq: str = "llama-3.3-70b-versatile"
     modelMistral: str = "mistral-large-latest"
