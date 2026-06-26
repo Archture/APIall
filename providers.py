@@ -313,6 +313,35 @@ PROVIDERS = {
     },
 
 
+    
+
+   "pooled": {
+        "url": "https://ai.pooled.dev/v1/chat/completions",
+        "key": settings.POOLED_API_KEY ,
+        "model": "modelPooled",
+        "message": "messagePooled",
+    },
+
+   "streamlakeapi": {
+        "url": "https://wanqing.streamlakeapi.com/api/gateway/v1/endpoints/chat/completions587c66ea06e24b86a48a566fc7d8cea6",
+        "key": settings.STREAMLAKEAPI_API_KEY ,
+        "model": "modelStreamlakeapi",
+        "message": "messageStreamlakeapi",
+    },
+
+   "openmodel": {
+        "url": "https://api.openmodel.ai/v1/responses",
+        "key": settings.OPENMODEL_API_KEY ,
+        "model": "modelOpenmodel",
+        "message": "messageOpenmodel",
+    },
+
+   "dxnt": {
+        "url": "https://www.dxnt.com/v1/chat/completions",
+        "key": settings.DXNT_API_KEY ,
+        "model": "modelDxnt",
+        "message": "messageDxnt",
+    },
 
     
 
