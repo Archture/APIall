@@ -58,5 +58,9 @@ class Settings:
     IAMHC_API_KEY = os.getenv("IAMHC_API_KEY")
     AGNES_API_KEY = os.getenv("AGNES_API_KEY")
     GITLAWB_API_KEY = os.getenv("GITLAWB_API_KEY")
+    POOLED_API_KEY = os.getenv("POOLED_API_KEY")
+    STREAMLAKEAPI_API_KEY = os.getenv("STREAMLAKEAPI_API_KEY")
+    OPENMODEL_API_KEY = os.getenv("OPENMODEL_API_KEY")
+    DXNT_API_KEY = os.getenv("DXNT_API_KEY")
 
 settings = Settings()
