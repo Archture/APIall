@@ -86,6 +86,10 @@ class Message(BaseModel):
     messageIamhc: str = "conversational and playful push-and-pull technique:"
     messageAgnes: str = "conversational and playful push-and-pull technique:"
     messageGitlawb: str = "conversational and playful push-and-pull technique:"
+    messagePooled: str = "humorous jokes:"
+    messageStreamlakeapi: str = "humorous jokes:"
+    messageOpenmodel: str = "humorous jokes:"
+    messageDxnt: str = "humorous jokes:"
     
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-flash-latest"
@@ -135,7 +139,10 @@ class Message(BaseModel):
     modelIamhc: str = "auto"
     modelAgnes: str = "agnes-2.0-flash"
     modelGitlawb: str = "mimo-v2.5-pro"
-    
+    modelPooled: str = "deepseek-v4-pro-official"
+    modelStreamlakeapi: str = "ep-iuji2b-1782111310570759077"
+    modelOpenmodel: str = "deepseek-v4-flash"
+    modelDxnt: str = "dxnt.com/free"
 
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
