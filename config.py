@@ -62,5 +62,7 @@ class Settings:
     STREAMLAKEAPI_API_KEY = os.getenv("STREAMLAKEAPI_API_KEY")
     OPENMODEL_API_KEY = os.getenv("OPENMODEL_API_KEY")
     DXNT_API_KEY = os.getenv("DXNT_API_KEY")
+    CLINE_API_KEY = os.getenv("CLINE_API_KEY")
+    BYNARAE_API_KEY = os.getenv("BYNARAE_API_KEY")
 
 settings = Settings()
