@@ -90,6 +90,8 @@ class Message(BaseModel):
     messageStreamlakeapi: str = "humorous jokes:"
     messageOpenmodel: str = "humorous jokes:"
     messageDxnt: str = "humorous jokes:"
+    messageCline: str = "humorous jokes:"
+    messageBynara: str = "humorous jokes:"
     
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-flash-latest"
@@ -143,6 +145,8 @@ class Message(BaseModel):
     modelStreamlakeapi: str = "ep-iuji2b-1782111310570759077"
     modelOpenmodel: str = "deepseek-v4-flash"
     modelDxnt: str = "dxnt.com/free"
+    modelCline: str = "deepseek/deepseek-v4-flash"
+    modelBynara: str = "mistral-large"
 
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
