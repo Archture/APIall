@@ -347,4 +347,16 @@ PROVIDERS = {
         "model": "modelBynara",
         "message": "messageBynara",
     },
+   "aionlabs": {
+        "url": "https://api.aionlabs.ai/v1/chat/completions",
+        "key": settings.AIONLABS_API_KEY ,
+        "model": "modelAionlabs",
+        "message": "messageAionlabs",
+    },
+   "unorouter": {
+        "url": "https://api.unorouter.com/v1/chat/completions",
+        "key": settings.BYNARAE_API_KEY ,
+        "model": "modelUnorouter",
+        "message": "messageUnorouter",
+    },
 }
