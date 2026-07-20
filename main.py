@@ -92,11 +92,8 @@ class Message(BaseModel):
     messageDxnt: str = "humorous jokes:"
     messageCline: str = "humorous jokes:"
     messageBynara: str = "humorous jokes:"
-    message
-
-
-
-    
+    messageAionlabs: str = "humorous jokes:"
+    messageUnorouter: str = "humorous jokes:"    
     
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-flash-latest"
@@ -152,6 +149,8 @@ class Message(BaseModel):
     modelDxnt: str = "dxnt.com/free"
     modelCline: str = "deepseek/deepseek-v4-flash"
     modelBynara: str = "mistral-large"
+    modelAionlabs: str = "aion-labs/aion-3.0"
+    modelUnorouter": str = "gpt-4.1:free"
 
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
