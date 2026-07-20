@@ -355,7 +355,7 @@ PROVIDERS = {
     },
    "unorouter": {
         "url": "https://api.unorouter.com/v1/chat/completions",
-        "key": settings.BYNARAE_API_KEY ,
+        "key": settings.UNOROUTER_API_KEY ,
         "model": "modelUnorouter",
         "message": "messageUnorouter",
     },
