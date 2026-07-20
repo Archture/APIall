@@ -150,7 +150,7 @@ class Message(BaseModel):
     modelCline: str = "deepseek/deepseek-v4-flash"
     modelBynara: str = "mistral-large"
     modelAionlabs: str = "aion-labs/aion-3.0"
-    modelUnorouter": str = "gpt-4.1:free"
+    modelUnorouter: str = "gpt-4.1:free"
 
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
