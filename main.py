@@ -92,6 +92,11 @@ class Message(BaseModel):
     messageDxnt: str = "humorous jokes:"
     messageCline: str = "humorous jokes:"
     messageBynara: str = "humorous jokes:"
+    message
+
+
+
+    
     
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-flash-latest"
