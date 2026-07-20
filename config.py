@@ -65,4 +65,8 @@ class Settings:
     CLINE_API_KEY = os.getenv("CLINE_API_KEY")
     BYNARAE_API_KEY = os.getenv("BYNARAE_API_KEY")
 
+    AIONLABS_API_KEY = os.getenv("AIONLABS_API_KEY")
+    BYNARAE_API_KEY = os.getenv("BYNARAE_API_KEY")
+
+
 settings = Settings()
