@@ -64,9 +64,7 @@ class Settings:
     DXNT_API_KEY = os.getenv("DXNT_API_KEY")
     CLINE_API_KEY = os.getenv("CLINE_API_KEY")
     BYNARAE_API_KEY = os.getenv("BYNARAE_API_KEY")
-
     AIONLABS_API_KEY = os.getenv("AIONLABS_API_KEY")
-    BYNARAE_API_KEY = os.getenv("BYNARAE_API_KEY")
-
-
+    UNOROUTER_API_KEY = os.getenv("UNOROUTER_API_KEY")
+    
 settings = Settings()
