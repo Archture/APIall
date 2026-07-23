@@ -94,6 +94,7 @@ class Message(BaseModel):
     messageBynara: str = "humorous jokes:"
     messageAionlabs: str = "humorous jokes:"
     messageUnorouter: str = "humorous jokes:"    
+    messageMorphllm: str = "conversational and playful push-and-pull technique:"  
     
     modelOpenAi: str = "openai/gpt-4.1"
     modelGemini: str = "models/gemini-flash-latest"
@@ -151,6 +152,7 @@ class Message(BaseModel):
     modelBynara: str = "mistral-large"
     modelAionlabs: str = "aion-labs/aion-3.0"
     modelUnorouter: str = "gpt-4.1:free"
+    modelMorphllm: str = "morph-dsv4flash"
 
     sys: str = "Avoid greasy, old-fashioned, robotic replies. Keep it under 30 words. Make it conversational and personable."
     sentence: str
