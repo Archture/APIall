@@ -66,5 +66,6 @@ class Settings:
     BYNARAE_API_KEY = os.getenv("BYNARAE_API_KEY")
     AIONLABS_API_KEY = os.getenv("AIONLABS_API_KEY")
     UNOROUTER_API_KEY = os.getenv("UNOROUTER_API_KEY")
+    MORPHLLM_API_KEY = os.getenv("MORPHLLM_API_KEY")
     
 settings = Settings()
