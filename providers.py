@@ -359,4 +359,11 @@ PROVIDERS = {
         "model": "modelUnorouter",
         "message": "messageUnorouter",
     },
+   "morphllm": {
+        "url": "https://api.morphllm.com/v1/chat/completions",
+        "key": settings.MORPHLLM_API_KEY ,
+        "model": "modelMorphllm",
+        "message": "messageMorphllm",
+    },
+    
 }
