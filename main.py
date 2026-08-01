@@ -95,7 +95,7 @@ class Message(BaseModel):
     messageAionlabs: str = "humorous jokes:"
     messageUnorouter: str = "humorous jokes:"    
     messageMorphllm: str = "conversational and playful push-and-pull technique:"
-    messageBazaarlink: str = = "conversational and playful push-and-pull technique:"
+    messageBazaarlink: str = "conversational and playful push-and-pull technique:"
     messageFreetokenfaucet: str = "conversational and playful push-and-pull technique:"
     
     modelOpenAi: str = "openai/gpt-4.1"
