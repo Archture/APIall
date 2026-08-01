@@ -67,5 +67,7 @@ class Settings:
     AIONLABS_API_KEY = os.getenv("AIONLABS_API_KEY")
     UNOROUTER_API_KEY = os.getenv("UNOROUTER_API_KEY")
     MORPHLLM_API_KEY = os.getenv("MORPHLLM_API_KEY")
-    
+    BAZAARLINK_API_KEY = os.getenv("BAZAARLINK_API_KEY")
+    FREETOKENFAUCET_API_KEY = os.getenv("FREETOKENFAUCET_API_KEY")
+
 settings = Settings()
