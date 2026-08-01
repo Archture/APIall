@@ -365,5 +365,18 @@ PROVIDERS = {
         "model": "modelMorphllm",
         "message": "messageMorphllm",
     },
+   "bazaarlink": {
+        "url": "https://bazaarlink.ai/api/v1/chat/completions",
+        "key": settings.BAZAARLINK_API_KEY ,
+        "model": "modelBazaarlink",
+        "message": "messageBazaarlink",
+    },
+   "freetokenfaucet": {
+        "url": "https://freetokenfaucet.com/v1/chat/completions",
+        "key": settings.FREETOKENFAUCET_API_KEY ,
+        "model": "modelFreetokenfaucet",
+        "message": "messageFreetokenfaucet",
+    },
+
     
 }
